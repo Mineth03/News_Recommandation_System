@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.SignUp">
+   <children>
+      <Text layoutX="130.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+      <TextField layoutX="264.0" layoutY="41.0" />
+      <Text layoutX="129.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <TextField layoutX="263.0" layoutY="74.0" />
+      <Text layoutX="130.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" />
+      <TextField layoutX="264.0" layoutY="147.0" />
+      <ChoiceBox layoutX="264.0" layoutY="187.0" prefWidth="150.0" />
+      <Text layoutX="130.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" />
+      <Text layoutX="119.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please mention some of your interested topics" wrappingWidth="130.63026428222656" />
+      <TextArea layoutX="273.0" layoutY="242.0" prefHeight="67.0" prefWidth="200.0" />
+      <Text layoutX="131.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <TextField layoutX="265.0" layoutY="110.0" />
+      <Text layoutX="262.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign_Up Form" />
+      <Button fx:id="backButton" layoutX="169.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Back" />
+      <Button layoutX="340.0" layoutY="337.0" mnemonicParsing="false" text="Confirm" />
+   </children>
+</AnchorPane>

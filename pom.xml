@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.example.news_recommandation_system/org.example.news_recommandation_system.HelloApplication
+                                org.example.news_recommandation_system/org.example.news_recommandation_system.Application
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
