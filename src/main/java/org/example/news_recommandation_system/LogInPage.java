@@ -12,6 +12,8 @@ public class LogInPage {
 
     @FXML
     private Button signUpButton;
+    @FXML
+    private Button btnLogin;
 
     @FXML
     private void handleSignUpButtonClick() throws IOException {
@@ -22,5 +24,16 @@ public class LogInPage {
         stage.setScene(new Scene(signUpRoot));
         stage.show();
     }
+
+    @FXML
+    private void handleLoginButtonClick() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+        Parent signUpRoot = loader.load();
+
+        Stage stage = (Stage) btnLogin.getScene().getWindow();
+        stage.setScene(new Scene(signUpRoot));
+        stage.show();
+    }
+
 
 }
