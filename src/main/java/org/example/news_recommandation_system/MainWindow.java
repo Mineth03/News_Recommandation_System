@@ -29,7 +29,6 @@ public class MainWindow {
     @FXML
     private Button btnLogout;
 
-
     @FXML
     private Pane paneAbout;
     @FXML

@@ -9,15 +9,22 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.MainWindow">
    <children>
-      <Button fx:id="btnRecommended" layoutX="13.0" layoutY="155.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Reccomended" />
-      <Button fx:id="btnSave" layoutX="13.0" layoutY="187.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Saved News" />
-      <Button fx:id="btnAbout" layoutX="13.0" layoutY="224.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="About Us" />
-      <Button fx:id="btnSearch" layoutX="14.0" layoutY="122.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Search" />
-      <Button fx:id="btnProfile" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Your Profile" />
-      <Button fx:id="btnLogout" layoutX="14.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
-      <Button fx:id="btnClose" layoutX="14.0" layoutY="302.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="106.0" text="Close" />
-      <StackPane layoutX="213.0" prefHeight="700.0" prefWidth="785.0" style="-fx-background-color: white;">
+      <Button fx:id="btnRecommended" layoutX="226.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Reccomended" />
+      <Button fx:id="btnSave" layoutX="332.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Saved News" />
+      <Button fx:id="btnAbout" layoutX="438.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="About Us" />
+      <Button fx:id="btnSearch" layoutX="120.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Search" />
+      <Button fx:id="btnProfile" layoutX="14.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Your Profile" />
+      <Button fx:id="btnClose" layoutX="967.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: red;" text="X" />
+      <StackPane layoutY="69.0" prefHeight="630.0" prefWidth="1000.0" style="-fx-background-color: white;">
          <children>
+            <Pane fx:id="paneSearch" prefHeight="630.0" prefWidth="795.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="297.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search News">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
             <Pane fx:id="paneAbout" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="323.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About Us">
@@ -45,22 +52,16 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneProfile" prefHeight="630.0" prefWidth="1018.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="303.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-               </children></Pane>
-            <Pane fx:id="paneSearch" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="297.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search News">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-               </children></Pane>
+                  <Button fx:id="btnLogout" layoutX="822.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
+               </children>
+            </Pane>
          </children>
       </StackPane>
    </children>
