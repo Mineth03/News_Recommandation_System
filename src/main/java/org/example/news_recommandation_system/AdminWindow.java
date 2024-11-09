@@ -14,19 +14,19 @@ public class AdminWindow {
     @FXML
     private Button btnAddNewR;
     @FXML
-    private Button btnLogout;
+    private Button btnDeleteR;
 
     @FXML
     private Pane paneAddNew;
     @FXML
     private Pane paneViewUserRecords;
     @FXML
-    private Pane paneProfile;
+    private Pane paneDeleteR;
 
     @FXML
     public void buttonClicksConfig(ActionEvent actionEvent){
-        if (actionEvent.getSource() == btnProfile){
-            paneProfile.toFront();
+        if (actionEvent.getSource() == btnDeleteR){
+            paneDeleteR.toFront();
         }
         if (actionEvent.getSource() == btnAddNewR){
             paneAddNew.toFront();
@@ -35,5 +35,6 @@ public class AdminWindow {
             paneViewUserRecords.toFront();
         }
     }
+
 
 }

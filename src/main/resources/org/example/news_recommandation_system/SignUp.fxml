@@ -3,30 +3,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.SignUp">
    <children>
       <StackPane layoutX="311.0" prefHeight="500.0" prefWidth="491.0">
          <children>
-            <Pane fx:id="panePassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="72.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prefered Username" />
-                  <TextField layoutX="219.0" layoutY="137.0" />
-                  <Text layoutX="71.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-                  <TextField layoutX="218.0" layoutY="172.0" />
-                  <Text layoutX="71.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" />
-                  <TextField layoutX="218.0" layoutY="211.0" />
-                  <Button fx:id="btnBack2" layoutX="93.0" layoutY="362.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
-                  <Button fx:id="btnSignup" layoutX="307.0" layoutY="362.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Sign-up" />
-                  <CheckBox layoutX="86.0" layoutY="301.0" mnemonicParsing="false" text="I have read and agreed to the terms and conditions" />
-               </children>
-            </Pane>
             <Pane fx:id="paneSuccess" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="222.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIgn-Up Successfully " />
@@ -35,21 +22,36 @@
             </Pane>
             <Pane fx:id="paneRecords" prefHeight="500.0" prefWidth="805.0" style="-fx-background-color: white;">
                <children>
-                  <Text layoutX="131.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-                  <TextField layoutX="244.0" layoutY="212.0" />
-                  <Text layoutX="143.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-                  <Text layoutX="147.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" />
-                  <TextField layoutX="244.0" layoutY="176.0" />
-                  <ChoiceBox layoutX="244.0" layoutY="249.0" prefWidth="150.0" />
-                  <Text layoutX="138.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" wrappingWidth="38.8125" />
-                  <Text layoutX="66.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please mention some of your interested topics" wrappingWidth="130.63026428222656" />
-                  <TextArea layoutX="244.0" layoutY="292.0" prefHeight="67.0" prefWidth="200.0" />
-                  <TextField layoutX="244.0" layoutY="110.0" />
-                  <Text layoutX="198.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign_Up Form" />
-                  <Button fx:id="btnBack" layoutX="102.0" layoutY="384.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Back" />
-                  <Button fx:id="btnNext" layoutX="261.0" layoutY="384.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Next" />
-                  <Text layoutX="130.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-                  <TextField layoutX="243.0" layoutY="142.0" />
+                  <Text layoutX="98.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                  <Text layoutX="99.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                  <Text layoutX="103.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" />
+                  <TextField fx:id="txtAge" layoutX="152.0" layoutY="155.0" prefHeight="25.0" prefWidth="40.0" />
+                  <ChoiceBox layoutX="296.0" layoutY="155.0" prefHeight="25.0" prefWidth="96.0" />
+                  <Text layoutX="234.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" wrappingWidth="38.8125" />
+                  <Text layoutX="48.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested Topics:" wrappingWidth="130.63026428222656" />
+                  <TextField fx:id="txtFName" layoutX="152.0" layoutY="75.0" prefHeight="25.0" prefWidth="101.0" promptText="First name" />
+                  <Text layoutX="176.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register Now">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnBack" layoutX="46.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Back" />
+                  <Text layoutX="63.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prefered Username" />
+                  <TextField fx:id="txtCPassword" layoutX="198.0" layoutY="342.0" promptText="Password" />
+                  <Text layoutX="114.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+                  <TextField fx:id="txtPassword" layoutX="198.0" layoutY="305.0" promptText="Password" />
+                  <Text layoutX="76.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" />
+                  <TextField fx:id="txtEmail" layoutX="152.0" layoutY="118.0" promptText="Email" />
+                  <Button fx:id="btnSignup" layoutX="334.0" layoutY="449.0" mnemonicParsing="false" onAction="#confirm" text="Sign-up" />
+                  <CheckBox layoutX="66.0" layoutY="385.0" mnemonicParsing="false" text="I have read and agreed to the terms and conditions" />
+                  <TextField fx:id="txtLName" layoutX="270.0" layoutY="75.0" prefHeight="25.0" prefWidth="101.0" promptText="Last Name" />
+                  <TextField fx:id="txtUsername" layoutX="198.0" layoutY="279.0" promptText="Username" />
+                  <CheckBox layoutX="190.0" layoutY="208.0" mnemonicParsing="false" text="Technology" />
+                  <CheckBox layoutX="190.0" layoutY="225.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox layoutX="278.0" layoutY="208.0" mnemonicParsing="false" text="Politics" />
+                  <CheckBox layoutX="278.0" layoutY="225.0" mnemonicParsing="false" text="Healthcare" />
+                  <CheckBox layoutX="360.0" layoutY="208.0" mnemonicParsing="false" text="Entertaintment" />
+                  <CheckBox layoutX="360.0" layoutY="225.0" mnemonicParsing="false" text="Science" />
                </children>
             </Pane>
          </children>

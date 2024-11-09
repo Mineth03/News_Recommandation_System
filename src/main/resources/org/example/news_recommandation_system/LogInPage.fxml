@@ -3,17 +3,24 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.LogInPage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.LogInPage">
    <children>
-      <Text layoutX="272.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login" />
-      <TextField layoutX="301.0" layoutY="123.0" />
-      <TextField layoutX="300.0" layoutY="160.0" />
-      <Text layoutX="187.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-      <Text layoutX="185.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <Button fx:id="signUpButton" layoutX="322.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleSignUpButtonClick" text="Sign in" />
-      <Text layoutX="181.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have account yet?" />
-      <Button fx:id="btnLogin" layoutX="275.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleLoginButtonClick" text="Log-In" />
+      <Pane fx:id="paneAdmin" prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: white;">
+         <children>
+            <Text layoutX="283.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login" />
+            <TextField fx:id="txtUsername" layoutX="300.0" layoutY="95.0" />
+            <TextField fx:id="txtPass" layoutX="300.0" layoutY="141.0" />
+            <Text layoutX="208.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+            <Text layoutX="210.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+            <Button fx:id="signUpButton" layoutX="353.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleSignUpButtonClick" text="Sign in" />
+            <Text layoutX="210.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have account yet?" />
+            <Button fx:id="btnLogin" layoutX="286.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleLoginButtonClick" text="Log-In" />
+            <Text layoutX="304.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
+            <Button fx:id="btnLoginAdmin" layoutX="259.0" layoutY="247.0" mnemonicParsing="false" onAction="#handleLogAdminButtonClick" text="Log-In as Admin" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
