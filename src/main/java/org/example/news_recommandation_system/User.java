@@ -7,10 +7,11 @@ public class User extends Person {
     private List<String> preferences;
 
     // Constructor for User
-    public User(String name, String email, int age, String gender, String password, String preferences) {
+    public User(String name, String email, int age, String gender, String password, List<String> preferences) {
         super(name, email, age, gender, password);
-        this.preferences = Collections.singletonList(preferences);
+        this.preferences = preferences;
     }
+
 
     // Getter and Setter for Preferences
     public List<String> getPreferences() {

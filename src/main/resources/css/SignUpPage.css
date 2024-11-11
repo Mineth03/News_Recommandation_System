@@ -1,0 +1,74 @@
+.button {
+    -fx-background-color: #1B5E20;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-background-radius: 10;
+}
+.button:hover {
+    -fx-background-color: #45a049;
+}
+.button:pressed {
+    -fx-background-color: #2e7082;
+}
+
+.text-field {
+    -fx-background-color: #5a85a6;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-prompt-text-fill: #dceaf5;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 50%;
+    -fx-text-alignment: center;
+}
+
+.choice-box {
+    -fx-background-color: #5a85a6;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-prompt-text-fill: #dceaf5;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-pref-height: 50px;
+}
+
+.check-box {
+    -fx-border-color: #4a90e2;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-text-fill: #333;
+    -fx-font-size: 20px;
+    -fx-font-family: Arial, sans-serif;
+}
+.check-box:selected {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.check-box:hover {
+    -fx-border-color: #357ABD;
+    -fx-background-color: #e0f2ff;
+}
+.check-box:focused {
+    -fx-border-color: #357ABD;
+    -fx-background-color: #e0f2ff;
+}
+.check-box > .text {
+    -fx-padding: 0 0 0 8px;
+}
+#paneImage {
+    -fx-background-image: url("BackgroundImage.jpg");
+    -fx-background-size: cover;
+}
+
+#paneStack {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-opacity: 0.5;
+}

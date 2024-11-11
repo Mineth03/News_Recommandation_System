@@ -1,0 +1,54 @@
+#paneTrans {
+    -fx-background-color: white;
+    -fx-opacity: 0.5;
+    -fx-background-radius: 20;
+}
+
+#txtDes {
+    -fx-opacity: 1;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #1B5E20;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-background-radius: 10;
+}
+.button:hover {
+    -fx-background-color: #45a049;
+}
+.button:pressed {
+    -fx-background-color: #2e7082;
+}
+
+#signUpButton {
+    -fx-background-color: #2e7082;
+}
+#signUpButton:hover {
+    -fx-background-color: #45a049;
+}
+#signUpButton:pressed {
+    -fx-background-color: #1B5E20;
+}
+
+/* Text field styling */
+.text-field {
+    -fx-background-color: #5a85a6;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-prompt-text-fill: #dceaf5;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 50%;
+    -fx-text-alignment: center;
+}
+
+
+#paneImage {
+    -fx-background-image: url("BackgroundImage.jpg");
+    -fx-background-size: cover;
+}

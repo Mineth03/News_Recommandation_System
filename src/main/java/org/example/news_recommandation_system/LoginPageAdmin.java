@@ -38,7 +38,6 @@ public class LoginPageAdmin implements Initializable {
     @FXML
     private TextField txtAdminName;
 
-
     private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> adminDetailsCollection;
@@ -52,18 +51,18 @@ public class LoginPageAdmin implements Initializable {
             adminDetailsCollection = database.getCollection("Admin");
             adminLoginDetailsCollection = database.getCollection("Admin_Login_Log");
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database Connection Error", "Could not connect to MongoDB.");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Database Connection Error", "Could not connect to MongoDB.");
         }
     }
 
     @FXML
     private void handleBackButtonClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
-        Parent signUpRoot = loader.load();
-
+        Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
         Stage stage = (Stage) btnBack.getScene().getWindow();
-        stage.setScene(new Scene(signUpRoot));
-        stage.show();
+        Scene scene = stage.getScene();
+        scene.setRoot(mainRoot);
+        stage.sizeToScene();
+        Application.makeSceneDraggable(stage, (Pane) mainRoot);
     }
 
     @FXML
@@ -74,7 +73,7 @@ public class LoginPageAdmin implements Initializable {
 
         if (checkCredentials(name, password, id)) {
             saveLoginDetails(name);
-            showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + name);
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + name);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdminWindow.fxml")));
             Stage stage = (Stage) btnLoginAdmin.getScene().getWindow();
             Scene scene = stage.getScene();
@@ -82,7 +81,7 @@ public class LoginPageAdmin implements Initializable {
             stage.sizeToScene();
             Application.makeSceneDraggable(stage, (Pane) mainRoot);
         } else {
-            showAlert(Alert.AlertType.ERROR, "Login", "Incorrect name/ password or ID");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Login", "Incorrect name/ password or ID");
         }
     }
 
@@ -92,7 +91,7 @@ public class LoginPageAdmin implements Initializable {
                     .append("password", password).append("adminID", id)).first();
             return user != null;
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Login Error", "An error occurred while checking credentials.");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Login Error", "An error occurred while checking credentials.");
         }
         return false;
     }
@@ -103,16 +102,8 @@ public class LoginPageAdmin implements Initializable {
                     .append("Login_time", LocalDateTime.now().toString());
             adminLoginDetailsCollection.insertOne(loginRecord);
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error", "Could not save login details.");
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Database Error", "Could not save login details.");
         }
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
 }

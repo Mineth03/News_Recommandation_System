@@ -4,21 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="basic navigation flow and user main interaction design.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Person.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="Connect the database">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AlertHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/BackgroundImage.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/LoginPages.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/SignUpPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LogInPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LogInPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LogInPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LogInPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,6 +29,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -43,6 +42,9 @@
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -63,16 +65,25 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;C:/Users/asus/OneDrive/Desktop/OOD/News_Recommandation_System/src/main/java/org/example/news_recommandation_system&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/asus/OneDrive/Desktop/Year-1 work/CW_zip files/Y.A.Mineth Sandew_2331415_20230085&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/asus/OneDrive/Desktop/OOD/News_Recommandation_System/src/main/resources/org/example/news_recommandation_system&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\asus\OneDrive\Desktop\OOD\News_Recommandation_System\src\main\resources\org\example\news_recommandation_system" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\asus\OneDrive\Desktop\OOD\News_Recommandation_System\src\main\resources\css" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -102,7 +113,14 @@
       <workItem from="1730917099939" duration="3885000" />
       <workItem from="1730952865685" duration="8163000" />
       <workItem from="1730987520252" duration="2257000" />
-      <workItem from="1731135617153" duration="3271000" />
+      <workItem from="1731135617153" duration="3598000" />
+      <workItem from="1731139229577" duration="1260000" />
+      <workItem from="1731147977118" duration="1032000" />
+      <workItem from="1731220689562" duration="7293000" />
+      <workItem from="1731245321843" duration="7357000" />
+      <workItem from="1731263566354" duration="2223000" />
+      <workItem from="1731337434811" duration="2628000" />
+      <workItem from="1731342393667" duration="1083000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -136,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730787094093</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Connect the database">
+      <option name="closed" value="true" />
+      <created>1731139091353</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731139091353</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +172,8 @@
     <MESSAGE value="First commit" />
     <MESSAGE value="login and signup design" />
     <MESSAGE value="basic navigation flow and user main interaction design." />
-    <option name="LAST_COMMIT_MESSAGE" value="basic navigation flow and user main interaction design." />
+    <MESSAGE value="Connect the database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connect the database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
