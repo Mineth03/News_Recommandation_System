@@ -34,7 +34,17 @@
     -fx-background-color: #1B5E20;
 }
 
-/* Text field styling */
+#btnClose {
+    -fx-background-color: #ba0236;
+    -fx-background-radius: 0;
+}
+#btnClose:hover {
+    -fx-background-color: #962a49;
+}
+#btnClose:pressed {
+    -fx-background-color: red;
+}
+
 .text-field {
     -fx-background-color: #5a85a6;
     -fx-background-radius: 50;
@@ -47,8 +57,7 @@
     -fx-text-alignment: center;
 }
 
-
 #paneImage {
-    -fx-background-image: url("BackgroundImage.jpg");
+    -fx-background-image: url("BackgroundImage4.png");
     -fx-background-size: cover;
 }

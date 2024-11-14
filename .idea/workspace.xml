@@ -4,19 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="Connect the database">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AlertHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/BackgroundImage.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/LoginPages.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/SignUpPage.css" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/BackgroundImage4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LogInPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LogInPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/LoginPages.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/LoginPages.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/SignUpPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/SignUpPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LogInPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LogInPage.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +32,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -65,7 +69,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;C:/Users/asus/OneDrive/Desktop/OOD/News_Recommandation_System/src/main/java/org/example/news_recommandation_system&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/asus/OneDrive/Desktop/OOD/News_Recommandation_System/src/main/resources/org/example/news_recommandation_system&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/asus/OneDrive/Desktop/OOD/News_Recommandation_System/src/main/resources/css&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -78,6 +82,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\asus\OneDrive\Desktop\OOD\News_Recommandation_System\src\main\resources\css" />
       <recent name="C:\Users\asus\OneDrive\Desktop\OOD\News_Recommandation_System\src\main\resources\org\example\news_recommandation_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -120,7 +125,13 @@
       <workItem from="1731245321843" duration="7357000" />
       <workItem from="1731263566354" duration="2223000" />
       <workItem from="1731337434811" duration="2628000" />
-      <workItem from="1731342393667" duration="1083000" />
+      <workItem from="1731342393667" duration="2820000" />
+      <workItem from="1731381398622" duration="8305000" />
+      <workItem from="1731426498293" duration="1800000" />
+      <workItem from="1731503994072" duration="311000" />
+      <workItem from="1731504537537" duration="5754000" />
+      <workItem from="1731516725110" duration="4315000" />
+      <workItem from="1731555947446" duration="4205000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -162,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731139091353</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs.">
+      <option name="closed" value="true" />
+      <created>1731343644071</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731343644071</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +192,8 @@
     <MESSAGE value="login and signup design" />
     <MESSAGE value="basic navigation flow and user main interaction design." />
     <MESSAGE value="Connect the database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connect the database" />
+    <MESSAGE value="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

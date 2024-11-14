@@ -40,6 +40,7 @@
                   </Text>
                </children>
             </Pane>
+            <Button fx:id="btnClose" layoutX="547.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="40.0" text="X" />
          </children>
       </Pane>
    </children>

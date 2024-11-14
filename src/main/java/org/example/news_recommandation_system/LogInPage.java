@@ -2,6 +2,7 @@ package org.example.news_recommandation_system;
 
 import com.mongodb.client.*;
 import com.mongodb.ConnectionString;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -75,6 +76,7 @@ public class LogInPage implements Initializable {
         if (checkCredentials(username, password)) {
             saveLoginDetails(username);
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + username);
+            MainWindow.setCurrentUsername(username);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainWindow.fxml")));
             Stage stage = (Stage) btnLogin.getScene().getWindow();
             Scene scene = stage.getScene();
@@ -115,6 +117,11 @@ public class LogInPage implements Initializable {
         scene.setRoot(mainRoot);
         stage.sizeToScene();
         Application.makeSceneDraggable(stage, (Pane) mainRoot);
+    }
+
+    @FXML
+    public void exit(ActionEvent event) {
+        Exit.showExitConfirmation(event);
     }
 
 }

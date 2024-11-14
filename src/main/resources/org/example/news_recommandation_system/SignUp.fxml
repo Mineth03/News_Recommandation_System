@@ -60,6 +60,7 @@
                   <PasswordField fx:id="txtCPassword" layoutX="138.0" layoutY="719.0" promptText="Confirm Password" />
                </children>
             </Pane>
+            <Button fx:id="btnClose" layoutX="947.0" layoutY="-2.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="40.0" text="X" />
          </children>
       </Pane>
    </children>

@@ -1,20 +1,20 @@
 package org.example.news_recommandation_system;
 
 public class Admin extends Person {
-    private String code;
+    private String id;
 
     // Constructor for Admin
-    public Admin(String name, String email, int age, String gender, String password, String code) {
+    public Admin(String name, String email, int age, String gender, String password, String id) {
         super(name, email, age, gender, password);
-        this.code = code;
+        this.id = id;
     }
 
     // Getter and Setter for Code
     public String getCode() {
-        return code;
+        return id;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.id = code;
     }
 }

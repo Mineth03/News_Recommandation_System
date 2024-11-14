@@ -100,9 +100,8 @@ public class SignUp{
                     .append("password", newUser.getPassword());
 
             collection.insertOne(userDoc);
-            System.out.println("User registered successfully!");
+            MainWindow.setCurrentUsername(username);
 
-            // Navigate to the main window
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
             Parent signUpRoot = loader.load();
             Stage stage = (Stage) btnSignup.getScene().getWindow();
@@ -222,6 +221,9 @@ public class SignUp{
         stage.show();
     }
 
-
+    @FXML
+    public void exit(ActionEvent event) {
+        Exit.showExitConfirmation(event);
+    }
 
 }

@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -104,6 +105,11 @@ public class LoginPageAdmin implements Initializable {
         } catch (Exception e) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "Database Error", "Could not save login details.");
         }
+    }
+
+    @FXML
+    public void exit(ActionEvent event) {
+        Exit.showExitConfirmation(event);
     }
 
 }

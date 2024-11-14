@@ -9,9 +9,10 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.AdminWindow">
    <children>
-      <Button fx:id="btnViewUserRecords" layoutX="111.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="View User records" />
+      <Button fx:id="btnViewUserRecords" layoutX="111.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Manage Users" />
       <Button fx:id="btnAddNewR" layoutX="222.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
       <Button fx:id="btnDeleteR" layoutX="337.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
+      <Button fx:id="btnViewUserRecords1" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Your Profile" />
       <StackPane layoutY="96.0" prefHeight="604.0" prefWidth="1000.0">
          <children>
             <Pane fx:id="paneDeleteR" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
@@ -36,6 +37,15 @@
             <Pane fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Resources">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>

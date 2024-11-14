@@ -4,8 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Point?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -39,11 +43,26 @@
                   <Button fx:id="signUpButton" layoutX="113.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleSignUpButtonClick" text="Register Now" />
                </children>
             </Pane>
-            <Label layoutX="198.0" layoutY="14.0" text="NewsFlow">
+            <Label layoutX="198.0" layoutY="14.0" text="NewsFlow" textFill="WHITE">
                <font>
                   <Font name="Showcard Gothic" size="37.0" />
                </font>
+               <effect>
+                  <Lighting>
+                     <bumpInput>
+                        <Shadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Shadow>
+                     </bumpInput>
+                     <light>
+                        <Light.Point />
+                     </light>
+                  </Lighting>
+               </effect>
             </Label>
+            <Button fx:id="btnClose" layoutX="547.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="40.0" text="X" />
          </children>
       </Pane>
    </children>

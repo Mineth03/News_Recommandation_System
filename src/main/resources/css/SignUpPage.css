@@ -13,6 +13,17 @@
     -fx-background-color: #2e7082;
 }
 
+#btnClose {
+    -fx-background-color: #ba0236;
+    -fx-background-radius: 0;
+}
+#btnClose:hover {
+    -fx-background-color: #962a49;
+}
+#btnClose:pressed {
+    -fx-background-color: red;
+}
+
 .text-field {
     -fx-background-color: #5a85a6;
     -fx-background-radius: 50;
@@ -63,12 +74,12 @@
     -fx-padding: 0 0 0 8px;
 }
 #paneImage {
-    -fx-background-image: url("BackgroundImage.jpg");
+    -fx-background-image: url("BackgroundImage4.png");
     -fx-background-size: cover;
 }
 
 #paneStack {
     -fx-background-color: white;
     -fx-background-radius: 10;
-    -fx-opacity: 0.5;
+    -fx-opacity: 0.8;
 }
