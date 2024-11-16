@@ -4,24 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Exit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/BackgroundImage4.png" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="edit user information">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LogInPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LogInPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginPageAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/LoginRecord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/LoginPages.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/LoginPages.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/SignUpPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/SignUpPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LogInPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LogInPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/LoginPageAdmin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +125,17 @@
       <workItem from="1731503994072" duration="311000" />
       <workItem from="1731504537537" duration="5754000" />
       <workItem from="1731516725110" duration="4315000" />
-      <workItem from="1731555947446" duration="4205000" />
+      <workItem from="1731555947446" duration="8295000" />
+      <workItem from="1731577441962" duration="148000" />
+      <workItem from="1731580698608" duration="354000" />
+      <workItem from="1731581742611" duration="945000" />
+      <workItem from="1731597492645" duration="755000" />
+      <workItem from="1731606839033" duration="3599000" />
+      <workItem from="1731645411310" duration="3021000" />
+      <workItem from="1731650422785" duration="1605000" />
+      <workItem from="1731673111473" duration="946000" />
+      <workItem from="1731694604702" duration="7862000" />
+      <workItem from="1731740022047" duration="2041000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -181,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731343644071</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="edit user information">
+      <option name="closed" value="true" />
+      <created>1731564205610</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731564205610</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,7 +205,8 @@
     <MESSAGE value="basic navigation flow and user main interaction design." />
     <MESSAGE value="Connect the database" />
     <MESSAGE value="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs." />
+    <MESSAGE value="edit user information" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit user information" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

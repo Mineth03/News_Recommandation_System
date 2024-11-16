@@ -88,7 +88,6 @@ public class MainWindow {
     @FXML
     private TextField txtAge;
 
-
     @FXML
     private TableView<LoginRecord> tableLoginDetails;
     @FXML

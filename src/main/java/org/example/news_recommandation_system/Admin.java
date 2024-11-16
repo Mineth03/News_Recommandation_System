@@ -15,6 +15,6 @@ public class Admin extends Person {
     }
 
     public void setCode(String code) {
-        this.id = code;
+        this.id = id;
     }
 }

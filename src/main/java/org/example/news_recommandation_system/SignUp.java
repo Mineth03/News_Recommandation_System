@@ -3,7 +3,6 @@ package org.example.news_recommandation_system;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,15 +10,12 @@ import com.mongodb.client.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.ConnectionString;
 import org.bson.Document;
-import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class SignUp{
 
@@ -59,7 +55,8 @@ public class SignUp{
         }
         String firstName = capitalize(txtFName.getText());
         String lastName = capitalize(txtLName.getText());
-        String name = firstName + " " + lastName;        String email = txtEmail.getText();
+        String name = firstName + " " + lastName;
+        String email = txtEmail.getText();
         int age = Integer.parseInt(txtAge.getText());
         String gender = ChoiceBoxGender.getValue();
         String username = txtUsername.getText();
@@ -84,7 +81,7 @@ public class SignUp{
         if (checkBoxLifestyle.isSelected()) preferences.add("Lifestyle");
 
         // Create a User object with the collected data
-        User newUser = new User(name, email, age, gender, password, preferences);
+        User newUser = new User(name, email, age, gender, password, preferences, username);
 
         // Insert data into MongoDB
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
@@ -96,7 +93,7 @@ public class SignUp{
                     .append("age", newUser.getAge())
                     .append("gender", newUser.getGender())
                     .append("Preferences", newUser.getPreferences())
-                    .append("username", username)
+                    .append("username", newUser.getUsername())
                     .append("password", newUser.getPassword());
 
             collection.insertOne(userDoc);
@@ -119,20 +116,20 @@ public class SignUp{
         if (txtFName.getText().isEmpty() || txtLName.getText().isEmpty() || txtEmail.getText().isEmpty() ||
                 txtAge.getText().isEmpty() || txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty() ||
                 txtCPassword.getText().isEmpty()) {
-            errorMessage += "All fields are mandatory.\n";
+            errorMessage += "✕All fields are mandatory.\n";
         }
 
         try {
             int age = Integer.parseInt(txtAge.getText());
             if (age < 14 || age > 100) {
-                errorMessage += "Age should be between 14 and 100.\n";
+                errorMessage += "✕Age should be between 14 and 100.\n";
             }
         } catch (NumberFormatException e) {
-            errorMessage += "Age should be a valid number.\n";
+            errorMessage += "✕Age should be a valid number.\n";
         }
 
         if (!txtEmail.getText().matches("[^@]+@[^.]+\\..+")) {
-            errorMessage += "Invalid email format.\n";
+            errorMessage += "✕Invalid email format.\n";
         }
 
         int selectedPreferences = 0;
@@ -148,18 +145,18 @@ public class SignUp{
         if (checkBoxLifestyle.isSelected()) selectedPreferences++;
 
         if (selectedPreferences < 2) {
-            errorMessage += "Please select at least two preferences.\n";
+            errorMessage += "✕Please select at least two preferences.\n";
         }
 
         // Validate password (letters and numbers, min length of 5)
         String password = txtPassword.getText();
         if (password.length() < 5 || !password.matches("^(?=.*[a-zA-Z])(?=.*\\d).+$")) {
-            errorMessage += "Password must be at least 5 characters long and contain both letters and numbers.\n";
+            errorMessage += "✕Password must be at least 5 characters long\n and contain both letters and numbers.\n";
         }
 
         String confirmPassword = txtCPassword.getText();
         if (!password.equals(confirmPassword)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Password and Confirm Password do not match.");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "✕Password and Confirm Password do not match.");
             alert.showAndWait();
             return false;
         }

@@ -1,8 +1,8 @@
 package org.example.news_recommandation_system;
 
 public class LoginRecord {
-    private String date;
-    private String time;
+    private final String date;
+    private final String time;
 
     public LoginRecord(String date, String time) {
         this.date = date;

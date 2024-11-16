@@ -73,8 +73,9 @@ public class LoginPageAdmin implements Initializable {
         String id = txtAdminID.getText();
 
         if (checkCredentials(name, password, id)) {
-            saveLoginDetails(name);
+            saveLoginDetails(id);
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + name);
+            AdminWindow.setCurrentAdminId(id);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdminWindow.fxml")));
             Stage stage = (Stage) btnLoginAdmin.getScene().getWindow();
             Scene scene = stage.getScene();
@@ -97,9 +98,9 @@ public class LoginPageAdmin implements Initializable {
         return false;
     }
 
-    private void saveLoginDetails(String name) {
+    private void saveLoginDetails(String id) {
         try {
-            Document loginRecord = new Document("Admin_Name", name)
+            Document loginRecord = new Document("adminId", id)
                     .append("Login_time", LocalDateTime.now().toString());
             adminLoginDetailsCollection.insertOne(loginRecord);
         } catch (Exception e) {

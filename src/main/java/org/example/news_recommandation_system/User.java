@@ -5,10 +5,12 @@ import java.util.List;
 
 public class User extends Person {
     private List<String> preferences;
+    private String username;
 
-    public User(String name, String email, int age, String gender, String password, List<String> preferences) {
+    public User(String name, String email, int age, String gender, String password, List<String> preferences, String username) {
         super(name, email, age, gender, password);
         this.preferences = preferences;
+        this.username = username;
     }
 
     public List<String> getPreferences() {
@@ -17,5 +19,13 @@ public class User extends Person {
 
     public void setPreferences(String preferences) {
         this.preferences = Collections.singletonList(preferences);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -69,35 +69,6 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneProfile" prefHeight="630.0" prefWidth="1018.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="303.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="btnLogout" layoutX="822.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
-                  <Label layoutX="136.0" layoutY="139.0" text="Full Name" />
-                  <Label layoutX="136.0" layoutY="174.0" text="Age" />
-                  <Label layoutX="136.0" layoutY="208.0" text="Gender" />
-                  <Label layoutX="138.0" layoutY="243.0" text="Email" />
-                  <Label layoutX="138.0" layoutY="276.0" text="Prefferences" />
-                  <TableView fx:id="tableLoginDetails" layoutX="166.0" layoutY="342.0" prefHeight="200.0" prefWidth="594.0">
-                    <columns>
-                      <TableColumn fx:id="tableColumnDate" prefWidth="296.00001525878906" text="Date" />
-                      <TableColumn fx:id="tableColumnTime" prefWidth="297.3333435058594" text="Time" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="138.0" layoutY="315.0" text="Login Details" />
-                  <Label fx:id="labelName" layoutX="350.0" layoutY="139.0" text="Label" />
-                  <Label fx:id="labelAge" layoutX="350.0" layoutY="174.0" text="Label" />
-                  <Label fx:id="labelGender" layoutX="350.0" layoutY="208.0" text="Label" />
-                  <Label fx:id="labelEmail" layoutX="350.0" layoutY="243.0" text="Label" />
-                  <Label fx:id="LabelPreferences" layoutX="350.0" layoutY="276.0" text="Label" />
-                  <Button fx:id="btnEditProfile" layoutX="251.0" layoutY="566.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Edit Profile" />
-                  <Button fx:id="btnChangePassword" layoutX="696.0" layoutY="566.0" mnemonicParsing="false" text="Change Password" />
-               </children>
-            </Pane>
             <Pane fx:id="paneAbout" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="323.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About Us">
@@ -135,6 +106,35 @@
                   <CheckBox fx:id="checkBoxTechnology" layoutX="678.0" layoutY="424.0" mnemonicParsing="false" text="Technology" />
                   <Button fx:id="btnConfirm" layoutX="814.0" layoutY="530.0" mnemonicParsing="false" onAction="#saveUserProfile" text="Confirm" />
                   <Button fx:id="btnBack1" layoutX="223.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneProfile" prefHeight="630.0" prefWidth="1018.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="303.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnLogout" layoutX="822.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
+                  <Label layoutX="136.0" layoutY="139.0" text="Full Name" />
+                  <Label layoutX="136.0" layoutY="174.0" text="Age" />
+                  <Label layoutX="136.0" layoutY="208.0" text="Gender" />
+                  <Label layoutX="138.0" layoutY="243.0" text="Email" />
+                  <Label layoutX="138.0" layoutY="276.0" text="Prefferences" />
+                  <TableView fx:id="tableLoginDetails" layoutX="166.0" layoutY="342.0" prefHeight="200.0" prefWidth="594.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnDate" prefWidth="296.00001525878906" text="Date" />
+                      <TableColumn fx:id="tableColumnTime" prefWidth="297.3333435058594" text="Time" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="138.0" layoutY="315.0" text="Login Details" />
+                  <Label fx:id="labelName" layoutX="350.0" layoutY="139.0" text="Label" />
+                  <Label fx:id="labelAge" layoutX="350.0" layoutY="174.0" text="Label" />
+                  <Label fx:id="labelGender" layoutX="350.0" layoutY="208.0" text="Label" />
+                  <Label fx:id="labelEmail" layoutX="350.0" layoutY="243.0" text="Label" />
+                  <Label fx:id="LabelPreferences" layoutX="350.0" layoutY="276.0" text="Label" />
+                  <Button fx:id="btnEditProfile" layoutX="251.0" layoutY="566.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Edit Profile" />
+                  <Button fx:id="btnChangePassword" layoutX="696.0" layoutY="566.0" mnemonicParsing="false" text="Change Password" />
                </children>
             </Pane>
          </children>
