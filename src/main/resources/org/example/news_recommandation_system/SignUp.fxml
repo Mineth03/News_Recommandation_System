@@ -36,16 +36,16 @@
                   <Button fx:id="btnSignup" layoutX="452.0" layoutY="791.0" mnemonicParsing="false" onAction="#handleSignupButtonClick" text="Sign-up" />
                   <TextField fx:id="txtLName" layoutX="311.0" layoutY="116.0" prefHeight="50.0" prefWidth="200.0" promptText="Last Name" />
                   <TextField fx:id="txtUsername" layoutX="139.0" layoutY="584.0" prefHeight="50.0" promptText="Username" />
-                  <CheckBox fx:id="checkBoxTechnology" layoutX="53.0" layoutY="395.0" mnemonicParsing="false" text="Technology" />
-                  <CheckBox fx:id="checkBoxAI" layoutX="54.0" layoutY="450.0" mnemonicParsing="false" text="AI" />
-                  <CheckBox fx:id="checkBoxPolitics" layoutX="279.0" layoutY="450.0" mnemonicParsing="false" text="Politics" />
-                  <CheckBox fx:id="checkBoxHealthcare" layoutX="383.0" layoutY="503.0" mnemonicParsing="false" text="Healthcare" />
-                  <CheckBox fx:id="checkBoxEntertainment" layoutX="222.0" layoutY="395.0" mnemonicParsing="false" text="Entertaintment" />
-                  <CheckBox fx:id="checkBoxScience" layoutX="406.0" layoutY="450.0" mnemonicParsing="false" text="Science" />
-                  <CheckBox fx:id="checkBoxSports" layoutX="416.0" layoutY="395.0" mnemonicParsing="false" text="Sports" />
-                  <CheckBox fx:id="checkBoxBusiness" layoutX="234.0" layoutY="503.0" mnemonicParsing="false" text="Business" />
+                  <CheckBox fx:id="checkBoxTechnology" layoutX="57.0" layoutY="395.0" mnemonicParsing="false" text="Tech" />
+                  <CheckBox fx:id="checkBoxEducation" layoutX="382.0" layoutY="450.0" mnemonicParsing="false" text="Education" />
+                  <CheckBox fx:id="checkBoxPolitics" layoutX="277.0" layoutY="395.0" mnemonicParsing="false" text="Politics" />
+                  <CheckBox fx:id="checkBoxHealthcare" layoutX="374.0" layoutY="503.0" mnemonicParsing="false" text="Healthcare" />
+                  <CheckBox fx:id="checkBoxEntertainment" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" text="Entertaintment" />
+                  <CheckBox fx:id="checkBoxScience" layoutX="400.0" layoutY="395.0" mnemonicParsing="false" text="Science" />
+                  <CheckBox fx:id="checkBoxSports" layoutX="161.0" layoutY="395.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox fx:id="checkBoxBusiness" layoutX="229.0" layoutY="503.0" mnemonicParsing="false" text="Business" />
                   <CheckBox fx:id="checkBoxInvestigative" layoutX="54.0" layoutY="503.0" mnemonicParsing="false" text="Investigative" />
-                  <CheckBox fx:id="checkBoxLifestyle" layoutX="140.0" layoutY="450.0" mnemonicParsing="false" text="Lifestyle" />
+                  <CheckBox fx:id="checkBoxLifestyle" layoutX="56.0" layoutY="450.0" mnemonicParsing="false" text="Lifestyle" />
                   <ChoiceBox fx:id="ChoiceBoxGender" layoutX="255.0" layoutY="254.0" maxHeight="70.0" prefHeight="50.0" prefWidth="221.0">
                      <items>
                         <FXCollections fx:factory="observableArrayList">

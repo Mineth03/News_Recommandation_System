@@ -16,10 +16,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.bson.Document;
+import org.example.news_recommandation_system.NewsFetcher.ArticleCategorizer;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +50,20 @@ public class AdminWindow {
     private Button btnRemoveUser;
     @FXML
     private Button btnViewUser;
+    @FXML
+    private Button btnChangePassword;
+    @FXML
+    private Button btnConfirm;
+    @FXML
+    private Button btnPasswordConfirm;
+    @FXML
+    private Button btnSetPassword;
+    @FXML
+    private Button btnArticleManagement;
+    @FXML
+    private Button btnBack2;
+    @FXML
+    private Button btnAdd;
 
 
     @FXML
@@ -57,7 +76,6 @@ public class AdminWindow {
     private Label labelAdminId;
     @FXML
     private Label labelGender;
-
     @FXML
     private Label labelNameUser;
     @FXML
@@ -77,6 +95,21 @@ public class AdminWindow {
     private TextField txtEmail;
     @FXML
     private TextField txtAge;
+    @FXML
+    private PasswordField txtPrevPassword;
+    @FXML
+    private TextField txtNewPassword;
+    @FXML
+    private TextField txtNewPasswordConfirm;
+    @FXML
+    private TextField txtHeading;
+    @FXML
+    private TextField txtDate;
+    @FXML
+    private TextArea txtArticleBody;
+
+    @FXML
+    private DatePicker datePicker;
 
     @FXML
     private Pane paneAddNew;
@@ -90,6 +123,14 @@ public class AdminWindow {
     private Pane paneEditAdminInfo;
     @FXML
     private Pane paneViewUserRecords;
+    @FXML
+    private Pane paneChangePassword;
+    @FXML
+    private Pane paneCheckPrevPassword;
+    @FXML
+    private Pane paneNewPassword;
+    @FXML
+    private Pane paneArticleManagement;
 
     @FXML
     private TableView<LoginRecord> tableLoginDetails;
@@ -160,6 +201,24 @@ public class AdminWindow {
         if (actionEvent.getSource() == btnViewUser) {
             updateUserDetails();
             paneViewUserRecords.toFront();
+        }
+        if (actionEvent.getSource() == btnChangePassword) {
+            paneChangePassword.toFront();
+        }
+        if (actionEvent.getSource() == btnPasswordConfirm) {
+            if (!checkCurrentPassword()){
+                return;
+            }
+            paneNewPassword.toFront();
+        }
+        if (actionEvent.getSource() == btnSetPassword) {
+            updatePassword();
+        }
+        if (actionEvent.getSource() == btnArticleManagement) {
+            paneArticleManagement.toFront();
+        }
+        if (actionEvent.getSource() == btnAdd) {
+            paneArticleManagement.toFront();
         }
     }
 
@@ -493,6 +552,117 @@ public class AdminWindow {
         tableLoginDetailsUser.setItems(loginHistory);
     }
 
+    @FXML
+    private boolean checkCurrentPassword() {
+        String currentPassword = txtPrevPassword.getText().trim();
+
+        if (currentPassword.isEmpty()) {
+            showError("Current password is required.");
+            return false;
+        }
+
+        MongoDatabase database = getDatabase();
+        if (database == null) return false;
+
+        MongoCollection<Document> collection = database.getCollection("Admin");
+
+        Document query = new Document("adminID", currentAdminId);
+        Document userDocument = collection.find(query).first();
+
+        if (userDocument != null) {
+            String storedPassword = userDocument.getString("password");
+            if (storedPassword != null && storedPassword.equals(currentPassword)) {
+                paneNewPassword.toFront();
+                return true;
+            } else {
+                showError("Incorrect current password.");
+                return false;
+            }
+        } else {
+            showError("User not found in the database.");
+            return false;
+        }
+    }
+
+    @FXML
+    private void updatePassword() {
+        String newPassword = txtNewPassword.getText().trim();
+        String confirmPassword = txtNewPasswordConfirm.getText().trim();
+
+        if (!validatePassword(newPassword)) {
+            return;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            showError("Passwords do not match.");
+            return;
+        }
+
+        MongoDatabase database = getDatabase();
+        if (database == null) return;
+
+        MongoCollection<Document> collection = database.getCollection("Admin");
+
+        Document query = new Document("adminID", currentAdminId);
+        Document updateOperation = new Document("$set", new Document("password", newPassword));
+
+        collection.updateOne(query, updateOperation);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Password updated successfully.");
+        alert.showAndWait();
+
+        paneProfile.toFront();
+        paneCheckPrevPassword.toFront();
+    }
+
+    private boolean validatePassword(String password) {
+        if (password.length() < 5) {
+            showError("Password must be at least 5 characters long.");
+            return false;
+        }
+        if (!password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*")) {
+            showError("Password must contain both letters and numbers.");
+            return false;
+        }
+        return true;
+    }
+
+    @FXML
+    public void addArticle(ActionEvent event) {
+        String heading = txtHeading.getText().trim();
+        String body = txtArticleBody.getText().trim();
+        LocalDate dateInput = datePicker.getValue();
+
+        // Validation checks
+        if (heading.isEmpty() || body.isEmpty() || dateInput == null) {
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
+            return;
+        }
+
+        try {
+            // Convert LocalDate to Date
+            Date date = java.sql.Date.valueOf(dateInput);
+
+            // Instantiate ArticleCategorizer and categorize article
+            ArticleCategorizer articleCategorizer = new ArticleCategorizer();
+            String category = articleCategorizer.categorizeArticle(body);
+
+            // Optional: Create the article object or insert directly into the database
+            MongoDatabase database = MongoClients.create().getDatabase("News_Recommendation_System");
+            MongoCollection<Document> collection = database.getCollection("Articles");
+
+            Document doc = new Document("heading", heading)
+                    .append("article", body)
+                    .append("category", category)
+                    .append("date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+
+            collection.insertOne(doc);
+
+            AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
+        } catch (Exception ex) {
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred: " + ex.getMessage());
+        }
+    }
 
 
 

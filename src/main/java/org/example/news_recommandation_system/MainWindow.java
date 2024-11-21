@@ -51,6 +51,10 @@ public class MainWindow {
     private Button btnBack1;
     @FXML
     private Button btnConfirm;
+    @FXML
+    private Button btnPasswordConfirm;
+    @FXML
+    private Button btnSetPassword;
 
 
     @FXML
@@ -67,6 +71,12 @@ public class MainWindow {
     private Pane paneHome;
     @FXML
     private Pane paneEditUserInfo;
+    @FXML
+    private Pane paneChangePassword;
+    @FXML
+    private Pane paneCheckPrevPassword;
+    @FXML
+    private Pane paneNewPassword;
 
     @FXML
     private Label labelName;
@@ -87,6 +97,12 @@ public class MainWindow {
     private TextField txtEmail;
     @FXML
     private TextField txtAge;
+    @FXML
+    private PasswordField txtPrevPassword;
+    @FXML
+    private TextField txtNewPassword;
+    @FXML
+    private TextField txtNewPasswordConfirm;
 
     @FXML
     private TableView<LoginRecord> tableLoginDetails;
@@ -96,7 +112,7 @@ public class MainWindow {
     private TableColumn<LoginRecord, String> tableColumnTime;
 
     @FXML
-    private CheckBox checkBoxTechnology, checkBoxAI, checkBoxPolitics, checkBoxHealthcare, checkBoxEntertainment,
+    private CheckBox checkBoxTechnology, checkBoxEducation, checkBoxPolitics, checkBoxHealthcare, checkBoxEntertainment,
             checkBoxScience, checkBoxSports, checkBoxBusiness, checkBoxInvestigative, checkBoxLifestyle;
 
 
@@ -110,21 +126,27 @@ public class MainWindow {
         if (actionEvent.getSource() == btnProfile){
             updateUserDetails();
             paneProfile.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnAbout){
             paneAbout.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnSave) {
             paneSave.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnRecommended) {
             paneRecommend.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnSearch) {
             paneSearch.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnHome) {
             paneHome.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnEditProfile) {
             loadUserProfileForEdit();
@@ -132,6 +154,18 @@ public class MainWindow {
         }
         if (actionEvent.getSource() == btnBack1) {
             paneProfile.toFront();
+        }
+        if (actionEvent.getSource() == btnChangePassword) {
+            paneChangePassword.toFront();
+        }
+        if (actionEvent.getSource() == btnPasswordConfirm) {
+            if (!checkCurrentPassword()){
+                return;
+            }
+            paneNewPassword.toFront();
+        }
+        if (actionEvent.getSource() == btnSetPassword) {
+            updatePassword();
         }
     }
 
@@ -249,7 +283,7 @@ public class MainWindow {
     // Helper method to set the checkboxes based on user preferences
     private void setPreferencesCheckboxes(List<String> preferences) {
         checkBoxTechnology.setSelected(preferences.contains("Technology"));
-        checkBoxAI.setSelected(preferences.contains("AI"));
+        checkBoxEducation.setSelected(preferences.contains("Education"));
         checkBoxPolitics.setSelected(preferences.contains("Politics"));
         checkBoxBusiness.setSelected(preferences.contains("Business"));
         checkBoxEntertainment.setSelected(preferences.contains("Entertainment"));
@@ -331,7 +365,7 @@ public class MainWindow {
     private List<String> getSelectedPreferences() {
         List<String> preferences = new ArrayList<>();
         if (checkBoxTechnology.isSelected()) preferences.add("Technology");
-        if (checkBoxAI.isSelected()) preferences.add("AI");
+        if (checkBoxEducation.isSelected()) preferences.add("Education");
         if (checkBoxPolitics.isSelected()) preferences.add("Politics");
         if (checkBoxBusiness.isSelected()) preferences.add("Business");
         if (checkBoxEntertainment.isSelected()) preferences.add("Entertainment");
@@ -347,6 +381,82 @@ public class MainWindow {
         Alert alert = new Alert(Alert.AlertType.ERROR, message);
         alert.showAndWait();
     }
+
+    @FXML
+    private boolean checkCurrentPassword() {
+        String currentPassword = txtPrevPassword.getText().trim();
+
+        if (currentPassword.isEmpty()) {
+            showError("Current password is required.");
+            return false;
+        }
+
+        MongoDatabase database = getDatabase();
+        if (database == null) return false;
+
+        MongoCollection<Document> collection = database.getCollection("User");
+
+        Document query = new Document("username", currentUsername);
+        Document userDocument = collection.find(query).first();
+
+        if (userDocument != null) {
+            String storedPassword = userDocument.getString("password");
+            if (storedPassword != null && storedPassword.equals(currentPassword)) {
+                paneNewPassword.toFront();
+                return true;
+            } else {
+                showError("Incorrect current password.");
+                return false;
+            }
+        } else {
+            showError("User not found in the database.");
+            return false;
+        }
+    }
+
+    @FXML
+    private void updatePassword() {
+        String newPassword = txtNewPassword.getText().trim();
+        String confirmPassword = txtNewPasswordConfirm.getText().trim();
+
+        if (!validatePassword(newPassword)) {
+            return;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            showError("Passwords do not match.");
+            return;
+        }
+
+        MongoDatabase database = getDatabase();
+        if (database == null) return;
+
+        MongoCollection<Document> collection = database.getCollection("User");
+
+        Document query = new Document("username", currentUsername);
+        Document updateOperation = new Document("$set", new Document("password", newPassword));
+
+        collection.updateOne(query, updateOperation);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Password updated successfully.");
+        alert.showAndWait();
+
+        paneProfile.toFront();
+        paneCheckPrevPassword.toFront();
+    }
+
+    private boolean validatePassword(String password) {
+        if (password.length() < 5) {
+            showError("Password must be at least 5 characters long.");
+            return false;
+        }
+        if (!password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*")) {
+            showError("Password must contain both letters and numbers.");
+            return false;
+        }
+        return true;
+    }
+
 
     @FXML
     private void handleLogoutButtonClick() throws IOException {
@@ -369,5 +479,4 @@ public class MainWindow {
     public void exit(ActionEvent event) {
         Exit.showExitConfirmation(event);
     }
-
 }

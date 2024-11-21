@@ -41,7 +41,7 @@ public class SignUp{
     @FXML
     private PasswordField txtCPassword;
     @FXML
-    private CheckBox checkBoxTechnology, checkBoxAI, checkBoxPolitics, checkBoxHealthcare, checkBoxEntertainment,
+    private CheckBox checkBoxTechnology, checkBoxEducation, checkBoxPolitics, checkBoxHealthcare, checkBoxEntertainment,
             checkBoxScience, checkBoxSports, checkBoxBusiness, checkBoxInvestigative, checkBoxLifestyle;
 
 
@@ -70,7 +70,7 @@ public class SignUp{
 
         List<String> preferences = new ArrayList<>();
         if (checkBoxTechnology.isSelected()) preferences.add("Technology");
-        if (checkBoxAI.isSelected()) preferences.add("AI");
+        if (checkBoxEducation.isSelected()) preferences.add("Education");
         if (checkBoxPolitics.isSelected()) preferences.add("Politics");
         if (checkBoxHealthcare.isSelected()) preferences.add("Healthcare");
         if (checkBoxEntertainment.isSelected()) preferences.add("Entertainment");
@@ -134,7 +134,7 @@ public class SignUp{
 
         int selectedPreferences = 0;
         if (checkBoxTechnology.isSelected()) selectedPreferences++;
-        if (checkBoxAI.isSelected()) selectedPreferences++;
+        if (checkBoxEducation.isSelected()) selectedPreferences++;
         if (checkBoxPolitics.isSelected()) selectedPreferences++;
         if (checkBoxHealthcare.isSelected()) selectedPreferences++;
         if (checkBoxEntertainment.isSelected()) selectedPreferences++;

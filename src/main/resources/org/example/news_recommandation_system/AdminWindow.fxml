@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -14,8 +17,6 @@
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.AdminWindow">
    <children>
       <Button fx:id="btnManageUserRecords" layoutX="111.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Manage Users" />
-      <Button fx:id="btnAddNewR" layoutX="222.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
-      <Button fx:id="btnDeleteR" layoutX="337.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
       <Button fx:id="btnProfile" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Your Profile" />
       <StackPane layoutY="96.0" prefHeight="604.0" prefWidth="1000.0">
          <children>
@@ -27,44 +28,6 @@
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Resources">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="btnLogout1" layoutX="853.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
-                  <Label layoutX="213.0" layoutY="102.0" text="Full Name" />
-                  <Label layoutX="229.0" layoutY="251.0" text="Age" />
-                  <Label layoutX="221.0" layoutY="213.0" text="Gender" />
-                  <Label layoutX="226.0" layoutY="175.0" text="Email" />
-                  <Label layoutX="208.0" layoutY="134.0" text="Admin ID" />
-                  <TableView fx:id="tableLoginDetails" layoutX="199.0" layoutY="316.0" prefHeight="204.0" prefWidth="602.0">
-                     <columns>
-                        <TableColumn fx:id="tableColumnDate" prefWidth="311.9999542236328" text="Date" />
-                        <TableColumn fx:id="tableColumnTime" prefWidth="283.3333740234375" text="Time" />
-                     </columns>
-                  </TableView>
-                  <Label layoutX="100.0" layoutY="335.0" text="Login Details" />
-                  <Label fx:id="labelName" layoutX="572.0" layoutY="102.0" text="Label" />
-                  <Label fx:id="labelAge" layoutX="572.0" layoutY="251.0" text="Label" />
-                  <Label fx:id="labelGender" layoutX="572.0" layoutY="213.0" text="Label" />
-                  <Label fx:id="labelEmail" layoutX="572.0" layoutY="175.0" text="Label" />
-                  <Label fx:id="labelAdminId" layoutX="572.0" layoutY="134.0" text="Label" />
-                  <Button fx:id="btnEditProfile" layoutX="135.0" layoutY="547.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Edit Profile" />
-                  <Button fx:id="btnChangePassword" layoutX="706.0" layoutY="547.0" mnemonicParsing="false" text="Change Password" />
                </children>
             </Pane>
             <Pane fx:id="paneEditAdminInfo" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
@@ -129,7 +92,93 @@
                   <Label fx:id="LabelPreferences" layoutX="541.0" layoutY="258.0" text="Label" />
                </children>
             </Pane>
+            <Pane fx:id="paneChangePassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="368.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Password">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <StackPane layoutX="289.0" layoutY="163.0" prefHeight="278.0" prefWidth="421.0">
+                     <children>
+                        <Pane fx:id="paneNewPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text layoutX="102.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter The New Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="txtNewPassword" layoutX="136.0" layoutY="75.0" promptText="New Password" />
+                              <TextField fx:id="txtNewPasswordConfirm" layoutX="136.0" layoutY="127.0" promptText="Confirm Password" />
+                              <Button fx:id="btnSetPassword" layoutX="168.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Set Password" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneCheckPrevPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text layoutX="80.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Your Previous Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="btnPasswordConfirm" layoutX="185.0" layoutY="214.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Confirm" />
+                              <PasswordField fx:id="txtPrevPassword" layoutX="135.0" layoutY="114.0" promptText="Password" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+               </children>
+            </Pane>
+            <Pane fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnLogout1" layoutX="853.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
+                  <Label layoutX="213.0" layoutY="102.0" text="Full Name" />
+                  <Label layoutX="229.0" layoutY="251.0" text="Age" />
+                  <Label layoutX="221.0" layoutY="213.0" text="Gender" />
+                  <Label layoutX="226.0" layoutY="175.0" text="Email" />
+                  <Label layoutX="208.0" layoutY="134.0" text="Admin ID" />
+                  <TableView fx:id="tableLoginDetails" layoutX="199.0" layoutY="316.0" prefHeight="204.0" prefWidth="602.0">
+                     <columns>
+                        <TableColumn fx:id="tableColumnDate" prefWidth="311.9999542236328" text="Date" />
+                        <TableColumn fx:id="tableColumnTime" prefWidth="283.3333740234375" text="Time" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="100.0" layoutY="335.0" text="Login Details" />
+                  <Label fx:id="labelName" layoutX="572.0" layoutY="102.0" text="Label" />
+                  <Label fx:id="labelAge" layoutX="572.0" layoutY="251.0" text="Label" />
+                  <Label fx:id="labelGender" layoutX="572.0" layoutY="213.0" text="Label" />
+                  <Label fx:id="labelEmail" layoutX="572.0" layoutY="175.0" text="Label" />
+                  <Label fx:id="labelAdminId" layoutX="572.0" layoutY="134.0" text="Label" />
+                  <Button fx:id="btnEditProfile" layoutX="135.0" layoutY="547.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Edit Profile" />
+                  <Button fx:id="btnChangePassword" layoutX="706.0" layoutY="547.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Change Password" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneArticleManagement" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Button fx:id="btnAddNewR" layoutX="759.0" layoutY="517.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
+                  <Button fx:id="btnDeleteR" layoutX="218.0" layoutY="512.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Resources">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtHeading" layoutX="407.0" layoutY="122.0" promptText="Heading" />
+                  <TextArea fx:id="txtArticleBody" layoutX="407.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" promptText="Type Your Article Body Here" />
+                  <Button fx:id="btnAdd" layoutX="810.0" layoutY="538.0" mnemonicParsing="false" onAction="#addArticle" text="Add to the system" />
+                  <Button fx:id="btnBack2" layoutX="86.0" layoutY="538.0" mnemonicParsing="false" text="Back" />
+                  <DatePicker fx:id="datePicker" layoutX="394.0" layoutY="180.0" promptText="Date" />
+               </children>
+            </Pane>
          </children>
       </StackPane>
+      <Button fx:id="btnArticleManagement" layoutX="222.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Manage Articles" />
    </children>
 </AnchorPane>
