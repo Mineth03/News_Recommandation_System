@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="User management for admins">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/ArticleCategorizer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/NewsFetcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/NewsFetcherCSV.java" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="manage articles">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/SignUp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -150,6 +143,8 @@
       <workItem from="1732166062762" duration="2464000" />
       <workItem from="1732178148632" duration="1291000" />
       <workItem from="1732195614564" duration="6230000" />
+      <workItem from="1732206430853" duration="4113000" />
+      <workItem from="1732278116230" duration="2226000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -215,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731742988326</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="manage articles">
+      <option name="closed" value="true" />
+      <created>1732206493028</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1732206493028</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,7 +232,8 @@
     <MESSAGE value="Add css to login and signup pages.&#10;Connect signup page with DB and validate inputs." />
     <MESSAGE value="edit user information" />
     <MESSAGE value="User management for admins" />
-    <option name="LAST_COMMIT_MESSAGE" value="User management for admins" />
+    <MESSAGE value="manage articles" />
+    <option name="LAST_COMMIT_MESSAGE" value="manage articles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

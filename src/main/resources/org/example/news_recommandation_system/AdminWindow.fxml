@@ -20,16 +20,6 @@
       <Button fx:id="btnProfile" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Your Profile" />
       <StackPane layoutY="96.0" prefHeight="604.0" prefWidth="1000.0">
          <children>
-            <Pane fx:id="paneDeleteR" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Button fx:id="btnLogout" layoutX="14.0" layoutY="53.0" mnemonicParsing="false" text="Log-Out" />
-                  <Text layoutX="410.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
             <Pane fx:id="paneEditAdminInfo" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="282.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Your Profile Information">
@@ -128,6 +118,12 @@
                   </StackPane>
                </children>
             </Pane>
+            <Pane fx:id="paneArticleManagement" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Button fx:id="btnAddNewR" layoutX="759.0" layoutY="517.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
+                  <Button fx:id="btnDeleteR" layoutX="218.0" layoutY="512.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
+               </children>
+            </Pane>
             <Pane fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Profile">
@@ -135,7 +131,7 @@
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <Button fx:id="btnLogout1" layoutX="853.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
+                  <Button fx:id="btnLogout" layoutX="853.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="106.0" text="Log-Out" />
                   <Label layoutX="213.0" layoutY="102.0" text="Full Name" />
                   <Label layoutX="229.0" layoutY="251.0" text="Age" />
                   <Label layoutX="221.0" layoutY="213.0" text="Gender" />
@@ -157,12 +153,6 @@
                   <Button fx:id="btnChangePassword" layoutX="706.0" layoutY="547.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Change Password" />
                </children>
             </Pane>
-            <Pane fx:id="paneArticleManagement" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Button fx:id="btnAddNewR" layoutX="759.0" layoutY="517.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
-                  <Button fx:id="btnDeleteR" layoutX="218.0" layoutY="512.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
-               </children>
-            </Pane>
             <Pane fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="332.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Resources">
@@ -173,8 +163,26 @@
                   <TextField fx:id="txtHeading" layoutX="407.0" layoutY="122.0" promptText="Heading" />
                   <TextArea fx:id="txtArticleBody" layoutX="407.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" promptText="Type Your Article Body Here" />
                   <Button fx:id="btnAdd" layoutX="810.0" layoutY="538.0" mnemonicParsing="false" onAction="#addArticle" text="Add to the system" />
-                  <Button fx:id="btnBack2" layoutX="86.0" layoutY="538.0" mnemonicParsing="false" text="Back" />
+                  <Button fx:id="btnBack2" layoutX="86.0" layoutY="538.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
                   <DatePicker fx:id="datePicker" layoutX="394.0" layoutY="180.0" promptText="Date" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneDeleteR" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="378.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove Articles">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="tableRemoveArticles" layoutX="51.0" layoutY="126.0" prefHeight="260.0" prefWidth="899.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnRemoveHeading" prefWidth="671.3333854675293" text="Heading" />
+                      <TableColumn fx:id="tableColumnRemoveCategory" prefWidth="111.3333511352539" text="Category" />
+                        <TableColumn fx:id="tableColumnRemoveDate" prefWidth="115.3333740234375" text="Date" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnRemove" layoutX="778.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteArticle" text="Remove Article" />
+                  <Button fx:id="btnBack3" layoutX="118.0" layoutY="507.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
                </children>
             </Pane>
          </children>

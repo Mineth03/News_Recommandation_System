@@ -5,15 +5,21 @@ import java.util.Date;
 public class Articles {
 
     private String heading;
-    private Date date;
+    private String date;
     private String category;
     private String body;
 
-    Articles(String heading, Date date, String category, String body) {
+    Articles(String heading, String date, String category, String body) {
         this.heading = heading;
         this.date = date;
         this.category = category;
         this.body = body;
+    }
+
+    Articles(String heading, String category, String date) {
+        this.heading = heading;
+        this.category = category;
+        this.date = date;
     }
 
     public String getHeading() {
@@ -24,11 +30,11 @@ public class Articles {
         this.heading = heading;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

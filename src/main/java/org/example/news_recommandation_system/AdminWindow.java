@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,11 +32,11 @@ import java.util.Optional;
 public class AdminWindow {
 
     private static String currentAdminId;
+    private final ObservableList<Articles> articleList = FXCollections.observableArrayList();
+
 
     @FXML
     private Button btnProfile;
-    @FXML
-    private Button btnLogout;
     @FXML
     private Button btnManageUserRecords;
     @FXML
@@ -63,7 +64,13 @@ public class AdminWindow {
     @FXML
     private Button btnBack2;
     @FXML
+    private Button btnBack3;
+    @FXML
     private Button btnAdd;
+    @FXML
+    private Button btnRemove;
+    @FXML
+    private Button btnLogout;
 
 
     @FXML
@@ -103,8 +110,6 @@ public class AdminWindow {
     private TextField txtNewPasswordConfirm;
     @FXML
     private TextField txtHeading;
-    @FXML
-    private TextField txtDate;
     @FXML
     private TextArea txtArticleBody;
 
@@ -147,6 +152,15 @@ public class AdminWindow {
     private TableColumn<LoginRecord, String> tableColumnTimeUser;
 
     @FXML
+    private TableView<Articles> tableRemoveArticles;
+    @FXML
+    private TableColumn<Articles, String> tableColumnRemoveCategory;
+    @FXML
+    private TableColumn<Articles, String> tableColumnRemoveDate;
+    @FXML
+    private TableColumn<Articles, String> tableColumnRemoveHeading;
+
+    @FXML
     private TableView<User> tableUserDetails;
     @FXML
     private TableColumn<User, String> tableColumnAge;
@@ -178,6 +192,7 @@ public class AdminWindow {
     @FXML
     public void buttonClicksConfig(ActionEvent actionEvent){
         if (actionEvent.getSource() == btnDeleteR){
+            loadArticles();
             paneDeleteR.toFront();
         }
         if (actionEvent.getSource() == btnAddNewR){
@@ -218,6 +233,12 @@ public class AdminWindow {
             paneArticleManagement.toFront();
         }
         if (actionEvent.getSource() == btnAdd) {
+            paneArticleManagement.toFront();
+        }
+        if (actionEvent.getSource() == btnBack2) {
+            paneArticleManagement.toFront();
+        }
+        if (actionEvent.getSource() == btnBack3) {
             paneArticleManagement.toFront();
         }
     }
@@ -664,6 +685,75 @@ public class AdminWindow {
         }
     }
 
+    @FXML
+    private void loadArticles() {
+        MongoDatabase database = getDatabase();
+        if (database == null) return;
+
+        MongoCollection<Document> collection = database.getCollection("Articles");
+
+        // Clear existing data in the TableView
+        articleList.clear();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Fetch all articles from the database
+        for (Document doc : collection.find()) {
+            String heading = doc.getString("heading");
+            String category = doc.getString("category");
+            String date = doc.getString("date");
+
+            Articles article = new Articles(heading, category, date);
+            articleList.add(article);
+        }
+
+        // Set up columns in the TableView
+        tableColumnRemoveHeading.setCellValueFactory(new PropertyValueFactory<>("heading"));
+        tableColumnRemoveCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        tableColumnRemoveDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        // Bind data to the TableView
+        tableRemoveArticles.setItems(articleList);
+    }
+
+    @FXML
+    private void deleteArticle(ActionEvent event) {
+        // Get the selected article from the TableView
+        Articles selectedArticle = tableRemoveArticles.getSelectionModel().getSelectedItem();
+
+        if (selectedArticle == null) {
+            // Show an alert if no article is selected
+            showAlert("Please select an article to delete.");
+            return;
+        }
+
+        // Get the heading of the selected article to find it in the database
+        String heading = selectedArticle.getHeading();
+
+        // Get the database and collection
+        MongoDatabase database = getDatabase();
+        if (database == null) return;
+
+        MongoCollection<Document> collection = database.getCollection("Articles");
+
+        // Remove the article from the database by matching the heading (you can use other fields to refine the query)
+        collection.deleteOne(Filters.eq("heading", heading));
+
+        // Remove the article from the TableView
+        articleList.remove(selectedArticle);
+
+        // Show a confirmation message
+        showAlert("Article deleted successfully.");
+    }
+
+    private void showAlert(String message) {
+        // Show a simple alert with the given message
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Delete Article");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 
     @FXML
