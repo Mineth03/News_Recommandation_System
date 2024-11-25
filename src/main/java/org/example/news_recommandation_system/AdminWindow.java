@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -71,6 +72,8 @@ public class AdminWindow {
     private Button btnRemove;
     @FXML
     private Button btnLogout;
+    @FXML
+    private Button btnFilter;
 
 
     @FXML
@@ -115,6 +118,8 @@ public class AdminWindow {
 
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private DatePicker datePickerDelete;
 
     @FXML
     private Pane paneAddNew;
@@ -175,6 +180,9 @@ public class AdminWindow {
     @FXML
     private TableColumn<User, String> tableColumnPreferences;
 
+    @FXML
+    private CheckBox checkBoxTechnology, checkBoxEducation, checkBoxPolitics, checkBoxHealthcare, checkBoxEntertainment,
+            checkBoxScience, checkBoxSports, checkBoxBusiness, checkBoxInvestigative, checkBoxLifestyle;
 
     public static void setCurrentAdminId(String adminId) {
         currentAdminId = adminId;
@@ -680,6 +688,8 @@ public class AdminWindow {
             collection.insertOne(doc);
 
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
+            txtHeading.clear();
+            txtArticleBody.clear();
         } catch (Exception ex) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred: " + ex.getMessage());
         }
@@ -715,6 +725,75 @@ public class AdminWindow {
         // Bind data to the TableView
         tableRemoveArticles.setItems(articleList);
     }
+
+    @FXML
+    private void handleFilterAction(ActionEvent event) {
+        // Initialize the query document
+        Document query = new Document();
+
+        // Collect selected categories
+        List<String> selectedCategories = new ArrayList<>();
+        if (checkBoxTechnology.isSelected()) selectedCategories.add("Technology");
+        if (checkBoxEducation.isSelected()) selectedCategories.add("Education");
+        if (checkBoxHealthcare.isSelected()) selectedCategories.add("Healthcare");
+        if (checkBoxPolitics.isSelected()) selectedCategories.add("Politics");
+        if (checkBoxScience.isSelected()) selectedCategories.add("Science");
+        if (checkBoxEntertainment.isSelected()) selectedCategories.add("Entertainment");
+        if (checkBoxBusiness.isSelected()) selectedCategories.add("Business");
+        if (checkBoxSports.isSelected()) selectedCategories.add("Sports");
+        if (checkBoxLifestyle.isSelected()) selectedCategories.add("Lifestyle");
+        if (checkBoxInvestigative.isSelected()) selectedCategories.add("Investigative");
+        // Add similar conditions for other checkboxes
+
+        // Add category filter to query if categories are selected
+        if (!selectedCategories.isEmpty()) {
+            query.append("category", new Document("$in", selectedCategories));
+        }
+
+        // Get the selected date from the DatePicker
+        LocalDate selectedDate = datePickerDelete.getValue();
+        if (selectedDate != null) {
+            // Format LocalDate to MM-DD-YYYY for MongoDB query
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+            String formattedDate = selectedDate.format(formatter);
+            query.append("date", formattedDate); // Add date filter to query
+        }
+
+        // Ensure at least one filter is selected
+        if (query.isEmpty()) {
+            showAlert("Please select at least one category or a date.");
+            return;
+        }
+
+        // Connect to MongoDB
+        MongoDatabase database = getDatabase();
+        if (database == null) return;
+
+        MongoCollection<Document> collection = database.getCollection("Articles");
+
+        // Clear existing data in the TableView
+        articleList.clear();
+
+        // Fetch articles matching the query
+        for (Document doc : collection.find(query)) {
+            String heading = doc.getString("heading");
+            String category = doc.getString("category");
+            String date = doc.getString("date");
+
+            Articles article = new Articles(heading, category, date);
+            articleList.add(article);
+        }
+
+        // Update the TableView
+        tableRemoveArticles.setItems(articleList);
+
+        // Show an alert if no articles match the selected filters
+        if (articleList.isEmpty()) {
+            showAlert("No articles found for the selected filters.");
+        }
+    }
+
+
 
     @FXML
     private void deleteArticle(ActionEvent event) {

@@ -7,6 +7,7 @@ module org.example.news_recommandation_system {
     requires org.mongodb.driver.core;
     requires com.google.gson;
     requires commons.csv;
+    requires org.json;
 
 
     opens org.example.news_recommandation_system to javafx.fxml;

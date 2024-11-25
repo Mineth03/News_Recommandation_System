@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="manage articles">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleView.fxml" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="article view scene">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/ArticleCategorizeModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,7 +144,14 @@
       <workItem from="1732178148632" duration="1291000" />
       <workItem from="1732195614564" duration="6230000" />
       <workItem from="1732206430853" duration="4113000" />
-      <workItem from="1732278116230" duration="2226000" />
+      <workItem from="1732278116230" duration="2841000" />
+      <workItem from="1732343963010" duration="762000" />
+      <workItem from="1732345274041" duration="1243000" />
+      <workItem from="1732373344424" duration="638000" />
+      <workItem from="1732422924368" duration="2985000" />
+      <workItem from="1732440347021" duration="3993000" />
+      <workItem from="1732464421430" duration="1605000" />
+      <workItem from="1732507322953" duration="577000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -218,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732206493028</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="article view scene">
+      <option name="closed" value="true" />
+      <created>1732285039750</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1732285039750</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,7 +248,8 @@
     <MESSAGE value="edit user information" />
     <MESSAGE value="User management for admins" />
     <MESSAGE value="manage articles" />
-    <option name="LAST_COMMIT_MESSAGE" value="manage articles" />
+    <MESSAGE value="article view scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="article view scene" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
