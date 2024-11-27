@@ -1,6 +1,6 @@
 package org.example.news_recommandation_system;
 
-public class Person {
+abstract class Person {
     private String name;
     private String email;
     private int age;

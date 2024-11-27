@@ -86,7 +86,7 @@ public class SignUp{
         // Insert data into MongoDB
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
             MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> collection = database.getCollection("User");
+            MongoCollection<Document> userCollection = database.getCollection("User");
 
             Document userDoc = new Document("name", newUser.getName())
                     .append("email", newUser.getEmail())
@@ -96,18 +96,42 @@ public class SignUp{
                     .append("username", newUser.getUsername())
                     .append("password", newUser.getPassword());
 
-            collection.insertOne(userDoc);
+            userCollection.insertOne(userDoc);
+
+            // Create a new document for User_Preferences
+            MongoCollection<Document> preferencesCollection = database.getCollection("User_Preferences");
+
+            // Initialize the User_Preferences document
+            Document preferencesDoc = new Document("username", username)
+                    .append("Technology", checkBoxTechnology.isSelected() ? 5 : 0)
+                    .append("Education", checkBoxEducation.isSelected() ? 5 : 0)
+                    .append("Politics", checkBoxPolitics.isSelected() ? 5 : 0)
+                    .append("Healthcare", checkBoxHealthcare.isSelected() ? 5 : 0)
+                    .append("Entertainment", checkBoxEntertainment.isSelected() ? 5 : 0)
+                    .append("Science", checkBoxScience.isSelected() ? 5 : 0)
+                    .append("Sports", checkBoxSports.isSelected() ? 5 : 0)
+                    .append("Business", checkBoxBusiness.isSelected() ? 5 : 0)
+                    .append("Investigative", checkBoxInvestigative.isSelected() ? 5 : 0)
+                    .append("Lifestyle", checkBoxLifestyle.isSelected() ? 5 : 0);
+
+            // Insert the preferences document into the collection
+            preferencesCollection.insertOne(preferencesDoc);
+
+            // Set the current user in MainWindow
             MainWindow.setCurrentUsername(username);
 
+            // Redirect to MainWindow
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
             Parent signUpRoot = loader.load();
             Stage stage = (Stage) btnSignup.getScene().getWindow();
             stage.setScene(new Scene(signUpRoot));
             stage.show();
+
         } catch (Exception e) {
             System.out.println("Error connecting to MongoDB: " + e.getMessage());
         }
     }
+
 
 
     private boolean validateInputs() {

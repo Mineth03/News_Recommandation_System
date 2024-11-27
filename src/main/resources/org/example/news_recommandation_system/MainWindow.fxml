@@ -4,55 +4,49 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.MainWindow">
+<AnchorPane maxWidth="1500.0" prefHeight="900.0" stylesheets="@../../../css/MainPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.MainWindow">
    <children>
-      <Button fx:id="btnRecommended" layoutX="318.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Reccomended" />
-      <Button fx:id="btnSave" layoutX="424.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Saved News" />
-      <Button fx:id="btnAbout" layoutX="530.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="About Us" />
-      <Button fx:id="btnSearch" layoutX="212.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Search" />
-      <Button fx:id="btnProfile" layoutX="106.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Your Profile" />
-      <Button fx:id="btnClose" layoutX="967.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: red;" text="X" />
-      <Button fx:id="btnHome" layoutY="44.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Home" />
-      <StackPane layoutY="69.0" prefHeight="630.0" prefWidth="1000.0" style="-fx-background-color: white;">
+      <Button fx:id="btnRecommended" layoutX="749.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Reccomended">
+         <font>
+            <Font name="Bookshelf Symbol 7" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnSave" layoutX="899.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Saved News">
+         <font>
+            <Font name="Bookshelf Symbol 7" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnSearch" layoutX="600.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Search">
+         <font>
+            <Font name="Bookshelf Symbol 7" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnProfile" layoutX="451.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Your Profile">
+         <font>
+            <Font name="Bookshelf Symbol 7" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnClose" layoutX="1448.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="34.0" text="X" />
+      <Button fx:id="btnHome" layoutX="302.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="Home">
+         <font>
+            <Font name="Bookshelf Symbol 7" size="11.0" />
+         </font></Button>
+      <Button fx:id="btnAbout" layoutX="1049.0" layoutY="29.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="106.0" text="About Us">
+         <font>
+            <Font name="Bookshelf Symbol 7" size="11.0" />
+         </font>
+      </Button>
+      <StackPane layoutY="69.0" prefHeight="831.0" prefWidth="1598.0" style="-fx-background-color: white;">
          <children>
-            <Pane fx:id="paneRecommend" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="214.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reccomendded For You">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="paneSearch" prefHeight="630.0" prefWidth="795.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="297.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search News">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-                  <TableView layoutX="46.0" layoutY="96.0" prefHeight="491.0" prefWidth="909.0">
-                    <columns>
-                      <TableColumn prefWidth="455.33332443237305" text="Title" />
-                      <TableColumn prefWidth="149.33334350585938" text="Category" />
-                        <TableColumn prefWidth="186.66668701171875" text="Author" />
-                        <TableColumn prefWidth="116.66668701171875" text="Published Year" />
-                    </columns>
-                  </TableView>
-                  <TextField fx:id="txtSearch" layoutX="518.0" layoutY="36.0" />
-                  <Button fx:id="btnSearchArtical" layoutX="715.0" layoutY="36.0" mnemonicParsing="false" text="Search" />
-                  <Button fx:id="btnView" layoutX="880.0" layoutY="587.0" mnemonicParsing="false" text="View" />
-               </children></Pane>
-            <Pane fx:id="paneSave" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneSave" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="302.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saved News">
                      <font>
@@ -61,7 +55,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneHome" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneHome" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="323.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
                      <font>
@@ -70,7 +64,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneAbout" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneAbout" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="323.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About Us">
                      <font>
@@ -79,7 +73,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneProfile" prefHeight="630.0" prefWidth="1018.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneProfile" prefHeight="630.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="303.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Profile">
                      <font>
@@ -108,26 +102,45 @@
                   <Button fx:id="btnChangePassword" layoutX="696.0" layoutY="566.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Change Password" />
                </children>
             </Pane>
-            <Pane fx:id="paneChangePassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneEditUserInfo" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="282.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Your Profile Information">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtFirstName" layoutX="426.0" layoutY="93.0" promptText="First Name" />
+                  <TextField fx:id="txtLastName" layoutX="426.0" layoutY="144.0" promptText="Last Name" />
+                  <TextField fx:id="txtEmail" layoutX="426.0" layoutY="202.0" promptText="Email" />
+                  <TextField fx:id="txtAge" layoutX="426.0" layoutY="275.0" promptText="Age" />
+                  <Text layoutX="201.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested Topics:" wrappingWidth="200.0">
+                     <font>
+                        <Font name="Impact" size="24.0" />
+                     </font>
+                  </Text>
+                  <CheckBox fx:id="checkBoxLifestyle" layoutX="276.0" layoutY="422.0" mnemonicParsing="false" text="Lifestyle" />
+                  <CheckBox fx:id="checkBoxInvestigative" layoutX="417.0" layoutY="422.0" mnemonicParsing="false" text="Investigative" />
+                  <CheckBox fx:id="checkBoxBusiness" layoutX="599.0" layoutY="422.0" mnemonicParsing="false" text="Business" />
+                  <CheckBox fx:id="checkBoxSports" layoutX="794.0" layoutY="492.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox fx:id="checkBoxScience" layoutX="903.0" layoutY="422.0" mnemonicParsing="false" text="Science" />
+                  <CheckBox fx:id="checkBoxEntertainment" layoutX="276.0" layoutY="492.0" mnemonicParsing="false" text="Entertaintment" />
+                  <CheckBox fx:id="checkBoxHealthcare" layoutX="486.0" layoutY="492.0" mnemonicParsing="false" text="Healthcare" />
+                  <CheckBox fx:id="checkBoxPolitics" layoutX="653.0" layoutY="492.0" mnemonicParsing="false" text="Politics" />
+                  <CheckBox fx:id="checkBoxEducation" layoutX="752.0" layoutY="422.0" mnemonicParsing="false" text="Education" />
+                  <CheckBox fx:id="checkBoxTechnology" layoutX="929.0" layoutY="492.0" mnemonicParsing="false" text="Tech" />
+                  <Button fx:id="btnConfirm" layoutX="1049.0" layoutY="754.0" mnemonicParsing="false" onAction="#saveUserProfile" text="Confirm" />
+                  <Button fx:id="btnBack1" layoutX="126.0" layoutY="754.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneChangePassword" prefHeight="200.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="368.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Password">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <StackPane layoutX="290.0" layoutY="176.0" prefHeight="278.0" prefWidth="421.0">
+                  <StackPane layoutX="290.0" layoutY="176.0" prefHeight="278.0" prefWidth="557.0">
                      <children>
-                        <Pane fx:id="paneNewPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-                           <children>
-                              <Text layoutX="102.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter The New Password">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Text>
-                              <TextField fx:id="txtNewPassword" layoutX="136.0" layoutY="75.0" promptText="New Password" />
-                              <TextField fx:id="txtNewPasswordConfirm" layoutX="136.0" layoutY="127.0" promptText="Confirm Password" />
-                              <Button fx:id="btnSetPassword" layoutX="168.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Set Password" />
-                           </children></Pane>
                         <Pane fx:id="paneCheckPrevPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                            <children>
                               <Text layoutX="80.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Your Previous Password">
@@ -139,38 +152,55 @@
                               <PasswordField fx:id="txtPrevPassword" layoutX="135.0" layoutY="114.0" promptText="Password" />
                            </children>
                         </Pane>
+                        <Pane fx:id="paneNewPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text layoutX="102.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter The New Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="txtNewPassword" layoutX="136.0" layoutY="75.0" promptText="New Password" />
+                              <TextField fx:id="txtNewPasswordConfirm" layoutX="136.0" layoutY="139.0" promptText="Confirm Password" />
+                              <Button fx:id="btnSetPassword" layoutX="168.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Set Password" />
+                           </children></Pane>
                      </children>
                   </StackPane>
                </children>
             </Pane>
-            <Pane fx:id="paneEditUserInfo" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
+            <Pane fx:id="paneSearch" prefHeight="630.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
-                  <Text layoutX="282.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Your Profile Information">
+                  <Text layoutX="297.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="News Filter">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="txtFirstName" layoutX="426.0" layoutY="133.0" promptText="First Name" />
-                  <TextField fx:id="txtLastName" layoutX="426.0" layoutY="166.0" promptText="Last Name" />
-                  <TextField fx:id="txtEmail" layoutX="426.0" layoutY="202.0" promptText="Email" />
-                  <TextField fx:id="txtAge" layoutX="425.0" layoutY="239.0" promptText="Age" />
-                  <Text layoutX="201.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested Topics:" wrappingWidth="200.0">
+                  <TableView fx:id="tableFilterNews" layoutX="41.0" layoutY="207.0" prefHeight="558.0" prefWidth="1039.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnTitleF" prefWidth="515.3332939147949" text="Title" />
+                      <TableColumn fx:id="tableColumnCategoryF" prefWidth="268.00006103515625" text="Category" />
+                        <TableColumn fx:id="tableColumnDateF" prefWidth="254.66668701171875" text="Date" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnSearchArtical" layoutX="880.0" layoutY="57.0" mnemonicParsing="false" text="Search" />
+                  <Button fx:id="btnView" layoutX="1327.0" layoutY="745.0" mnemonicParsing="false" text="View" />
+               </children></Pane>
+            <Pane fx:id="paneRecommend" prefHeight="749.0" prefWidth="1598.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="214.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reccomendded For You">
                      <font>
-                        <Font name="Impact" size="24.0" />
+                        <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <CheckBox fx:id="checkBoxLifestyle" layoutX="257.0" layoutY="384.0" mnemonicParsing="false" text="Lifestyle" />
-                  <CheckBox fx:id="checkBoxInvestigative" layoutX="361.0" layoutY="382.0" mnemonicParsing="false" text="Investigative" />
-                  <CheckBox fx:id="checkBoxBusiness" layoutX="487.0" layoutY="380.0" mnemonicParsing="false" text="Business" />
-                  <CheckBox fx:id="checkBoxSports" layoutX="598.0" layoutY="380.0" mnemonicParsing="false" text="Sports" />
-                  <CheckBox fx:id="checkBoxScience" layoutX="703.0" layoutY="378.0" mnemonicParsing="false" text="Science" />
-                  <CheckBox fx:id="checkBoxEntertainment" layoutX="258.0" layoutY="431.0" mnemonicParsing="false" text="Entertaintment" />
-                  <CheckBox fx:id="checkBoxHealthcare" layoutX="387.0" layoutY="436.0" mnemonicParsing="false" text="Healthcare" />
-                  <CheckBox fx:id="checkBoxPolitics" layoutX="508.0" layoutY="432.0" mnemonicParsing="false" text="Politics" />
-                  <CheckBox fx:id="checkBoxEducation" layoutX="611.0" layoutY="430.0" mnemonicParsing="false" text="Education" />
-                  <CheckBox fx:id="checkBoxTechnology" layoutX="703.0" layoutY="427.0" mnemonicParsing="false" text="Tech" />
-                  <Button fx:id="btnConfirm" layoutX="814.0" layoutY="530.0" mnemonicParsing="false" onAction="#saveUserProfile" text="Confirm" />
-                  <Button fx:id="btnBack1" layoutX="223.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+                  <ScrollPane fx:id="paneScroll" layoutX="99.0" layoutY="87.0" prefHeight="696.0" prefWidth="1400.0">
+                     <content>
+                        <GridPane fx:id="paneGrid" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
          </children>

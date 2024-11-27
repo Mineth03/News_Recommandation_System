@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="221.0" prefWidth="203.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.ArticleBox">
+   <children>
+      <HBox layoutY="183.0" prefHeight="47.0" prefWidth="203.0">
+         <children>
+            <Label fx:id="labelCategory" prefHeight="70.0" prefWidth="155.0" text="Category" textAlignment="CENTER" />
+            <Label fx:id="labelDate" prefHeight="70.0" prefWidth="143.0" text="Date" textAlignment="CENTER" />
+         </children>
+      </HBox>
+      <VBox prefHeight="191.0" prefWidth="203.0">
+         <children>
+            <Label fx:id="labelHeading" prefHeight="192.0" prefWidth="203.0" text="Heading" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold Italic" size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

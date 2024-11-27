@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="article view scene">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/ArticleCategorizeModel.java" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="fix some errors">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/NewsFetcherJSON.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/DataSet/Dataset.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/MainPage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleBox.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,17 +49,21 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2oBWAnnHD56heFbuHudjr2zVYZa" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Application.Application.executor&quot;: &quot;Run&quot;,
     &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
     &quot;Application.NewsFetcher.executor&quot;: &quot;Run&quot;,
     &quot;Application.NewsFetcherCSV.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NewsFetcherJSON.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
@@ -152,6 +162,11 @@
       <workItem from="1732440347021" duration="3993000" />
       <workItem from="1732464421430" duration="1605000" />
       <workItem from="1732507322953" duration="577000" />
+      <workItem from="1732536603568" duration="832000" />
+      <workItem from="1732600449987" duration="1274000" />
+      <workItem from="1732626712157" duration="8676000" />
+      <workItem from="1732640936134" duration="10868000" />
+      <workItem from="1732696443134" duration="2214000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -233,13 +248,22 @@
       <option name="project" value="LOCAL" />
       <updated>1732285039750</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fix some errors">
+      <option name="closed" value="true" />
+      <created>1732536978064</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732536978064</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="First commit" />
     <MESSAGE value="login and signup design" />
     <MESSAGE value="basic navigation flow and user main interaction design." />
@@ -249,7 +273,8 @@
     <MESSAGE value="User management for admins" />
     <MESSAGE value="manage articles" />
     <MESSAGE value="article view scene" />
-    <option name="LAST_COMMIT_MESSAGE" value="article view scene" />
+    <MESSAGE value="fix some errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix some errors" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

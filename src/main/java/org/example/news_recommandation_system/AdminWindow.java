@@ -61,8 +61,6 @@ public class AdminWindow {
     @FXML
     private Button btnSetPassword;
     @FXML
-    private Button btnArticleManagement;
-    @FXML
     private Button btnBack2;
     @FXML
     private Button btnBack3;
@@ -139,8 +137,6 @@ public class AdminWindow {
     private Pane paneCheckPrevPassword;
     @FXML
     private Pane paneNewPassword;
-    @FXML
-    private Pane paneArticleManagement;
 
     @FXML
     private TableView<LoginRecord> tableLoginDetails;
@@ -236,18 +232,6 @@ public class AdminWindow {
         }
         if (actionEvent.getSource() == btnSetPassword) {
             updatePassword();
-        }
-        if (actionEvent.getSource() == btnArticleManagement) {
-            paneArticleManagement.toFront();
-        }
-        if (actionEvent.getSource() == btnAdd) {
-            paneArticleManagement.toFront();
-        }
-        if (actionEvent.getSource() == btnBack2) {
-            paneArticleManagement.toFront();
-        }
-        if (actionEvent.getSource() == btnBack3) {
-            paneArticleManagement.toFront();
         }
     }
 
@@ -852,5 +836,8 @@ public class AdminWindow {
         }
     }
 
-
+    @FXML
+    public void exit(ActionEvent event) {
+        Exit.showExitConfirmation(event);
+    }
 }

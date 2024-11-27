@@ -15,12 +15,45 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.AdminWindow">
+<AnchorPane prefHeight="900.0" prefWidth="1500.0" stylesheets="@../../../css/MainPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommandation_system.AdminWindow">
    <children>
-      <Button fx:id="btnManageUserRecords" layoutX="111.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Manage Users" />
-      <Button fx:id="btnProfile" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Your Profile" />
-      <StackPane layoutY="96.0" prefHeight="604.0" prefWidth="1000.0">
+      <Button fx:id="btnManageUserRecords" layoutX="600.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Manage Users" />
+      <Button fx:id="btnProfile" layoutX="450.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="111.0" text="Your Profile" />
+      <Button fx:id="btnDeleteR" layoutX="750.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
+      <Button fx:id="btnAddNewR" layoutX="900.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
+      <Button fx:id="btnClose" layoutX="1458.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: red;" text="X" />
+      <StackPane layoutY="96.0" prefHeight="805.0" prefWidth="1608.0">
          <children>
+            <Pane fx:id="paneDeleteR" prefHeight="805.0" prefWidth="1489.0" style="-fx-background-color: white;">
+               <children>
+                  <Text layoutX="378.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove Articles">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="tableRemoveArticles" layoutX="136.0" layoutY="214.0" prefHeight="415.0" prefWidth="1243.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnRemoveHeading" prefWidth="785.9999847412109" text="Heading" />
+                      <TableColumn fx:id="tableColumnRemoveCategory" prefWidth="237.33331298828125" text="Category" />
+                        <TableColumn fx:id="tableColumnRemoveDate" prefWidth="198.666748046875" text="Date" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnRemove" layoutX="1275.0" layoutY="718.0" mnemonicParsing="false" onAction="#deleteArticle" text="Remove Article" />
+                  <Button fx:id="btnBack3" layoutX="51.0" layoutY="728.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+                  <CheckBox fx:id="checkBoxTechnology" layoutX="288.0" layoutY="156.0" mnemonicParsing="false" text="Tech" />
+                  <CheckBox fx:id="checkBoxEducation" layoutX="401.0" layoutY="155.0" mnemonicParsing="false" text="Education" />
+                  <CheckBox fx:id="checkBoxPolitics" layoutX="270.0" layoutY="83.0" mnemonicParsing="false" text="Politics" />
+                  <CheckBox fx:id="checkBoxHealthcare" layoutX="417.0" layoutY="83.0" mnemonicParsing="false" text="Healthcare" />
+                  <CheckBox fx:id="checkBoxEntertainment" layoutX="565.0" layoutY="155.0" mnemonicParsing="false" text="Entertaintment" />
+                  <CheckBox fx:id="checkBoxScience" layoutX="595.0" layoutY="83.0" mnemonicParsing="false" text="Science" />
+                  <CheckBox fx:id="checkBoxSports" layoutX="760.0" layoutY="156.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox fx:id="checkBoxBusiness" layoutX="749.0" layoutY="83.0" mnemonicParsing="false" text="Business" />
+                  <CheckBox fx:id="checkBoxInvestigative" layoutX="881.0" layoutY="155.0" mnemonicParsing="false" text="Investigative" />
+                  <CheckBox fx:id="checkBoxLifestyle" layoutX="919.0" layoutY="83.0" mnemonicParsing="false" text="Lifestyle" />
+                  <Button fx:id="btnFilter" layoutX="1229.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleFilterAction" text="Filter" />
+                  <DatePicker fx:id="datePickerDelete" layoutX="1158.0" layoutY="78.0" />
+               </children>
+            </Pane>
             <Pane fx:id="paneEditAdminInfo" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="282.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Your Profile Information">
@@ -29,9 +62,9 @@
                      </font>
                   </Text>
                   <TextField fx:id="txtFirstName" layoutX="426.0" layoutY="133.0" promptText="First Name" />
-                  <TextField fx:id="txtLastName" layoutX="426.0" layoutY="166.0" promptText="Last Name" />
-                  <TextField fx:id="txtEmail" layoutX="426.0" layoutY="202.0" promptText="Email" />
-                  <TextField fx:id="txtAge" layoutX="425.0" layoutY="239.0" promptText="Age" />
+                  <TextField fx:id="txtLastName" layoutX="426.0" layoutY="198.0" promptText="Last Name" />
+                  <TextField fx:id="txtEmail" layoutX="426.0" layoutY="273.0" promptText="Email" />
+                  <TextField fx:id="txtAge" layoutX="426.0" layoutY="343.0" promptText="Age" />
                   <Button fx:id="btnConfirm" layoutX="814.0" layoutY="530.0" mnemonicParsing="false" onAction="#saveAdminProfile" text="Confirm" />
                   <Button fx:id="btnBack1" layoutX="223.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
                </children>
@@ -43,18 +76,18 @@
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <TableView fx:id="tableUserDetails" layoutX="156.0" layoutY="177.0" prefHeight="200.0" prefWidth="680.0">
+                  <TableView fx:id="tableUserDetails" layoutX="156.0" layoutY="177.0" prefHeight="459.0" prefWidth="1344.0">
                     <columns>
-                      <TableColumn fx:id="tableColumnUsername" prefWidth="75.0" text="Username" />
-                      <TableColumn fx:id="tableColumnName" prefWidth="111.99998474121094" text="Full Name" />
-                        <TableColumn fx:id="tableColumnEmail" prefWidth="92.0" text="Email" />
-                        <TableColumn fx:id="tableColumnAge" prefWidth="57.99993896484375" text="Age" />
-                        <TableColumn fx:id="tableColumnGender" prefWidth="68.66671752929688" text="Gender" />
-                        <TableColumn fx:id="tableColumnPreferences" prefWidth="274.66668701171875" text="Preferences" />
+                      <TableColumn fx:id="tableColumnUsername" prefWidth="135.3333282470703" text="Username" />
+                      <TableColumn fx:id="tableColumnName" prefWidth="231.33334350585938" text="Full Name" />
+                        <TableColumn fx:id="tableColumnEmail" prefWidth="204.66668701171875" text="Email" />
+                        <TableColumn fx:id="tableColumnAge" prefWidth="84.00003051757812" text="Age" />
+                        <TableColumn fx:id="tableColumnGender" prefWidth="139.3333740234375" text="Gender" />
+                        <TableColumn fx:id="tableColumnPreferences" prefWidth="529.333251953125" text="Preferences" />
                     </columns>
                   </TableView>
-                  <Button fx:id="btnViewUser" layoutX="755.0" layoutY="493.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="View User" />
-                  <Button fx:id="btnRemoveUser" layoutX="217.0" layoutY="493.0" mnemonicParsing="false" onAction="#removeSelectedUser" text="Remove User" />
+                  <Button fx:id="btnViewUser" layoutX="903.0" layoutY="707.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="View User" />
+                  <Button fx:id="btnRemoveUser" layoutX="132.0" layoutY="707.0" mnemonicParsing="false" onAction="#removeSelectedUser" text="Remove User" />
                </children>
             </Pane>
             <Pane fx:id="paneViewUserRecords" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
@@ -90,8 +123,19 @@
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <StackPane layoutX="289.0" layoutY="163.0" prefHeight="278.0" prefWidth="421.0">
+                  <StackPane layoutX="289.0" layoutY="163.0" prefHeight="278.0" prefWidth="625.0">
                      <children>
+                        <Pane fx:id="paneCheckPrevPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text layoutX="80.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Your Previous Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="btnPasswordConfirm" layoutX="185.0" layoutY="214.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Confirm" />
+                              <PasswordField fx:id="txtPrevPassword" layoutX="135.0" layoutY="114.0" promptText="Password" />
+                           </children>
+                        </Pane>
                         <Pane fx:id="paneNewPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                            <children>
                               <Text layoutX="102.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter The New Password">
@@ -104,25 +148,8 @@
                               <Button fx:id="btnSetPassword" layoutX="168.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Set Password" />
                            </children>
                         </Pane>
-                        <Pane fx:id="paneCheckPrevPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-                           <children>
-                              <Text layoutX="80.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Your Previous Password">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Text>
-                              <Button fx:id="btnPasswordConfirm" layoutX="185.0" layoutY="214.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Confirm" />
-                              <PasswordField fx:id="txtPrevPassword" layoutX="135.0" layoutY="114.0" promptText="Password" />
-                           </children>
-                        </Pane>
                      </children>
                   </StackPane>
-               </children>
-            </Pane>
-            <Pane fx:id="paneArticleManagement" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Button fx:id="btnAddNewR" layoutX="759.0" layoutY="517.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Add New Resorses" />
-                  <Button fx:id="btnDeleteR" layoutX="218.0" layoutY="512.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Delete Resorses" />
                </children>
             </Pane>
             <Pane fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
@@ -162,44 +189,13 @@
                      </font>
                   </Text>
                   <TextField fx:id="txtHeading" layoutX="407.0" layoutY="122.0" promptText="Heading" />
-                  <TextArea fx:id="txtArticleBody" layoutX="407.0" layoutY="230.0" prefHeight="200.0" prefWidth="200.0" promptText="Type Your Article Body Here" />
-                  <Button fx:id="btnAdd" layoutX="810.0" layoutY="538.0" mnemonicParsing="false" onAction="#addArticle" text="Add to the system" />
+                  <TextArea fx:id="txtArticleBody" layoutX="394.0" layoutY="310.0" prefHeight="200.0" prefWidth="421.0" promptText="Type Your Article Body Here" />
+                  <Button fx:id="btnAdd" layoutX="810.0" layoutY="538.0" mnemonicParsing="false" onAction="#addArticle" prefHeight="40.0" prefWidth="204.0" text="Add to the system" />
                   <Button fx:id="btnBack2" layoutX="86.0" layoutY="538.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
-                  <DatePicker fx:id="datePicker" layoutX="394.0" layoutY="180.0" promptText="Date" />
-               </children>
-            </Pane>
-            <Pane fx:id="paneDeleteR" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Text layoutX="378.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove Articles">
-                     <font>
-                        <Font name="System Bold" size="32.0" />
-                     </font>
-                  </Text>
-                  <TableView fx:id="tableRemoveArticles" layoutX="51.0" layoutY="217.0" prefHeight="260.0" prefWidth="899.0">
-                    <columns>
-                      <TableColumn fx:id="tableColumnRemoveHeading" prefWidth="671.3333854675293" text="Heading" />
-                      <TableColumn fx:id="tableColumnRemoveCategory" prefWidth="111.3333511352539" text="Category" />
-                        <TableColumn fx:id="tableColumnRemoveDate" prefWidth="115.3333740234375" text="Date" />
-                    </columns>
-                  </TableView>
-                  <Button fx:id="btnRemove" layoutX="778.0" layoutY="507.0" mnemonicParsing="false" onAction="#deleteArticle" text="Remove Article" />
-                  <Button fx:id="btnBack3" layoutX="118.0" layoutY="507.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
-                  <CheckBox fx:id="checkBoxTechnology" layoutX="105.0" layoutY="155.0" mnemonicParsing="false" text="Tech" />
-                  <CheckBox fx:id="checkBoxEducation" layoutX="91.0" layoutY="127.0" mnemonicParsing="false" text="Education" />
-                  <CheckBox fx:id="checkBoxPolitics" layoutX="172.0" layoutY="156.0" mnemonicParsing="false" text="Politics" />
-                  <CheckBox fx:id="checkBoxHealthcare" layoutX="180.0" layoutY="125.0" mnemonicParsing="false" text="Healthcare" />
-                  <CheckBox fx:id="checkBoxEntertainment" layoutX="261.0" layoutY="155.0" mnemonicParsing="false" text="Entertaintment" />
-                  <CheckBox fx:id="checkBoxScience" layoutX="273.0" layoutY="122.0" mnemonicParsing="false" text="Science" />
-                  <CheckBox fx:id="checkBoxSports" layoutX="371.0" layoutY="151.0" mnemonicParsing="false" text="Sports" />
-                  <CheckBox fx:id="checkBoxBusiness" layoutX="367.0" layoutY="129.0" mnemonicParsing="false" text="Business" />
-                  <CheckBox fx:id="checkBoxInvestigative" layoutX="452.0" layoutY="150.0" mnemonicParsing="false" text="Investigative" />
-                  <CheckBox fx:id="checkBoxLifestyle" layoutX="458.0" layoutY="128.0" mnemonicParsing="false" text="Lifestyle" />
-                  <Button fx:id="btnFilter" layoutX="757.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleFilterAction" text="Filter" />
-                  <DatePicker fx:id="datePickerDelete" layoutX="738.0" layoutY="117.0" />
+                  <DatePicker fx:id="datePicker" layoutX="394.0" layoutY="207.0" promptText="Date" />
                </children>
             </Pane>
          </children>
       </StackPane>
-      <Button fx:id="btnArticleManagement" layoutX="222.0" layoutY="71.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Manage Articles" />
    </children>
 </AnchorPane>

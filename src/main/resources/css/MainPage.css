@@ -1,0 +1,178 @@
+.button {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10 20; /* Padding for button size */
+    -fx-pref-width: 150px;
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: #333; /* Text color */
+    -fx-cursor: hand; /* Pointer on hover */
+    -fx-border-radius: 0;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #ddd; /* Light gray hover effect */
+    -fx-border-color: #bbb; /* Slightly darker border on hover */
+}
+
+/* Active button style */
+.button:pressed {
+    -fx-background-color: #007bff; /* Blue background when pressed */
+    -fx-text-fill: #fff; /* White text when pressed */
+    -fx-border-color: #0056b3; /* Darker blue border when pressed */
+}
+
+#btnClose {
+    -fx-background-color: #ba0236;
+    -fx-background-radius: 0;
+}
+#btnClose:hover {
+    -fx-background-color: #962a49;
+}
+#btnClose:pressed {
+    -fx-background-color: red;
+}
+
+.text-field {
+    -fx-background-color: #5a85a6;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+    -fx-prompt-text-fill: #dceaf5;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 50%;
+    -fx-text-alignment: center;
+}
+
+.check-box {
+    -fx-border-color: #4a90e2;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-text-fill: #333;
+    -fx-font-size: 20px;
+    -fx-font-family: Arial, sans-serif;
+}
+.check-box:selected {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.check-box:hover {
+    -fx-border-color: #357ABD;
+    -fx-background-color: #e0f2ff;
+}
+.check-box:focused {
+    -fx-border-color: #357ABD;
+    -fx-background-color: #e0f2ff;
+}
+.check-box > .text {
+    -fx-padding: 0 0 0 8px;
+}
+
+/* Style the TableView */
+.table-view {
+    -fx-background-color: #f9f9f9; /* Light gray background for the table */
+    -fx-border-color: #ddd; /* Light gray border */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-table-cell-border-color: #e0e0e0; /* Border color between cells */
+    -fx-padding: 10; /* Padding around the table */
+}
+
+/* Style the table headers */
+.table-view .column-header {
+    -fx-background-color: #007bff; /* Blue background for headers */
+    -fx-text-fill: white; /* White text in headers */
+    -fx-font-size: 17px; /* Font size for header text */
+    -fx-font-weight: bold; /* Bold font */
+    -fx-alignment: center; /* Center align text in headers */
+    -fx-border-color: transparent transparent #ccc transparent; /* Bottom border for headers */
+    -fx-padding: 8; /* Padding for headers */
+}
+
+/* Style rows */
+.table-view .cell {
+    -fx-font-size: 15px; /* Font size for table content */
+    -fx-text-fill: #333; /* Text color for table content */
+    -fx-alignment: center-left; /* Left-align text in cells */
+    -fx-padding: 8; /* Padding inside cells */
+    -fx-border-color: transparent; /* Remove cell border lines */
+}
+
+/* Row hover effect */
+.table-view .row-cell:hover {
+    -fx-background-color: #f1f1f1; /* Light gray background on hover */
+}
+
+/* Alternate row background (zebra striping) */
+.table-view .row-cell:odd {
+    -fx-background-color: #f9f9f9; /* Light gray background for odd rows */
+}
+
+.table-view .row-cell:even {
+    -fx-background-color: white; /* White background for even rows */
+}
+
+/* Selected row style */
+.table-view .row-cell:selected {
+    -fx-background-color: #007bff; /* Blue background for selected row */
+    -fx-text-fill: white; /* White text for selected row */
+}
+
+/* Table column resize handle */
+.table-view .column-resize-line {
+    -fx-stroke: #bbb; /* Light gray for column resizing line */
+    -fx-stroke-width: 2px; /* Line thickness */
+}
+
+.scroll-pane {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-padding: 5; /* Padding around the content */
+    -fx-background-radius: 10;
+}
+
+/* Remove the border around the ScrollPane */
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Transparent background for viewport */
+}
+
+/* Style the vertical scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent; /* Transparent scrollbar track */
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent; /* Transparent increment/decrement buttons */
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #154d8a; /* Blue scrollbar thumb */
+    -fx-border-color: #2e7082; /* Darker blue border around thumb */
+    -fx-border-radius: 5px; /* Rounded corners for thumb */
+    -fx-background-radius: 5px; /* Rounded corners for thumb */
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: transparent; /* Transparent scrollbar track */
+}
+
+.scroll-bar:horizontal .increment-button,
+.scroll-pane .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent; /* Transparent increment/decrement buttons */
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #154d8a; /* Blue scrollbar thumb */
+    -fx-border-color: #2e7082; /* Darker blue border around thumb */
+    -fx-border-radius: 5px; /* Rounded corners for thumb */
+    -fx-background-radius: 5px; /* Rounded corners for thumb */
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #2e7082; /* Darker blue on hover */
+}
+
+
+
+

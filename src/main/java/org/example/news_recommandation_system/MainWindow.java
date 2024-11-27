@@ -1,25 +1,27 @@
 package org.example.news_recommandation_system;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
+import com.mongodb.client.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import com.mongodb.*;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import org.bson.Document;
 import java.util.List;
@@ -77,6 +79,10 @@ public class MainWindow {
     private Pane paneCheckPrevPassword;
     @FXML
     private Pane paneNewPassword;
+    @FXML
+    private ScrollPane paneScroll;
+    @FXML
+    private GridPane paneGrid;
 
     @FXML
     private Label labelName;
@@ -173,6 +179,7 @@ public class MainWindow {
     public void initialize() {
         tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tableColumnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        loadAndDisplayArticles();
     }
 
     private MongoDatabase getDatabase() {
@@ -455,6 +462,78 @@ public class MainWindow {
             return false;
         }
         return true;
+    }
+
+    public List<Articles> fetchArticlesFromDatabase() {
+        List<Articles> articles = new ArrayList<>();
+        try {
+            // Connect to MongoDB
+            MongoDatabase database = getDatabase();
+            MongoCollection<Document> collection = database.getCollection("Articles");
+
+            // Retrieve all articles
+            MongoCursor<Document> cursor = collection.find().iterator();
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                String heading = doc.getString("heading");
+                String date = doc.getString("date");
+                String category = doc.getString("category");
+
+                articles.add(new Articles(heading, date, category));
+            }
+            cursor.close();
+
+            // Shuffle the list to display random articles
+            Collections.shuffle(articles);
+
+            // Limit the list to 20 articles
+            return articles.size() > 20 ? articles.subList(0, 20) : articles;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
+    public void loadAndDisplayArticles() {
+        List<Articles> articles = fetchArticlesFromDatabase(); // Fetch articles from MongoDB
+        displayRandomArticles(articles); // Populate the GridPane
+    }
+
+    public void displayRandomArticles(List<Articles> articles) {
+        paneGrid.getChildren().clear(); // Clear any existing articles
+
+        int columns = 5; // Set the number of articles per row
+        int row = 0, col = 1;
+
+        try {
+            for (Articles article : articles) {
+                // Load the article pane
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ArticleBox.fxml"));
+                AnchorPane articlePane = loader.load();
+
+                // Set the article data using the controller
+                ArticleBox controller = loader.getController();
+                controller.setArticleData(article.getHeading(), article.getDate(), article.getCategory());
+
+                // Add the article pane to the GridPane at the correct column and row
+                paneGrid.add(articlePane, col, row);
+
+                // Move to the next column
+                col++;
+
+                // If 4 articles are added in a row, move to the next row
+                if (col == columns) {
+                    col = 1; // Reset column to 0
+                    row++;   // Increment the row
+                }
+
+                // Optionally add margins for better spacing
+                GridPane.setMargin(articlePane, new Insets(40));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
