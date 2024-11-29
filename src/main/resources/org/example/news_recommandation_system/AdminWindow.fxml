@@ -188,11 +188,12 @@
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="txtHeading" layoutX="407.0" layoutY="122.0" promptText="Heading" />
-                  <TextArea fx:id="txtArticleBody" layoutX="394.0" layoutY="310.0" prefHeight="200.0" prefWidth="421.0" promptText="Type Your Article Body Here" />
-                  <Button fx:id="btnAdd" layoutX="810.0" layoutY="538.0" mnemonicParsing="false" onAction="#addArticle" prefHeight="40.0" prefWidth="204.0" text="Add to the system" />
-                  <Button fx:id="btnBack2" layoutX="86.0" layoutY="538.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+                  <TextField fx:id="txtHeading" layoutX="394.0" layoutY="122.0" promptText="Heading" />
+                  <TextArea fx:id="txtArticleBody" layoutX="394.0" layoutY="310.0" prefHeight="200.0" prefWidth="421.0" promptText="Short Description" wrapText="true" />
+                  <Button fx:id="btnAdd" layoutX="810.0" layoutY="665.0" mnemonicParsing="false" onAction="#addArticle" prefHeight="40.0" prefWidth="204.0" text="Add to the system" />
+                  <Button fx:id="btnBack2" layoutX="86.0" layoutY="665.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
                   <DatePicker fx:id="datePicker" layoutX="394.0" layoutY="207.0" promptText="Date" />
+                  <TextField fx:id="txtLink" layoutX="394.0" layoutY="543.0" promptText="Article URL" />
                </children>
             </Pane>
          </children>

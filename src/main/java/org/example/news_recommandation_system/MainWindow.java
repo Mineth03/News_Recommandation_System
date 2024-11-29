@@ -1,6 +1,7 @@
 package org.example.news_recommandation_system;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,11 +21,9 @@ import com.mongodb.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
+
 import org.bson.Document;
-import java.util.List;
 
 public class MainWindow {
 
@@ -179,7 +178,7 @@ public class MainWindow {
     public void initialize() {
         tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tableColumnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
-        loadAndDisplayArticles();
+        loadAndDisplayArticles(currentUsername);
     }
 
     private MongoDatabase getDatabase() {
@@ -464,30 +463,72 @@ public class MainWindow {
         return true;
     }
 
-    public List<Articles> fetchArticlesFromDatabase() {
+    public List<Articles> fetchArticlesBasedOnPoints(String username) {
         List<Articles> articles = new ArrayList<>();
         try {
             // Connect to MongoDB
             MongoDatabase database = getDatabase();
-            MongoCollection<Document> collection = database.getCollection("Articles");
+            MongoCollection<Document> articlesCollection = database.getCollection("Articles");
+            MongoCollection<Document> userPointsCollection = database.getCollection("User_Preferences");
 
-            // Retrieve all articles
-            MongoCursor<Document> cursor = collection.find().iterator();
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                String heading = doc.getString("heading");
-                String date = doc.getString("date");
-                String category = doc.getString("category");
-
-                articles.add(new Articles(heading, date, category));
+            // Retrieve the user's points document
+            Document userPointsDoc = userPointsCollection.find(Filters.eq("username", username)).first();
+            if (userPointsDoc == null) {
+                System.out.println("No points found for user: " + username);
+                return articles; // Return an empty list if no points are found
             }
-            cursor.close();
 
-            // Shuffle the list to display random articles
+            // Calculate the total points across all categories
+            Map<String, Integer> categoryPoints = new HashMap<>();
+            int totalPoints = 0;
+
+            for (String key : userPointsDoc.keySet()) {
+                if (!key.equals("_id") && !key.equals("username")) {
+                    int points = userPointsDoc.getInteger(key, 0);
+                    categoryPoints.put(key, points);
+                    totalPoints += points;
+                }
+            }
+
+            // If total points are zero, return empty list
+            if (totalPoints == 0) {
+                System.out.println("No points assigned to any category for user: " + username);
+                return articles;
+            }
+
+            // Calculate the proportional distribution of articles per category
+            Map<String, Integer> categoryArticleQuota = new HashMap<>();
+            int totalQuota = 20; // Number of articles to display
+            for (Map.Entry<String, Integer> entry : categoryPoints.entrySet()) {
+                int quota = Math.round((float) entry.getValue() / totalPoints * totalQuota);
+                categoryArticleQuota.put(entry.getKey(), quota);
+            }
+
+            // Retrieve and shuffle articles for each category
+            for (Map.Entry<String, Integer> entry : categoryArticleQuota.entrySet()) {
+                String category = entry.getKey();
+                int quota = entry.getValue();
+
+                if (quota > 0) {
+                    List<Document> categoryArticles = articlesCollection.find(Filters.eq("category", category))
+                            .into(new ArrayList<>());
+
+                    // Shuffle and limit the articles to the quota
+                    Collections.shuffle(categoryArticles);
+                    for (int i = 0; i < Math.min(quota, categoryArticles.size()); i++) {
+                        Document doc = categoryArticles.get(i);
+                        String heading = doc.getString("heading");
+                        String date = doc.getString("date");
+                        Articles article = new Articles(heading, date, category, categoryPoints.get(category));
+                        articles.add(article);
+                    }
+                }
+            }
+
+            // Shuffle the final list to mix categories
             Collections.shuffle(articles);
 
-            // Limit the list to 20 articles
-            return articles.size() > 20 ? articles.subList(0, 20) : articles;
+            return articles;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -495,13 +536,14 @@ public class MainWindow {
         return articles;
     }
 
-    public void loadAndDisplayArticles() {
-        List<Articles> articles = fetchArticlesFromDatabase(); // Fetch articles from MongoDB
-        displayRandomArticles(articles); // Populate the GridPane
+
+    public void loadAndDisplayArticles(String username) {
+        List<Articles> articles = fetchArticlesBasedOnPoints(username); // Fetch articles based on user points
+        displayArticles(articles); // Populate the GridPane
     }
 
-    public void displayRandomArticles(List<Articles> articles) {
-        paneGrid.getChildren().clear(); // Clear any existing articles
+    public void displayArticles(List<Articles> articles) {
+        paneGrid.getChildren().clear(); // Clear existing articles
 
         int columns = 5; // Set the number of articles per row
         int row = 0, col = 1;
@@ -522,9 +564,9 @@ public class MainWindow {
                 // Move to the next column
                 col++;
 
-                // If 4 articles are added in a row, move to the next row
+                // If 5 articles are added in a row, move to the next row
                 if (col == columns) {
-                    col = 1; // Reset column to 0
+                    col = 1; // Reset column to 1
                     row++;   // Increment the row
                 }
 

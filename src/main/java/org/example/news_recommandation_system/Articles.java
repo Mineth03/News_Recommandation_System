@@ -1,6 +1,5 @@
 package org.example.news_recommandation_system;
 
-import java.util.Date;
 
 public class Articles {
 
@@ -8,12 +7,22 @@ public class Articles {
     private String date;
     private String category;
     private String body;
+    private String url;
+
+    private int points;
 
     Articles(String heading, String date, String category, String body) {
         this.heading = heading;
         this.date = date;
         this.category = category;
         this.body = body;
+    }
+
+    public Articles(String heading, String date, String category, int points) {
+        this.heading = heading;
+        this.date = date;
+        this.category = category;
+        this.points = points;
     }
 
     Articles(String heading, String category, String date) {
@@ -52,5 +61,21 @@ public class Articles {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

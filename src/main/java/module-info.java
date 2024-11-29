@@ -8,6 +8,7 @@ module org.example.news_recommandation_system {
     requires com.google.gson;
     requires commons.csv;
     requires org.json;
+    requires java.desktop;
 
 
     opens org.example.news_recommandation_system to javafx.fxml;

@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="fix some errors">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/NewsFetcherJSON.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/DataSet/Dataset.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/MainPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleBox.fxml" afterDir="false" />
+    <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="point system">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/ArticleBox.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/AdminWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/ArticleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Articles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/NewsFetcherJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommandation_system/NewsFetcher/NewsFetcherJSON.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/AdminWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/MainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleBox.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommandation_system/ArticleView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -167,6 +167,9 @@
       <workItem from="1732626712157" duration="8676000" />
       <workItem from="1732640936134" duration="10868000" />
       <workItem from="1732696443134" duration="2214000" />
+      <workItem from="1732715303639" duration="7851000" />
+      <workItem from="1732801464031" duration="4579000" />
+      <workItem from="1732808251142" duration="2664000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -256,7 +259,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732536978064</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="point system">
+      <option name="closed" value="true" />
+      <created>1732715355160</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732715355160</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +285,8 @@
     <MESSAGE value="manage articles" />
     <MESSAGE value="article view scene" />
     <MESSAGE value="fix some errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix some errors" />
+    <MESSAGE value="point system" />
+    <option name="LAST_COMMIT_MESSAGE" value="point system" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

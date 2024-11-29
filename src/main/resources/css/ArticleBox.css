@@ -1,0 +1,23 @@
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.button:pressed {
+    -fx-background-color: #2e7082;
+}
+
+
+#pane {
+    -fx-background-color: yellow;
+}

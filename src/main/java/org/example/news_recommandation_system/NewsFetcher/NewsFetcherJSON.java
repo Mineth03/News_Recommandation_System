@@ -67,6 +67,7 @@ public class NewsFetcherJSON {
             String heading = record.optString("headline", "Unknown");
             String article = record.optString("short_description", "");
             String date = record.optString("date", "Unknown");
+            String link = record.optString("link", "Unknown");
 
             // Categorize the article using the ArticleCategorizer class
             String category = categorizer.categorizeArticle(article);
@@ -77,7 +78,8 @@ public class NewsFetcherJSON {
                 Document document = new Document("heading", heading)
                         .append("article", article)
                         .append("category", category)
-                        .append("date", date);
+                        .append("date", date)
+                        .append("url", link);
 
                 collection.insertOne(document);
             }

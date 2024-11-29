@@ -20,6 +20,7 @@ import org.bson.Document;
 import org.example.news_recommandation_system.NewsFetcher.ArticleCategorizer;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -111,6 +112,8 @@ public class AdminWindow {
     private TextField txtNewPasswordConfirm;
     @FXML
     private TextField txtHeading;
+    @FXML
+    private TextField txtLink;
     @FXML
     private TextArea txtArticleBody;
 
@@ -642,13 +645,21 @@ public class AdminWindow {
 
     @FXML
     public void addArticle(ActionEvent event) {
-        String heading = txtHeading.getText().trim();
-        String body = txtArticleBody.getText().trim();
+        String heading = txtHeading.getText();
+        String body = txtArticleBody.getText();
+        String link = txtLink.getText();
         LocalDate dateInput = datePicker.getValue();
 
         // Validation checks
-        if (heading.isEmpty() || body.isEmpty() || dateInput == null) {
+        if (heading.isEmpty() || body.isEmpty() || link.isEmpty() || dateInput == null) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
+            return;
+        }
+
+        try {
+            new URL(link).toURI(); // Check if the link is a valid URL
+        } catch (Exception e) {
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "Validation Error", "Please provide a valid URL!");
             return;
         }
 
@@ -667,13 +678,16 @@ public class AdminWindow {
             Document doc = new Document("heading", heading)
                     .append("article", body)
                     .append("category", category)
-                    .append("date", new SimpleDateFormat("MM/dd/yyyy").format(date));
+                    .append("date", new SimpleDateFormat("MM/dd/yyyy").format(date))
+                    .append("url", link);
 
             collection.insertOne(doc);
 
             AlertHelper.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
             txtHeading.clear();
             txtArticleBody.clear();
+            txtLink.clear();
+            datePicker.setValue(null);
         } catch (Exception ex) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred: " + ex.getMessage());
         }
@@ -776,7 +790,6 @@ public class AdminWindow {
             showAlert("No articles found for the selected filters.");
         }
     }
-
 
 
     @FXML
