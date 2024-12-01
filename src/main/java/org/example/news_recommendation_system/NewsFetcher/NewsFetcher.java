@@ -8,6 +8,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.example.news_recommendation_system.Service.ArticleCategorizer;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;

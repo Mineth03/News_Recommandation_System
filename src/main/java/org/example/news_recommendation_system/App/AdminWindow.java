@@ -20,7 +20,7 @@ import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 import org.example.news_recommendation_system.Model.Articles;
 import org.example.news_recommendation_system.Model.LoginRecord;
 import org.example.news_recommendation_system.Model.User;
-import org.example.news_recommendation_system.NewsFetcher.ArticleCategorizer;
+import org.example.news_recommendation_system.Service.ArticleCategorizer;
 import org.example.news_recommendation_system.Service.ExitAndAlerts;
 
 import java.io.IOException;

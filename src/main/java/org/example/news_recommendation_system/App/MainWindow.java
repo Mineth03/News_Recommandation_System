@@ -645,7 +645,7 @@ public class MainWindow {
             );
 
             // Load the ArticleView FXML and set the article details
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ArticleView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/ArticleView.fxml"));
             AnchorPane articleViewPane = loader.load();
 
             // Get the controller of ArticleView

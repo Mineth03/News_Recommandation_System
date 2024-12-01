@@ -1,4 +1,4 @@
-package org.example.news_recommendation_system.NewsFetcher;
+package org.example.news_recommendation_system.Service;
 
 import java.util.HashMap;
 import java.util.List;
