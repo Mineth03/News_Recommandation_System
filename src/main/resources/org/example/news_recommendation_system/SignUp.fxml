@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1000.0" stylesheets="@../../../css/SignUpPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation_system.App.SignUp">
+   <children>
+      <Pane fx:id="paneImage" prefHeight="900.0" prefWidth="1000.0">
+         <children>
+            <Pane fx:id="paneStack" layoutX="176.0" layoutY="15.0" prefHeight="870.0" prefWidth="648.0" />
+            <Pane fx:id="paneRecords" layoutX="210.0" layoutY="23.0" prefHeight="854.0" prefWidth="580.0">
+               <children>
+                  <TextField fx:id="txtAge" layoutX="68.0" layoutY="254.0" prefHeight="50.0" prefWidth="114.0" promptText="Age" />
+                  <Text layoutX="53.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interested Topics:" wrappingWidth="200.0">
+                     <font>
+                        <Font name="Impact" size="24.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="txtFName" layoutX="64.0" layoutY="116.0" prefHeight="50.0" prefWidth="200.0" promptText="First name" />
+                  <Text layoutX="197.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register Now">
+                     <font>
+                        <Font name="Impact" size="35.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnBack" layoutX="14.0" layoutY="791.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="Back" />
+                  <TextField fx:id="txtEmail" layoutX="64.0" layoutY="186.0" prefHeight="51.0" prefWidth="444.0" promptText="Email" />
+                  <Button fx:id="btnSignup" layoutX="452.0" layoutY="791.0" mnemonicParsing="false" onAction="#handleSignupButtonClick" text="Sign-up" />
+                  <TextField fx:id="txtLName" layoutX="311.0" layoutY="116.0" prefHeight="50.0" prefWidth="200.0" promptText="Last Name" />
+                  <TextField fx:id="txtUsername" layoutX="139.0" layoutY="584.0" prefHeight="50.0" promptText="Username" />
+                  <CheckBox fx:id="checkBoxTechnology" layoutX="57.0" layoutY="395.0" mnemonicParsing="false" text="Tech" />
+                  <CheckBox fx:id="checkBoxEducation" layoutX="382.0" layoutY="450.0" mnemonicParsing="false" text="Education" />
+                  <CheckBox fx:id="checkBoxPolitics" layoutX="277.0" layoutY="395.0" mnemonicParsing="false" text="Politics" />
+                  <CheckBox fx:id="checkBoxHealthcare" layoutX="374.0" layoutY="503.0" mnemonicParsing="false" text="Healthcare" />
+                  <CheckBox fx:id="checkBoxEntertainment" layoutX="191.0" layoutY="450.0" mnemonicParsing="false" text="Entertaintment" />
+                  <CheckBox fx:id="checkBoxScience" layoutX="400.0" layoutY="395.0" mnemonicParsing="false" text="Science" />
+                  <CheckBox fx:id="checkBoxSports" layoutX="161.0" layoutY="395.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox fx:id="checkBoxBusiness" layoutX="229.0" layoutY="503.0" mnemonicParsing="false" text="Business" />
+                  <CheckBox fx:id="checkBoxInvestigative" layoutX="54.0" layoutY="503.0" mnemonicParsing="false" text="Investigative" />
+                  <CheckBox fx:id="checkBoxLifestyle" layoutX="56.0" layoutY="450.0" mnemonicParsing="false" text="Lifestyle" />
+                  <ChoiceBox fx:id="ChoiceBoxGender" layoutX="255.0" layoutY="254.0" maxHeight="70.0" prefHeight="50.0" prefWidth="221.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Gender" />
+                           <String fx:value="Male" />
+                           <String fx:value="Female" />
+                           <String fx:value="Other" />
+                        </FXCollections>
+                     </items>
+                  </ChoiceBox>
+                  <PasswordField fx:id="txtPassword" layoutX="139.0" layoutY="651.0" promptText="Password" />
+                  <PasswordField fx:id="txtCPassword" layoutX="138.0" layoutY="719.0" promptText="Confirm Password" />
+               </children>
+            </Pane>
+            <Button fx:id="btnClose" layoutX="947.0" layoutY="-2.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="40.0" text="X" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

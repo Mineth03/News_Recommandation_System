@@ -3,8 +3,6 @@
     -fx-text-fill: white;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-padding: 8 20;
-    -fx-background-radius: 10;
     -fx-cursor: hand;
 }
 
@@ -14,10 +12,12 @@
 }
 
 .button:pressed {
-    -fx-background-color: #2e7082;
 }
 
 
-#pane {
-    -fx-background-color: yellow;
+#paneBox {
+    -fx-background-color: white;
+    -fx-border-color: blue;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
 }

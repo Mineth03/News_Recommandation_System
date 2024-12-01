@@ -11,6 +11,9 @@ module org.example.news_recommandation_system {
     requires java.desktop;
 
 
-    opens org.example.news_recommandation_system to javafx.fxml;
-    exports org.example.news_recommandation_system;
+    opens org.example.news_recommendation_system to javafx.fxml;
+    exports org.example.news_recommendation_system.Model;
+    opens org.example.news_recommendation_system.Model to javafx.fxml;
+    exports org.example.news_recommendation_system.App;
+    opens org.example.news_recommendation_system.App to javafx.fxml;
 }

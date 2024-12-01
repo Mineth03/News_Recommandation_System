@@ -1,7 +1,6 @@
-.button {
+#btnNav {
     -fx-background-color: #ffffff;
     -fx-padding: 10 20; /* Padding for button size */
-    -fx-pref-width: 150px;
     -fx-font-size: 14px; /* Font size */
     -fx-text-fill: #333; /* Text color */
     -fx-cursor: hand; /* Pointer on hover */
@@ -9,13 +8,13 @@
 }
 
 /* Hover effect for buttons */
-.button:hover {
+#btnNav:hover {
     -fx-background-color: #ddd; /* Light gray hover effect */
     -fx-border-color: #bbb; /* Slightly darker border on hover */
 }
 
 /* Active button style */
-.button:pressed {
+#btnNav:pressed {
     -fx-background-color: #007bff; /* Blue background when pressed */
     -fx-text-fill: #fff; /* White text when pressed */
     -fx-border-color: #0056b3; /* Darker blue border when pressed */
@@ -74,7 +73,8 @@
 .table-view {
     -fx-background-color: #f9f9f9; /* Light gray background for the table */
     -fx-border-color: #ddd; /* Light gray border */
-    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-border-radius: 20; /* Rounded corners */
+    -fx-background-radius: 20;
     -fx-table-cell-border-color: #e0e0e0; /* Border color between cells */
     -fx-padding: 10; /* Padding around the table */
 }
@@ -173,6 +173,15 @@
     -fx-background-color: #2e7082; /* Darker blue on hover */
 }
 
+#pane {
+    -fx-background-image: url("BackgroundImage6.jpg");
+    -fx-background-size: cover;
+}
 
+#paneBox {
+    -fx-background-radius: 20;
+}
 
-
+#ribbon {
+    -fx-background-color: #2e7082;
+}

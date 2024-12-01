@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1500.0" stylesheets="@../../../css/MainPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation_system.App.AdminWindow">
+   <children>
+      <Button id="btnNav" fx:id="btnManageUserRecords" layoutX="579.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="150.0" text="Manage Users" />
+      <Button id="btnNav" fx:id="btnProfile" layoutX="429.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="150.0" text="Your Profile" />
+      <Button id="btnNav" fx:id="btnDeleteR" layoutX="729.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="150.0" text="Delete Resorses" />
+      <Button id="btnNav" fx:id="btnAddNewR" layoutX="879.0" layoutY="56.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="25.0" prefWidth="150.0" text="Add New Articles" />
+      <Button fx:id="btnClose" layoutX="1458.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: red;" text="X" />
+      <Button id="btnNav" fx:id="btnLogout" layoutX="1029.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="25.0" prefWidth="150.0" text="Log-Out" />
+      <StackPane layoutY="96.0" prefHeight="805.0" prefWidth="1608.0">
+         <children>
+            <Pane id="pane" fx:id="paneProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="707.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MY PROFILE">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TableView fx:id="tableLoginDetails" layoutX="914.0" layoutY="102.0" prefHeight="585.0" prefWidth="602.0">
+                     <columns>
+                        <TableColumn fx:id="tableColumnDate" prefWidth="311.9999542236328" text="Date" />
+                        <TableColumn fx:id="tableColumnTime" prefWidth="283.3333740234375" text="Time" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="931.0" layoutY="78.0" text="Login Details" />
+                  <Button fx:id="btnEditProfile" layoutX="70.0" layoutY="679.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Edit Profile" />
+                  <Button fx:id="btnChangePassword" layoutX="277.0" layoutY="679.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Change Password" />
+                  <Pane id="paneBox" layoutX="134.0" layoutY="121.0" prefHeight="528.0" prefWidth="488.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label layoutX="12.0" layoutY="28.0" text="Full Name">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="12.0" layoutY="63.0" text="Age">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="12.0" layoutY="97.0" text="Gender">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="132.0" text="Email">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelName" layoutX="238.0" layoutY="29.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelAge" layoutX="238.0" layoutY="64.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelGender" layoutX="238.0" layoutY="98.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelEmail" layoutX="238.0" layoutY="133.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="160.0" text="Admin ID">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelAdminId" layoutX="238.0" layoutY="160.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane id="pane" fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="646.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD NEW ARTICLES">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TextField fx:id="txtHeading" layoutX="394.0" layoutY="122.0" promptText="Heading" />
+                  <TextArea fx:id="txtArticleBody" layoutX="394.0" layoutY="310.0" prefHeight="200.0" prefWidth="421.0" promptText="Short Description" wrapText="true" />
+                  <Button fx:id="btnAdd" layoutX="810.0" layoutY="665.0" mnemonicParsing="false" onAction="#addArticle" prefHeight="40.0" prefWidth="204.0" text="Add to the system" />
+                  <Button fx:id="btnBack2" layoutX="86.0" layoutY="665.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+                  <DatePicker fx:id="datePicker" layoutX="394.0" layoutY="207.0" promptText="Date" />
+                  <TextField fx:id="txtLink" layoutX="394.0" layoutY="543.0" promptText="Article URL" />
+               </children>
+            </Pane>
+            <Pane id="pane" fx:id="paneChangePassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="639.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CHANGE PASSWORD">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <StackPane layoutX="289.0" layoutY="163.0" prefHeight="278.0" prefWidth="625.0">
+                     <children>
+                        <Pane fx:id="paneCheckPrevPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text layoutX="80.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Your Previous Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="btnPasswordConfirm" layoutX="185.0" layoutY="214.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Confirm" />
+                              <PasswordField fx:id="txtPrevPassword" layoutX="135.0" layoutY="114.0" promptText="Password" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneNewPassword" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text layoutX="102.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter The New Password">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="txtNewPassword" layoutX="136.0" layoutY="75.0" promptText="New Password" />
+                              <TextField fx:id="txtNewPasswordConfirm" layoutX="136.0" layoutY="127.0" promptText="Confirm Password" />
+                              <Button fx:id="btnSetPassword" layoutX="168.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Set Password" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+               </children>
+            </Pane>
+            <Pane id="pane" fx:id="paneManageUserRecords" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="676.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGE USERS">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TableView fx:id="tableUserDetails" layoutX="156.0" layoutY="177.0" prefHeight="459.0" prefWidth="1344.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnUsername" prefWidth="135.3333282470703" text="Username" />
+                      <TableColumn fx:id="tableColumnName" prefWidth="231.33334350585938" text="Full Name" />
+                        <TableColumn fx:id="tableColumnEmail" prefWidth="204.66668701171875" text="Email" />
+                        <TableColumn fx:id="tableColumnAge" prefWidth="84.00003051757812" text="Age" />
+                        <TableColumn fx:id="tableColumnGender" prefWidth="139.3333740234375" text="Gender" />
+                        <TableColumn fx:id="tableColumnPreferences" prefWidth="529.333251953125" text="Preferences" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnViewUser" layoutX="903.0" layoutY="707.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="View User" />
+                  <Button fx:id="btnRemoveUser" layoutX="132.0" layoutY="707.0" mnemonicParsing="false" onAction="#removeSelectedUser" text="Remove User" />
+               </children>
+            </Pane>
+            <Pane id="pane" fx:id="paneEditAdminInfo" prefHeight="700.0" prefWidth="840.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="579.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EDIT PROFILE INFORMATION">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TextField fx:id="txtFirstName" layoutX="426.0" layoutY="133.0" promptText="First Name" />
+                  <TextField fx:id="txtLastName" layoutX="426.0" layoutY="198.0" promptText="Last Name" />
+                  <TextField fx:id="txtEmail" layoutX="426.0" layoutY="273.0" promptText="Email" />
+                  <TextField fx:id="txtAge" layoutX="426.0" layoutY="343.0" promptText="Age" />
+                  <Button fx:id="btnConfirm" layoutX="814.0" layoutY="530.0" mnemonicParsing="false" onAction="#saveAdminProfile" text="Confirm" />
+                  <Button fx:id="btnBack1" layoutX="223.0" layoutY="530.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+               </children>
+            </Pane>
+            <Pane id="pane" fx:id="paneDeleteR" prefHeight="805.0" prefWidth="1489.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="657.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REMOVE ARTICLES">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TableView fx:id="tableRemoveArticles" layoutX="136.0" layoutY="214.0" prefHeight="415.0" prefWidth="1243.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnRemoveHeading" prefWidth="785.9999847412109" text="Heading" />
+                      <TableColumn fx:id="tableColumnRemoveCategory" prefWidth="237.33331298828125" text="Category" />
+                        <TableColumn fx:id="tableColumnRemoveDate" prefWidth="198.666748046875" text="Date" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnRemove" layoutX="1275.0" layoutY="718.0" mnemonicParsing="false" onAction="#deleteArticle" text="Remove Article" />
+                  <Button fx:id="btnBack3" layoutX="51.0" layoutY="728.0" mnemonicParsing="false" onAction="#buttonClicksConfig" text="Back" />
+                  <CheckBox fx:id="checkBoxTechnology" layoutX="288.0" layoutY="156.0" mnemonicParsing="false" text="Tech" />
+                  <CheckBox fx:id="checkBoxEducation" layoutX="401.0" layoutY="155.0" mnemonicParsing="false" text="Education" />
+                  <CheckBox fx:id="checkBoxPolitics" layoutX="270.0" layoutY="83.0" mnemonicParsing="false" text="Politics" />
+                  <CheckBox fx:id="checkBoxHealthcare" layoutX="417.0" layoutY="83.0" mnemonicParsing="false" text="Healthcare" />
+                  <CheckBox fx:id="checkBoxEntertainment" layoutX="565.0" layoutY="155.0" mnemonicParsing="false" text="Entertaintment" />
+                  <CheckBox fx:id="checkBoxScience" layoutX="595.0" layoutY="83.0" mnemonicParsing="false" text="Science" />
+                  <CheckBox fx:id="checkBoxSports" layoutX="760.0" layoutY="156.0" mnemonicParsing="false" text="Sports" />
+                  <CheckBox fx:id="checkBoxBusiness" layoutX="749.0" layoutY="83.0" mnemonicParsing="false" text="Business" />
+                  <CheckBox fx:id="checkBoxInvestigative" layoutX="881.0" layoutY="155.0" mnemonicParsing="false" text="Investigative" />
+                  <CheckBox fx:id="checkBoxLifestyle" layoutX="919.0" layoutY="83.0" mnemonicParsing="false" text="Lifestyle" />
+                  <Button fx:id="btnFilter" layoutX="1229.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleFilterAction" text="Filter" />
+                  <DatePicker fx:id="datePickerDelete" layoutX="1158.0" layoutY="78.0" />
+               </children>
+            </Pane>
+            <Pane id="pane" fx:id="paneViewUserRecords" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="692.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USER DETAILS">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TableView fx:id="tableLoginDetailsUser" layoutX="779.0" layoutY="226.0" prefHeight="447.0" prefWidth="594.0">
+                     <columns>
+                        <TableColumn fx:id="tableColumnDateUser" prefWidth="296.00001525878906" text="Date" />
+                        <TableColumn fx:id="tableColumnTimeUser" prefWidth="297.3333435058594" text="Time" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="799.0" layoutY="205.0" text="Login Details" />
+                  <Pane id="paneBox" layoutX="151.0" layoutY="170.0" prefHeight="528.0" prefWidth="488.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label layoutX="12.0" layoutY="28.0" text="Full Name">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="12.0" layoutY="63.0" text="Age">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="12.0" layoutY="97.0" text="Gender">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="132.0" text="Email">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="165.0" text="Prefferences">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelNameUser" layoutX="238.0" layoutY="29.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelAgeUser" layoutX="238.0" layoutY="64.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelGenderUser" layoutX="238.0" layoutY="98.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelEmailUser" layoutX="238.0" layoutY="133.0" text="Label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="LabelPreferences" alignment="TOP_LEFT" layoutX="238.0" layoutY="166.0" prefHeight="254.0" prefWidth="162.0" text="Label" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
