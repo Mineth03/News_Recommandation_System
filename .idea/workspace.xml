@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="enhance the code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/LogIn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/MainService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/css/Back.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/AdminWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/ArticleCategorizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/ArticleCategorizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcherCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcherCSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcherJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcherJSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LogInPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LogInPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LoginPageAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LoginPageAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/ExitAndAlerts.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/RecommendationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/RecommendationEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/MainPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/MainPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/MainWindow.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +182,8 @@
       <workItem from="1732942501082" duration="5667000" />
       <workItem from="1732970333937" duration="9673000" />
       <workItem from="1733031502136" duration="11415000" />
-      <workItem from="1733057783162" duration="10304000" />
+      <workItem from="1733057783162" duration="11693000" />
+      <workItem from="1733114782245" duration="21348000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -287,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733065448033</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="enhance the code">
+      <option name="closed" value="true" />
+      <created>1733078445775</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733078445775</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

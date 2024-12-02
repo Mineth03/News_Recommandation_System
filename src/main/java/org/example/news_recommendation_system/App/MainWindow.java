@@ -16,18 +16,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import org.bson.Document;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 import org.example.news_recommendation_system.Model.Articles;
 import org.example.news_recommendation_system.Model.LoginRecord;
-import org.example.news_recommendation_system.Service.ExitAndAlerts;
 import org.example.news_recommendation_system.Service.RecommendationEngine;
-
-import static com.mongodb.client.model.Filters.eq;
+import org.example.news_recommendation_system.Service.MainService;
 
 public class MainWindow {
 
@@ -53,6 +48,10 @@ public class MainWindow {
     private Button btnChangePassword;
     @FXML
     private Button btnBack1;
+    @FXML
+    private Button btnBack3;
+    @FXML
+    private Button btnBack4;
     @FXML
     private Button btnConfirm;
     @FXML
@@ -84,8 +83,6 @@ public class MainWindow {
     private Pane paneCheckPrevPassword;
     @FXML
     private Pane paneNewPassword;
-    @FXML
-    private ScrollPane paneScroll;
     @FXML
     private GridPane paneGrid;
 
@@ -150,6 +147,7 @@ public class MainWindow {
     private final MongoDBConnection mongoDBConnection;
 
     private final RecommendationEngine recommendationEngine;
+    private MainService mainService;
 
     public static void setCurrentUsername(String username) {
         currentUsername = username;
@@ -191,8 +189,22 @@ public class MainWindow {
         if (actionEvent.getSource() == btnBack1) {
             paneProfile.toFront();
         }
+        if (actionEvent.getSource() == btnBack3) {
+            txtPrevPassword.clear();
+            paneProfile.toFront();
+        }
+        if (actionEvent.getSource() == btnBack4) {
+            txtNewPassword.clear();
+            txtNewPasswordConfirm.clear();
+            txtPrevPassword.clear();
+            paneCheckPrevPassword.toFront();
+        }
         if (actionEvent.getSource() == btnChangePassword) {
+            txtNewPassword.clear();
+            txtNewPasswordConfirm.clear();
+            txtPrevPassword.clear();
             paneChangePassword.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnPasswordConfirm) {
             if (!checkCurrentPassword()){
@@ -217,17 +229,19 @@ public class MainWindow {
 
     @FXML
     public void initialize() {
+        mainService = new MainService(mongoDBConnection.getDatabase());
+
         tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tableColumnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+
         loadAndDisplayArticles(currentUsername);
         loadArticles();
 
-        // Initialize columns for the saved articles table
+        //saved articles table
         tableColumnTitleS.setCellValueFactory(new PropertyValueFactory<>("heading"));
         tableColumnCategoryS.setCellValueFactory(new PropertyValueFactory<>("category"));
         tableColumnDateS.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
-
 
     @FXML
     private void updateUserDetails() {
@@ -259,28 +273,7 @@ public class MainWindow {
     }
 
     private void displayLoginHistory() {
-        ObservableList<LoginRecord> loginHistory = FXCollections.observableArrayList();
-
-
-        MongoCollection<Document> loginLogCollection = mongoDBConnection.getCollection("User_Login_Log");
-
-        Document query = new Document("Username", currentUsername);
-        for (Document logEntry : loginLogCollection.find(query)) {
-            String loginDateTime = logEntry.getString("Login_time");
-
-            LocalDateTime dateTime = LocalDateTime.parse(loginDateTime);
-            String date = dateTime.toLocalDate().toString();
-            String time = dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-
-            loginHistory.add(new LoginRecord(date, time));
-        }
-
-        loginHistory.sort((record1, record2) -> {
-            LocalDateTime dateTime1 = LocalDateTime.parse(record1.getDate() + "T" + record1.getTime());
-            LocalDateTime dateTime2 = LocalDateTime.parse(record2.getDate() + "T" + record2.getTime());
-            return dateTime2.compareTo(dateTime1);
-        });
-
+        ObservableList<LoginRecord> loginHistory = mainService.getLoginHistory(currentUsername);
         tableLoginDetails.setItems(loginHistory);
     }
 
@@ -337,62 +330,23 @@ public class MainWindow {
         String email = txtEmail.getText().trim();
         String ageText = txtAge.getText().trim();
 
-        // Concatenate names and capitalize
-        String fullName = capitalizeFirstLetter(firstName) + " " + capitalizeFirstLetter(lastName);
+        String fullName = MainService.capitalizeFirstLetter(firstName) + " " + MainService.capitalizeFirstLetter(lastName);
 
         // Validate inputs
-        if (!validateProfileInputs(firstName, lastName, email, ageText)) {
+        if (!MainService.validateProfileInputs(firstName, lastName, email, ageText)) {
             return;
         }
 
         int age = Integer.parseInt(ageText);
-
         // Collect preferences
         List<String> selectedPreferences = getSelectedPreferences();
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
-
-        Document query = new Document("username", currentUsername);
-        Document updatedData = new Document("name", fullName)
-                .append("age", age)
-                .append("email", email)
-                .append("Preferences", selectedPreferences);
-
-        Document updateOperation = new Document("$set", updatedData);
-        collection.updateOne(query, updateOperation);
-
-        ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, null, "Profile updated successfully.");
-
+        // Update user profile using MainService
+        mainService.updateUserProfile(currentUsername, fullName, age, email, selectedPreferences);
+        MainService.showAlert(Alert.AlertType.INFORMATION, null, "Profile updated successfully.");
         updateUserDetails();
         paneProfile.toFront();
     }
 
-    private boolean validateProfileInputs(String firstName, String lastName, String email, String ageText) {
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || ageText.isEmpty()) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "All fields are required.");
-            return false;
-        }
-        try {
-            int age = Integer.parseInt(ageText);
-            if (age < 14 || age > 100) {
-                ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Age should be between 14 and 100.");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Age should be a valid number.");
-            return false;
-        }
-        if (!txtEmail.getText().matches("[^@]+@[^.]+\\..+")) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Invalid email format.");
-            return false;
-        }
-        return true;
-    }
-
-    private String capitalizeFirstLetter(String name) {
-        if (name.isEmpty()) return "";
-        return Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
-    }
 
     private List<String> getSelectedPreferences() {
         List<String> preferences = new ArrayList<>();
@@ -414,27 +368,18 @@ public class MainWindow {
         String currentPassword = txtPrevPassword.getText().trim();
 
         if (currentPassword.isEmpty()) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Current password is required.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Current password is required.");
             return false;
         }
-
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
-
-        Document query = new Document("username", currentUsername);
-        Document userDocument = collection.find(query).first();
-
-        if (userDocument != null) {
-            String storedPassword = userDocument.getString("password");
-            if (storedPassword != null && storedPassword.equals(currentPassword)) {
-                paneNewPassword.toFront();
-                return true;
-            } else {
-                ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Incorrect current password.");
-                return false;
-            }
+        if (!mainService.isUserExist(currentUsername)) {
+            MainService.showAlert(Alert.AlertType.ERROR, null, "User not found in the database.");
+            return false;
+        }
+        if (mainService.verifyCurrentPassword(currentUsername, currentPassword)) {
+            paneNewPassword.toFront();
+            return true;
         } else {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "User not found in the database.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Incorrect current password.");
             return false;
         }
     }
@@ -444,40 +389,22 @@ public class MainWindow {
         String newPassword = txtNewPassword.getText().trim();
         String confirmPassword = txtNewPasswordConfirm.getText().trim();
 
-        if (!validatePassword(newPassword)) {
+        if (!mainService.validatePassword(newPassword)) {
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Password must be at least 5 characters long and contain both letters and numbers.");
             return;
         }
-
         if (!newPassword.equals(confirmPassword)) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Passwords do not match.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Passwords do not match.");
             return;
         }
-
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
-
-        Document query = new Document("username", currentUsername);
-        Document updateOperation = new Document("$set", new Document("password", newPassword));
-
-        collection.updateOne(query, updateOperation);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Password updated successfully.");
-        alert.showAndWait();
-
-        paneProfile.toFront();
-        paneCheckPrevPassword.toFront();
-    }
-
-    private boolean validatePassword(String password) {
-        if (password.length() < 5) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Password must be at least 5 characters long.");
-            return false;
+        if (mainService.updatePassword(currentUsername, newPassword)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Password updated successfully.");
+            alert.showAndWait();
+            paneProfile.toFront();
+            paneCheckPrevPassword.toFront();
+        } else {
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Error updating password.");
         }
-        if (!password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*")) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, null, "Password must contain both letters and numbers.");
-            return false;
-        }
-        return true;
     }
 
     public void loadAndDisplayArticles(String username) {
@@ -487,32 +414,25 @@ public class MainWindow {
 
     public void displayArticles(List<Articles> articles) {
         paneGrid.getChildren().clear(); // Clear existing articles
-
         int columns = 4; // Set the number of articles per row
         int row = 0, col = 1;
-
         try {
             for (Articles article : articles) {
                 // Load the article pane
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/ArticleBox.fxml"));
                 AnchorPane articlePane = loader.load();
-
                 // Set the article data using the controller
                 ArticleBox controller = loader.getController();
                 controller.setArticleData(article.getHeading(), article.getDate(), article.getCategory());
-
                 // Add the article pane to the GridPane at the correct column and row
                 paneGrid.add(articlePane, col, row);
-
                 // Move to the next column
                 col++;
-
                 // If 5 articles are added in a row, move to the next row
                 if (col == columns) {
                     col = 1; // Reset column to 1
                     row++;   // Increment the row
                 }
-
                 // Optionally add margins for better spacing
                 GridPane.setMargin(articlePane, new Insets(40));
             }
@@ -522,44 +442,25 @@ public class MainWindow {
     }
 
     private void refreshArticles(String username) {
-        // Fetch new articles based on the same category quotas
         List<Articles> refreshedArticles = recommendationEngine.fetchArticlesBasedOnPoints(username);
         displayArticles(refreshedArticles); // Redisplay the updated articles
     }
 
     @FXML
     private void loadArticles() {
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("Articles");
-
-        // Clear existing data in the TableView
         articleList.clear();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        // Fetch all articles from the database
-        for (Document doc : collection.find()) {
-            String heading = doc.getString("heading");
-            String category = doc.getString("category");
-            String date = doc.getString("date");
-
-            Articles article = new Articles(heading, category, date);
-            articleList.add(article);
-        }
-
+        // Fetch articles using the MainService
+        ObservableList<Articles> articles = mainService.loadArticles();
         // Set up columns in the TableView
         tableColumnTitleF.setCellValueFactory(new PropertyValueFactory<>("heading"));
         tableColumnCategoryF.setCellValueFactory(new PropertyValueFactory<>("category"));
         tableColumnDateF.setCellValueFactory(new PropertyValueFactory<>("date"));
-
         // Bind data to the TableView
-        tableFilterNews.setItems(articleList);
+        tableFilterNews.setItems(articles);
     }
 
     @FXML
     private void handleFilterAction(ActionEvent event) {
-        // Initialize the query document
-        Document query = new Document();
-
         // Collect selected categories
         List<String> selectedCategories = new ArrayList<>();
         if (checkBoxTechnology1.isSelected()) selectedCategories.add("Technology");
@@ -572,78 +473,47 @@ public class MainWindow {
         if (checkBoxSports1.isSelected()) selectedCategories.add("Sports");
         if (checkBoxLifestyle1.isSelected()) selectedCategories.add("Lifestyle");
         if (checkBoxInvestigative1.isSelected()) selectedCategories.add("Investigative");
-        // Add similar conditions for other checkboxes
 
-        // Add category filter to query if categories are selected
-        if (!selectedCategories.isEmpty()) {
-            query.append("category", new Document("$in", selectedCategories));
-        }
-
-        // Get the selected date from the DatePicker
-        // Ensure at least one filter is selected
-        if (query.isEmpty()) {
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "Please select at least one category or a date.");
+        // Ensure at least one category is selected
+        if (selectedCategories.isEmpty()) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "Please select at least one category.");
             return;
         }
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("Articles");
-
+        // Fetch filtered articles using the MainService
+        ObservableList<Articles> filteredArticles = mainService.filterArticles(selectedCategories);
         // Clear existing data in the TableView
         articleList.clear();
-
-        // Fetch articles matching the query
-        for (Document doc : collection.find(query)) {
-            String heading = doc.getString("heading");
-            String category = doc.getString("category");
-            String date = doc.getString("date");
-
-            Articles article = new Articles(heading, category, date);
-            articleList.add(article);
-        }
-
+        // Add filtered articles to the list
+        articleList.addAll(filteredArticles);
         // Update the TableView
         tableFilterNews.setItems(articleList);
-
         // Show an alert if no articles match the selected filters
         if (articleList.isEmpty()) {
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "No articles found for the selected filters.");
-
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "No articles found for the selected filters.");
         }
     }
 
+    @FXML
     private void handleViewArticleFromTable(TableView<Articles> tableView) {
         // Check if an article is selected in the table
         Articles selectedArticle = tableView.getSelectionModel().getSelectedItem();
         if (selectedArticle == null) {
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Please select an article to view.");
+            MainService.showAlert(Alert.AlertType.INFORMATION, "View Article", "Please select an article to view.");
             return;
         }
 
         // Get the heading of the selected article
         String selectedHeading = selectedArticle.getHeading();
 
-        try (var mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            // Connect to MongoDB
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> articlesCollection = database.getCollection("Articles");
+        // Fetch article details using the MainService
+        Articles article = mainService.getArticleByHeading(selectedHeading);
 
-            // Fetch article details based on the heading
-            Document articleDoc = articlesCollection.find(eq("heading", selectedHeading)).first();
+        if (article == null) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, "View Article", "The selected article could not be found in the database.");
+            return;
+        }
 
-            if (articleDoc == null) {
-                ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "The selected article could not be found in the database.");
-                return;
-            }
-
-            // Convert the MongoDB document to an Articles object
-            Articles article = new Articles(
-                    articleDoc.getString("heading"),
-                    articleDoc.getString("date"),
-                    articleDoc.getString("category"),
-                    articleDoc.getString("article"),
-                    articleDoc.getString("url")
-            );
-
+        try {
             // Load the ArticleView FXML and set the article details
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/ArticleView.fxml"));
             AnchorPane articleViewPane = loader.load();
@@ -660,48 +530,14 @@ public class MainWindow {
             articleStage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while trying to view the article.");
+            MainService.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while trying to view the article.");
         }
     }
 
     @FXML
-    public void loadSavedArticles() {
-        var mongoClient = MongoClients.create("mongodb://localhost:27017");
-        MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-        MongoCollection<Document> interactionCollection = database.getCollection("User-Article-Interaction");
-        MongoCollection<Document> articlesCollection = database.getCollection("Articles");
-
-        try {
-            // Get the user's saved articles
-            Document userInteraction = interactionCollection.find(eq("username", currentUsername)).first();
-
-            if (userInteraction != null && userInteraction.containsKey("saved")) {
-                ArrayList<String> savedHeadings = (ArrayList<String>) userInteraction.get("saved");
-                ObservableList<Articles> savedArticles = FXCollections.observableArrayList();
-
-                // Retrieve full article details from the Articles collection
-                for (String heading : savedHeadings) {
-                    Document articleDoc = articlesCollection.find(eq("heading", heading)).first();
-                    if (articleDoc != null) {
-                        Articles article = new Articles(
-                                articleDoc.getString("heading"),
-                                articleDoc.getString("date"),
-                                articleDoc.getString("category"),
-                                articleDoc.getString("body"),
-                                articleDoc.getString("url")
-                        );
-                        savedArticles.add(article);
-                    }
-                }
-
-                // Set the retrieved articles to the TableView
-                tableSave.setItems(savedArticles);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            mongoClient.close();
-        }
+    private void loadSavedArticles() {
+        List<Articles> savedArticles = mainService.loadSavedArticles(currentUsername);
+        tableSave.getItems().setAll(savedArticles);
     }
 
     @FXML
@@ -721,9 +557,8 @@ public class MainWindow {
         }
     }
 
-
     @FXML
     public void exit(ActionEvent event) {
-        ExitAndAlerts.showExitConfirmation(event);
+        MainService.showExitConfirmation(event);
     }
 }

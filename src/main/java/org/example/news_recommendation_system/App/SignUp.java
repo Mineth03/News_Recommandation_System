@@ -6,16 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import org.bson.Document;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.example.news_recommendation_system.Model.User;
-import org.example.news_recommendation_system.Service.ExitAndAlerts;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
+import org.example.news_recommendation_system.Model.User;
+import org.example.news_recommendation_system.Service.MainService;
+import org.example.news_recommendation_system.Service.LogIn;
 import org.example.news_recommendation_system.Service.RecommendationEngine;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,14 +40,17 @@ public class SignUp {
     @FXML
     private PasswordField txtPassword;
     @FXML
+    private PasswordField txtCPassword;
+    @FXML
     private CheckBox checkBoxTechnology, checkBoxEducation, checkBoxPolitics, checkBoxHealthcare, checkBoxEntertainment,
             checkBoxScience, checkBoxSports, checkBoxBusiness, checkBoxInvestigative, checkBoxLifestyle;
 
+    private final LogIn logIn;
+    private final RecommendationEngine recommendationEngine;
     private final MongoDBConnection mongoDBConnection;
 
-    private final RecommendationEngine recommendationEngine;
-
     public SignUp() {
+        logIn = new LogIn();
         mongoDBConnection = new MongoDBConnection();
         recommendationEngine = new RecommendationEngine(mongoDBConnection);
     }
@@ -59,21 +61,42 @@ public class SignUp {
             return;
         }
 
-        String firstName = capitalize(txtFName.getText());
-        String lastName = capitalize(txtLName.getText());
+        String firstName = logIn.capitalize(txtFName.getText());
+        String lastName = logIn.capitalize(txtLName.getText());
         String name = firstName + " " + lastName;
         String email = txtEmail.getText();
         int age = Integer.parseInt(txtAge.getText());
         String gender = ChoiceBoxGender.getValue();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
+        String passwordC = txtCPassword.getText();
 
-        if (handleDuplicates(username, email)) {
+        if (logIn.isDuplicateUser(username, email)) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Username or Email already exists. Please choose a different one.");
             alert.showAndWait();
             return;
         }
 
+        List<String> preferences = getSelectedPreferences();
+
+        // Create a User object with the collected data
+        User newUser = new User(name, email, age, gender, password, preferences, username);
+
+        // Save user and preferences
+        if (logIn.saveUser(newUser, preferences)) {
+            logIn.saveLoginDetails(username);
+
+            MainWindow.setCurrentUsername(username);
+            ArticleView.setCurrentUsername(username);
+            saveUserPreferences(username);
+            // Redirect to MainWindow
+            redirectToMainWindow(username);
+        } else {
+            MainService.showAlert(Alert.AlertType.ERROR, "Signup Error", "Could not complete signup.");
+        }
+    }
+
+    private List<String> getSelectedPreferences() {
         List<String> preferences = new ArrayList<>();
         if (checkBoxTechnology.isSelected()) preferences.add("Technology");
         if (checkBoxEducation.isSelected()) preferences.add("Education");
@@ -85,85 +108,122 @@ public class SignUp {
         if (checkBoxBusiness.isSelected()) preferences.add("Business");
         if (checkBoxInvestigative.isSelected()) preferences.add("Investigative");
         if (checkBoxLifestyle.isSelected()) preferences.add("Lifestyle");
+        return preferences;
+    }
 
-        // Create a User object with the collected data
-        User newUser = new User(name, email, age, gender, password, preferences, username);
+    private void saveUserPreferences(String username) {
+        // Determine initial scores based on checkbox selections
+        boolean checkBoxTechnologySelected = checkBoxTechnology.isSelected();
+        boolean checkBoxEducationSelected = checkBoxEducation.isSelected();
+        boolean checkBoxPoliticsSelected = checkBoxPolitics.isSelected();
+        boolean checkBoxHealthcareSelected = checkBoxHealthcare.isSelected();
+        boolean checkBoxEntertainmentSelected = checkBoxEntertainment.isSelected();
+        boolean checkBoxScienceSelected = checkBoxScience.isSelected();
+        boolean checkBoxSportsSelected = checkBoxSports.isSelected();
+        boolean checkBoxBusinessSelected = checkBoxBusiness.isSelected();
+        boolean checkBoxInvestigativeSelected = checkBoxInvestigative.isSelected();
+        boolean checkBoxLifestyleSelected = checkBoxLifestyle.isSelected();
 
-        // Insert data into MongoDB
+        // Use the RecommendationEngine to create and save the preferences document
+        recommendationEngine.saveUserPreferences(
+                username,
+                checkBoxTechnologySelected,
+                checkBoxEducationSelected,
+                checkBoxPoliticsSelected,
+                checkBoxHealthcareSelected,
+                checkBoxEntertainmentSelected,
+                checkBoxScienceSelected,
+                checkBoxSportsSelected,
+                checkBoxBusinessSelected,
+                checkBoxInvestigativeSelected,
+                checkBoxLifestyleSelected
+        );
+    }
+
+
+    @FXML
+    private void redirectToMainWindow(String username) {
         try {
-            Document userDoc = new Document("name", newUser.getName())
-                    .append("email", newUser.getEmail())
-                    .append("age", newUser.getAge())
-                    .append("gender", newUser.getGender())
-                    .append("Preferences", newUser.getPreferences())
-                    .append("username", newUser.getUsername())
-                    .append("password", newUser.getPassword());
-
-            mongoDBConnection.insertDocument("User", userDoc);
-
-            recommendationEngine.saveUserPreferences(username, checkBoxTechnology.isSelected(), checkBoxEducation.isSelected(),
-                    checkBoxPolitics.isSelected(), checkBoxHealthcare.isSelected(),
-                    checkBoxEntertainment.isSelected(), checkBoxScience.isSelected(),
-                    checkBoxSports.isSelected(), checkBoxBusiness.isSelected(),
-                    checkBoxInvestigative.isSelected(), checkBoxLifestyle.isSelected());
-
-
-            // Set the current user in MainWindow
-            MainWindow.setCurrentUsername(username);
-            ArticleView.setCurrentUsername(username);
-            saveLoginDetails(username);
-
-            // Redirect to MainWindow
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/MainWindow.fxml")));
             Stage stage = (Stage) btnSignup.getScene().getWindow();
             Scene scene = stage.getScene();
             scene.setRoot(mainRoot);
             stage.sizeToScene();
             Application.makeSceneDraggable(stage, (Pane) mainRoot);
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    private void saveLoginDetails(String username) {
-        try {
-            Document loginRecord = new Document("Username", username)
-                    .append("Login_time", LocalDateTime.now().toString());
-            mongoDBConnection.insertDocument("User_Login_Log", loginRecord);
-        } catch (Exception e) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Database Error", "Could not save login details.");
+        } catch (IOException e) {
+            MainService.showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load MainWindow.");
         }
     }
 
     private boolean validateInputs() {
-        // Your validation logic here
-        return true;
-    }
+        StringBuilder errorMsg = new StringBuilder();
 
-    private boolean handleDuplicates(String username, String email) {
-        Document query = new Document("$or", List.of(
-                new Document("username", username),
-                new Document("email", email)
-        ));
+        // Validate first name and last name (no numbers allowed)
+        if (!txtFName.getText().matches("[a-zA-Z]+")) {
+            errorMsg.append("- First name must only contain letters.\n");
+        }
 
-        Document existingUser = mongoDBConnection.findDocument("User", query);
-        return existingUser != null;
-    }
+        if (!txtLName.getText().matches("[a-zA-Z]+")) {
+            errorMsg.append("- Last name must only contain letters.\n");
+        }
 
-    private String capitalize(String name) {
-        if (name == null || name.isEmpty()) return name;
-        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-    }
-
-    public void initialize() {
-        ChoiceBoxGender.setValue("Gender");
-        ChoiceBoxGender.getSelectionModel().selectedIndexProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.intValue() > 0 && ChoiceBoxGender.getItems().getFirst().equals("Gender")) {
-                ChoiceBoxGender.getItems().remove("Gender");
+        // Validate age (must be between 12 and 100)
+        try {
+            int age = Integer.parseInt(txtAge.getText());
+            if (age < 12 || age > 100) {
+                errorMsg.append("- Age must be between 12 and 100.\n");
             }
-        });
+        } catch (NumberFormatException e) {
+            errorMsg.append("- Age must be a valid number.\n");
+        }
+
+        // Validate email (basic pattern match)
+        if (!txtEmail.getText().matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            errorMsg.append("- Email is not valid.\n");
+        }
+
+        // Validate that at least 2 checkboxes are selected
+        int selectedCount = 0;
+        if (checkBoxTechnology.isSelected()) selectedCount++;
+        if (checkBoxEducation.isSelected()) selectedCount++;
+        if (checkBoxPolitics.isSelected()) selectedCount++;
+        if (checkBoxHealthcare.isSelected()) selectedCount++;
+        if (checkBoxEntertainment.isSelected()) selectedCount++;
+        if (checkBoxScience.isSelected()) selectedCount++;
+        if (checkBoxSports.isSelected()) selectedCount++;
+        if (checkBoxBusiness.isSelected()) selectedCount++;
+        if (checkBoxInvestigative.isSelected()) selectedCount++;
+        if (checkBoxLifestyle.isSelected()) selectedCount++;
+
+        if (selectedCount < 2) {
+            errorMsg.append("- Please select at least two preferences.\n");
+        }
+
+        // Validate password (minimum 6 characters, contains letters and numbers)
+        String password = txtPassword.getText();
+        if (password.length() < 6 || !password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*")) {
+            errorMsg.append("- Password must be at least 6 characters long and contain both letters and numbers.\n");
+        }
+
+        // Validate confirm password matches password
+        String passwordC = txtCPassword.getText();
+        if (!password.equals(passwordC)){
+            errorMsg.append("- Passwords do not match.\n");
+        }
+
+        // If there are errors, show all in one alert
+        if (errorMsg.length() > 0) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Validation Errors");
+            alert.setHeaderText("Please correct the following errors:");
+            alert.setContentText(errorMsg.toString());
+            alert.showAndWait();
+            return false;
+        }
+
+        return true; // All validations passed
     }
+
 
     @FXML
     private void handleBackButtonClick() throws IOException {
@@ -177,6 +237,6 @@ public class SignUp {
 
     @FXML
     public void exit(ActionEvent event) {
-        ExitAndAlerts.showExitConfirmation(event);
+        MainService.showExitConfirmation(event);
     }
 }

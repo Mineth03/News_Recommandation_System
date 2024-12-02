@@ -40,7 +40,6 @@ public class ArticleBox {
     @FXML
     private void handleArticleButtonClick() {
         try {
-            // Query the database by heading using MongoDBConnection
             String heading = labelHeading.getText();
             Document query = new Document("heading", heading);
             Document articleDoc = mongoDBConnection.findDocument("Articles", query);

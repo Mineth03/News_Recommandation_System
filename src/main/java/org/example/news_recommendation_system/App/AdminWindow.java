@@ -21,7 +21,7 @@ import org.example.news_recommendation_system.Model.Articles;
 import org.example.news_recommendation_system.Model.LoginRecord;
 import org.example.news_recommendation_system.Model.User;
 import org.example.news_recommendation_system.Service.ArticleCategorizer;
-import org.example.news_recommendation_system.Service.ExitAndAlerts;
+import org.example.news_recommendation_system.Service.MainService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -178,7 +178,7 @@ public class AdminWindow {
             checkBoxScience, checkBoxSports, checkBoxBusiness, checkBoxInvestigative, checkBoxLifestyle;
 
     private final MongoDBConnection mongoDBConnection;
-
+    private MainService mainService;
     public static void setCurrentAdminId(String adminId) {
         currentAdminId = adminId;
     }
@@ -189,6 +189,7 @@ public class AdminWindow {
 
     @FXML
     public void initialize() {
+        mainService = new MainService(mongoDBConnection.getDatabase());
         tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tableColumnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
         tableColumnDateUser.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -604,14 +605,14 @@ public class AdminWindow {
 
         // Validation checks
         if (heading.isEmpty() || body.isEmpty() || link.isEmpty() || dateInput == null) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
+            MainService.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
             return;
         }
 
         try {
             new URL(link).toURI(); // Check if the link is a valid URL
         } catch (Exception e) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Validation Error", "Please provide a valid URL!");
+            MainService.showAlert(Alert.AlertType.ERROR, "Validation Error", "Please provide a valid URL!");
             return;
         }
 
@@ -635,13 +636,13 @@ public class AdminWindow {
 
             collection.insertOne(doc);
 
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
             txtHeading.clear();
             txtArticleBody.clear();
             txtLink.clear();
             datePicker.setValue(null);
         } catch (Exception ex) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred: " + ex.getMessage());
+            MainService.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred: " + ex.getMessage());
         }
     }
 
@@ -675,9 +676,6 @@ public class AdminWindow {
 
     @FXML
     private void handleFilterAction(ActionEvent event) {
-        // Initialize the query document
-        Document query = new Document();
-
         // Collect selected categories
         List<String> selectedCategories = new ArrayList<>();
         if (checkBoxTechnology.isSelected()) selectedCategories.add("Technology");
@@ -690,50 +688,23 @@ public class AdminWindow {
         if (checkBoxSports.isSelected()) selectedCategories.add("Sports");
         if (checkBoxLifestyle.isSelected()) selectedCategories.add("Lifestyle");
         if (checkBoxInvestigative.isSelected()) selectedCategories.add("Investigative");
-        // Add similar conditions for other checkboxes
 
-        // Add category filter to query if categories are selected
-        if (!selectedCategories.isEmpty()) {
-            query.append("category", new Document("$in", selectedCategories));
-        }
-
-        // Get the selected date from the DatePicker
-        LocalDate selectedDate = datePickerDelete.getValue();
-        if (selectedDate != null) {
-            // Format LocalDate to MM-DD-YYYY for MongoDB query
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-            String formattedDate = selectedDate.format(formatter);
-            query.append("date", formattedDate); // Add date filter to query
-        }
-
-        // Ensure at least one filter is selected
-        if (query.isEmpty()) {
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Please select at least one category or a date.");
+        // Ensure at least one category is selected
+        if (selectedCategories.isEmpty()) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "Please select at least one category.");
             return;
         }
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("Articles");
-
+        // Fetch filtered articles using the MainService
+        ObservableList<Articles> filteredArticles = mainService.filterArticles(selectedCategories);
         // Clear existing data in the TableView
         articleList.clear();
-
-        // Fetch articles matching the query
-        for (Document doc : collection.find(query)) {
-            String heading = doc.getString("heading");
-            String category = doc.getString("category");
-            String date = doc.getString("date");
-
-            Articles article = new Articles(heading, category, date);
-            articleList.add(article);
-        }
-
+        // Add filtered articles to the list
+        articleList.addAll(filteredArticles);
         // Update the TableView
         tableRemoveArticles.setItems(articleList);
-
         // Show an alert if no articles match the selected filters
         if (articleList.isEmpty()) {
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "No articles found for the selected filters.");
-
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "No articles found for the selected filters.");
         }
     }
 
@@ -745,7 +716,7 @@ public class AdminWindow {
 
         if (selectedArticle == null) {
             // Show an alert if no article is selected
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Please select an article to delete.");
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Please select an article to delete.");
             return;
         }
 
@@ -761,7 +732,7 @@ public class AdminWindow {
         articleList.remove(selectedArticle);
 
         // Show a confirmation message
-        ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Article deleted successfully.");
+        MainService.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Article deleted successfully.");
 
     }
 
@@ -785,6 +756,6 @@ public class AdminWindow {
 
     @FXML
     public void exit(ActionEvent event) {
-        ExitAndAlerts.showExitConfirmation(event);
+        MainService.showExitConfirmation(event);
     }
 }

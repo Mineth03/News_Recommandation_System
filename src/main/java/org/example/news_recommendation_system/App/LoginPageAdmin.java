@@ -8,16 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.bson.Document;
-import org.example.news_recommendation_system.Service.ExitAndAlerts;
+import org.example.news_recommendation_system.Service.MainService;
+import org.example.news_recommendation_system.Service.LogIn;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -38,15 +40,14 @@ public class LoginPageAdmin implements Initializable {
     @FXML
     private TextField txtAdminName;
 
-    private MongoDBConnection mongoDBConnection;
-    private MongoDatabase database;
     private MongoCollection<Document> adminDetailsCollection;
     private MongoCollection<Document> adminLoginDetailsCollection;
+    private final LogIn logIn = new LogIn();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        mongoDBConnection = new MongoDBConnection();
-        database = mongoDBConnection.getDatabase();
+        MongoDBConnection mongoDBConnection = new MongoDBConnection();
+        MongoDatabase database = mongoDBConnection.getDatabase();
         adminDetailsCollection = database.getCollection("Admin");
         adminLoginDetailsCollection = database.getCollection("Admin_Login_Log");
     }
@@ -67,9 +68,9 @@ public class LoginPageAdmin implements Initializable {
         String password = txtPasswordAdmin.getText();
         String id = txtAdminID.getText();
 
-        if (usernamePasswordCheck(name, password, id)) {
-            saveLoginDetails(id);
-            ExitAndAlerts.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + name);
+        if (logIn.usernamePasswordCheck(adminDetailsCollection, "adminID", id, "password", password)) {
+            logIn.saveLoginDetails(adminLoginDetailsCollection, "adminId", id);
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + name);
             AdminWindow.setCurrentAdminId(id);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/AdminWindow.fxml")));
             Stage stage = (Stage) btnLoginAdmin.getScene().getWindow();
@@ -78,33 +79,12 @@ public class LoginPageAdmin implements Initializable {
             stage.sizeToScene();
             Application.makeSceneDraggable(stage, (Pane) mainRoot);
         } else {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Login", "Incorrect name/ password or ID");
-        }
-    }
-
-    private boolean usernamePasswordCheck(String name, String password, String id) {
-        try {
-            Document user = adminDetailsCollection.find(new Document("name", name)
-                    .append("password", password).append("adminID", id)).first();
-            return user != null;
-        } catch (Exception e) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Login Error", "An error occurred while checking credentials.");
-        }
-        return false;
-    }
-
-    private void saveLoginDetails(String id) {
-        try {
-            Document loginRecord = new Document("adminId", id)
-                    .append("Login_time", LocalDateTime.now().toString());
-            adminLoginDetailsCollection.insertOne(loginRecord);
-        } catch (Exception e) {
-            ExitAndAlerts.showAlert(Alert.AlertType.ERROR, "Database Error", "Could not save login details.");
+            MainService.showAlert(Alert.AlertType.ERROR, "Login", "Incorrect name/ password or ID");
         }
     }
 
     @FXML
     public void exit(ActionEvent event) {
-        ExitAndAlerts.showExitConfirmation(event);
+        MainService.showExitConfirmation(event);
     }
 }

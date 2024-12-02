@@ -2,6 +2,7 @@ package org.example.news_recommendation_system.Service;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javafx.scene.control.Alert;
 import org.bson.Document;
 import org.example.news_recommendation_system.Model.Articles;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
@@ -201,5 +202,52 @@ public class RecommendationEngine {
                     new Document("$set", new Document(article.getCategory(), newPoints))
             );
         }
+    }
+
+    public void updateSaveList(String currentUsername, Articles article) {
+        MongoDatabase database = mongoDBConnection.getDatabase();
+        MongoCollection<Document> userInteractionCollection = database.getCollection("User-Article-Interaction");
+
+        // Check if the user's interaction document exists, if not create a new one
+        Document userInteraction = userInteractionCollection.find(eq("username", currentUsername)).first();
+        if (userInteraction == null) {
+            // If no document exists for the current user, create a new one with empty lists
+            Document newUserInteraction = new Document("username", currentUsername)
+                    .append("liked", new ArrayList<>())
+                    .append("disliked", new ArrayList<>())
+                    .append("saved", new ArrayList<>());
+            userInteractionCollection.insertOne(newUserInteraction);
+            // After inserting, retrieve the newly created document
+            userInteraction = newUserInteraction;
+        }
+
+        if (userInteraction == null || article == null) return;
+
+        String articleHeading = article.getHeading();
+
+        // Ensure that "saved" list exists in the document
+        if (!userInteraction.containsKey("saved")) {
+            userInteraction.put("saved", new ArrayList<String>());
+        }
+
+        ArrayList<String> savedArray = (ArrayList<String>) userInteraction.get("saved");
+
+        // Check if the article has already been saved
+        if (savedArray.contains(articleHeading)) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Article Save", "This article has already been saved!");
+            return;
+        }
+
+        // Add the article to the saved list
+        savedArray.add(articleHeading);
+
+        // Update the "saved" list in the user's interaction document
+        userInteractionCollection.updateOne(
+                eq("username", currentUsername),
+                new Document("$set", new Document("saved", savedArray))
+        );
+
+        // Show success alert
+        MainService.showAlert(Alert.AlertType.INFORMATION, "Article Save", "Article saved successfully!");
     }
 }
