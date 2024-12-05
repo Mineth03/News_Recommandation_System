@@ -13,7 +13,7 @@ public class MongoDBConnection {
     private MongoDatabase database;
 
     private static final String DATABASE_NAME = "News_Recommendation_System";
-    private static final String URI = "mongodb://localhost:27017";
+    private static final String URI = "mongodb+srv://admin:12345678%40mineth@cluster0.s0ovw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
     // Constructor to establish connection
     public MongoDBConnection() {

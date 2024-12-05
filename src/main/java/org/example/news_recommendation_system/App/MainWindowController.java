@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
+import javafx.stage.StageStyle;
 import org.bson.Document;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 import org.example.news_recommendation_system.Model.Articles;
@@ -24,7 +25,7 @@ import org.example.news_recommendation_system.Model.LoginRecord;
 import org.example.news_recommendation_system.Service.RecommendationEngine;
 import org.example.news_recommendation_system.Service.MainService;
 
-public class MainWindow {
+public class MainWindowController {
 
     private static String currentUsername;
 
@@ -53,8 +54,6 @@ public class MainWindow {
     @FXML
     private Button btnBack4;
     @FXML
-    private Button btnConfirm;
-    @FXML
     private Button btnPasswordConfirm;
     @FXML
     private Button btnSetPassword;
@@ -64,6 +63,10 @@ public class MainWindow {
     private Button btnView;
     @FXML
     private Button btnViewS;
+    @FXML
+    private Button btnSaveH;
+    @FXML
+    private Button btnRecH;
 
     @FXML
     private Pane paneSave;
@@ -153,7 +156,7 @@ public class MainWindow {
         currentUsername = username;
     }
 
-    public MainWindow() {
+    public MainWindowController() {
         mongoDBConnection = new MongoDBConnection();
         recommendationEngine = new RecommendationEngine(mongoDBConnection);
     }
@@ -168,15 +171,19 @@ public class MainWindow {
         if (actionEvent.getSource() == btnSave) {
             loadSavedArticles();
             paneSave.toFront();
-            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnRecommended) {
             paneRecommend.toFront();
-            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnSearch) {
             paneSearch.toFront();
-            paneCheckPrevPassword.toFront();
+        }
+        if (actionEvent.getSource() == btnRecH) {
+            paneRecommend.toFront();
+        }
+        if (actionEvent.getSource() == btnSaveH) {
+            loadSavedArticles();
+            paneSave.toFront();
         }
         if (actionEvent.getSource() == btnHome) {
             paneHome.toFront();
@@ -333,20 +340,29 @@ public class MainWindow {
         String fullName = MainService.capitalizeFirstLetter(firstName) + " " + MainService.capitalizeFirstLetter(lastName);
 
         // Validate inputs
-        if (!MainService.validateProfileInputs(firstName, lastName, email, ageText)) {
+        if (MainService.validateProfileInputs(firstName, lastName, email, ageText)) {
             return;
         }
 
         int age = Integer.parseInt(ageText);
-        // Collect preferences
-        List<String> selectedPreferences = getSelectedPreferences();
+
+        // Fetch previously selected preferences from the database
+        List<String> previousPreferences = mainService.getUserPreferences(currentUsername);
+
+        // Collect new preferences from the checkboxes
+        List<String> newPreferences = getSelectedPreferences();
+
+        // Track changes in preferences and update category scores
+        Map<String, Integer> categoryChanges = recommendationEngine.trackCategoryChanges(previousPreferences, newPreferences);
+        mainService.updateCategoryScores(currentUsername, categoryChanges);
+
         // Update user profile using MainService
-        mainService.updateUserProfile(currentUsername, fullName, age, email, selectedPreferences);
+        mainService.updateUserProfile(currentUsername, fullName, age, email, newPreferences);
+
         MainService.showAlert(Alert.AlertType.INFORMATION, null, "Profile updated successfully.");
         updateUserDetails();
         paneProfile.toFront();
     }
-
 
     private List<String> getSelectedPreferences() {
         List<String> preferences = new ArrayList<>();
@@ -389,7 +405,7 @@ public class MainWindow {
         String newPassword = txtNewPassword.getText().trim();
         String confirmPassword = txtNewPasswordConfirm.getText().trim();
 
-        if (!mainService.validatePassword(newPassword)) {
+        if (mainService.validatePassword(newPassword)) {
             MainService.showAlert(Alert.AlertType.ERROR, null, "Password must be at least 5 characters long and contain both letters and numbers.");
             return;
         }
@@ -422,7 +438,7 @@ public class MainWindow {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/ArticleBox.fxml"));
                 AnchorPane articlePane = loader.load();
                 // Set the article data using the controller
-                ArticleBox controller = loader.getController();
+                ArticleBoxController controller = loader.getController();
                 controller.setArticleData(article.getHeading(), article.getDate(), article.getCategory());
                 // Add the article pane to the GridPane at the correct column and row
                 paneGrid.add(articlePane, col, row);
@@ -461,7 +477,6 @@ public class MainWindow {
 
     @FXML
     private void handleFilterAction(ActionEvent event) {
-        // Collect selected categories
         List<String> selectedCategories = new ArrayList<>();
         if (checkBoxTechnology1.isSelected()) selectedCategories.add("Technology");
         if (checkBoxEducation1.isSelected()) selectedCategories.add("Education");
@@ -517,14 +532,13 @@ public class MainWindow {
             // Load the ArticleView FXML and set the article details
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/ArticleView.fxml"));
             AnchorPane articleViewPane = loader.load();
-
             // Get the controller of ArticleView
-            ArticleView controller = loader.getController();
-            controller.setCurrentUsername(currentUsername); // Pass current username
+            ArticleViewController controller = loader.getController();
+            ArticleViewController.setCurrentUsername(currentUsername); // Pass current username
             controller.setArticleDetails(article); // Pass the selected article details
-
             // Open the new scene in a separate stage
             Stage articleStage = new Stage();
+            articleStage.initStyle(StageStyle.UNDECORATED);
             articleStage.setTitle("View Article");
             articleStage.setScene(new Scene(articleViewPane));
             articleStage.show();
@@ -541,6 +555,29 @@ public class MainWindow {
     }
 
     @FXML
+    private void handleUnSaveAction() {
+        // Get the selected article
+        Articles selectedArticle = tableSave.getSelectionModel().getSelectedItem();
+        if (selectedArticle == null) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Unsaved Article", "Please select an article to unsaved.");
+            return;
+        }
+
+        String articleTitle = selectedArticle.getHeading(); // Assuming "heading" is the article title field
+
+        // Remove the article from the saved list in MongoDB
+        boolean isRemoved = mainService.removeArticleFromSaved(currentUsername, articleTitle);
+
+        if (isRemoved) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, "Unsaved Article", "Article unsaved successfully.");
+            // Refresh the saved articles table
+            loadSavedArticles();
+        } else {
+            MainService.showAlert(Alert.AlertType.ERROR, "Unsaved Article", "Failed to unsaved the article.");
+        }
+    }
+
+    @FXML
     private void handleLogoutButtonClick() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Log-Out");
@@ -548,12 +585,12 @@ public class MainWindow {
         Optional<ButtonType> output = alert.showAndWait();
 
         if (output.isPresent() && output.get() == ButtonType.OK) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/LogInPage.fxml"));
-            Parent signUpRoot = loader.load();
-
+            Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/LogInPage.fxml")));
             Stage stage = (Stage) btnLogout.getScene().getWindow();
-            stage.setScene(new Scene(signUpRoot));
-            stage.show();
+            Scene scene = stage.getScene();
+            scene.setRoot(mainRoot);
+            stage.sizeToScene();
+            Application.makeSceneDraggable(stage, (Pane) mainRoot);
         }
     }
 

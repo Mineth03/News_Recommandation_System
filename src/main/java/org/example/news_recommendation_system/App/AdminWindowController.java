@@ -1,8 +1,6 @@
 package org.example.news_recommendation_system.App;
 
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,25 +18,21 @@ import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 import org.example.news_recommendation_system.Model.Articles;
 import org.example.news_recommendation_system.Model.LoginRecord;
 import org.example.news_recommendation_system.Model.User;
+import org.example.news_recommendation_system.Service.AdminService;
 import org.example.news_recommendation_system.Service.ArticleCategorizer;
 import org.example.news_recommendation_system.Service.MainService;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public class AdminWindow {
+public class AdminWindowController {
 
     private static String currentAdminId;
     private final ObservableList<Articles> articleList = FXCollections.observableArrayList();
-
 
     @FXML
     private Button btnProfile;
@@ -61,13 +55,17 @@ public class AdminWindow {
     @FXML
     private Button btnSetPassword;
     @FXML
-    private Button btnBack2;
-    @FXML
     private Button btnBack3;
     @FXML
-    private Button btnAdd;
+    private Button btnBack4;
     @FXML
     private Button btnLogout;
+    @FXML
+    private Button btnHome;
+    @FXML
+    private Button btnAddH;
+    @FXML
+    private Button btnRemoveH;
 
     @FXML
     private Label labelName;
@@ -113,8 +111,6 @@ public class AdminWindow {
 
     @FXML
     private DatePicker datePicker;
-    @FXML
-    private DatePicker datePickerDelete;
 
     @FXML
     private Pane paneAddNew;
@@ -134,6 +130,8 @@ public class AdminWindow {
     private Pane paneCheckPrevPassword;
     @FXML
     private Pane paneNewPassword;
+    @FXML
+    private Pane paneHome;
 
     @FXML
     private TableView<LoginRecord> tableLoginDetails;
@@ -179,21 +177,34 @@ public class AdminWindow {
 
     private final MongoDBConnection mongoDBConnection;
     private MainService mainService;
+    private AdminService adminService;
     public static void setCurrentAdminId(String adminId) {
         currentAdminId = adminId;
     }
 
-    public AdminWindow() {
+    public AdminWindowController() {
         mongoDBConnection = new MongoDBConnection();
     }
 
     @FXML
     public void initialize() {
         mainService = new MainService(mongoDBConnection.getDatabase());
+        adminService = new AdminService(mongoDBConnection);
+
+        loadAllUserDetails();
+
         tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tableColumnTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+
         tableColumnDateUser.setCellValueFactory(new PropertyValueFactory<>("date"));
         tableColumnTimeUser.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumnUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tableColumnAge.setCellValueFactory(new PropertyValueFactory<>("age"));
+        tableColumnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        tableColumnPreferences.setCellValueFactory(new PropertyValueFactory<>("preferences"));
     }
 
 
@@ -210,6 +221,16 @@ public class AdminWindow {
             updateAdminDetails();
             paneProfile.toFront();
         }
+        if (actionEvent.getSource() == btnHome){
+            paneHome.toFront();
+        }
+        if (actionEvent.getSource() == btnAddH){
+            paneAddNew.toFront();
+        }
+        if (actionEvent.getSource() == btnRemoveH) {
+            loadArticles();
+            paneDeleteR.toFront();
+        }
         if (actionEvent.getSource() == btnEditProfile) {
             loadUserProfileForEdit();
             paneEditAdminInfo.toFront();
@@ -217,16 +238,27 @@ public class AdminWindow {
         if (actionEvent.getSource() == btnBack1) {
             paneProfile.toFront();
         }
+        if (actionEvent.getSource() == btnBack3) {
+            paneProfile.toFront();
+        }
+        if (actionEvent.getSource() == btnBack4) {
+            paneCheckPrevPassword.toFront();
+            txtNewPassword.clear();
+            txtNewPasswordConfirm.clear();
+            txtPrevPassword.clear();
+        }
         if (actionEvent.getSource() == btnManageUserRecords) {
-            loadAllUserDetails();
             paneManageUserRecords.toFront();
         }
         if (actionEvent.getSource() == btnViewUser) {
             updateUserDetails();
-            paneViewUserRecords.toFront();
         }
         if (actionEvent.getSource() == btnChangePassword) {
+            txtNewPassword.clear();
+            txtNewPasswordConfirm.clear();
+            txtPrevPassword.clear();
             paneChangePassword.toFront();
+            paneCheckPrevPassword.toFront();
         }
         if (actionEvent.getSource() == btnPasswordConfirm) {
             if (!checkCurrentPassword()){
@@ -320,105 +352,40 @@ public class AdminWindow {
         String lastName = txtLastName.getText().trim();
         String email = txtEmail.getText().trim();
         String ageText = txtAge.getText().trim();
-
-        String fullName = capitalizeFirstLetter(firstName) + " " + capitalizeFirstLetter(lastName);
-
-        if (!validateProfileInputs(firstName, lastName, email, ageText)) {
+        // Generate full name with capitalized first letters
+        String fullName = MainService.capitalizeFirstLetter(firstName) + " " + MainService.capitalizeFirstLetter(lastName);
+        // Validate inputs
+        if (MainService.validateProfileInputs(firstName, lastName, email, ageText)) {
             return;
         }
-
         int age = Integer.parseInt(ageText);
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("Admin");
-
-        Document query = new Document("adminID", currentAdminId);
-        Document updatedData = new Document("name", fullName)
-                .append("age", age)
-                .append("email", email);
-
-        Document updateOperation = new Document("$set", updatedData);
-        collection.updateOne(query, updateOperation);
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Profile updated successfully.");
-        alert.showAndWait();
-
-        updateAdminDetails();
-        paneProfile.toFront();
-    }
-
-    private boolean validateProfileInputs(String firstName, String lastName, String email, String ageText) {
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || ageText.isEmpty()) {
-            showError("All fields are required.");
-            return false;
+        // Update admin profile using AdminService
+        boolean isUpdated = adminService.updateAdminProfile(currentAdminId, fullName, age, email);
+        if (isUpdated) {
+            MainService.showAlert(Alert.AlertType.INFORMATION, null, "Profile updated successfully.");
+            updateAdminDetails();
+            paneProfile.toFront();
+        } else {
+            MainService.showAlert(Alert.AlertType.ERROR, "Error", "Failed to update the profile. Please try again.");
         }
-        try {
-            int age = Integer.parseInt(ageText);
-            if (age < 14 || age > 100) {
-                showError("Age should be between 14 and 100.");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            showError("Age should be a valid number.");
-            return false;
-        }
-        if (!txtEmail.getText().matches("[^@]+@[^.]+\\..+")) {
-            showError("Invalid email format.");
-        }
-        return true;
     }
 
-    private String capitalizeFirstLetter(String name) {
-        if (name.isEmpty()) return "";
-        return Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
-    }
-
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, message);
-        alert.showAndWait();
-    }
 
     @FXML
     private void loadAllUserDetails() {
-        ObservableList<User> userDetails = FXCollections.observableArrayList();
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
-
-        for (Document document : collection.find()) {
-            String name = document.getString("name");
-            String email = document.getString("email");
-            int age = document.getInteger("age", 0);
-            String gender = document.getString("gender");
-            List<String> preferences = (List<String>) document.get("Preferences");
-            String username = document.getString("username");
-
-            User user = new User(name, email, age, gender, "N/A", preferences, username); // Password is not used here
-            userDetails.add(user);
-        }
-
-        // Bind data to TableView
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableColumnUsername.setCellValueFactory(new PropertyValueFactory<>("username")); // Assuming username is email
-        tableColumnAge.setCellValueFactory(new PropertyValueFactory<>("age"));
-        tableColumnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        tableColumnPreferences.setCellValueFactory(new PropertyValueFactory<>("preferences"));
-
+        ObservableList<User> userDetails = adminService.fetchAllUserDetails();
         tableUserDetails.setItems(userDetails);
     }
 
     @FXML
     private void removeSelectedUser() {
-        // Get the selected user from the TableView
         User selectedUser = tableUserDetails.getSelectionModel().getSelectedItem();
-
         if (selectedUser == null) {
-            showError("No user selected. Please select a user to remove.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "No user selected. Please select a user to remove.");
             return;
         }
-
         String username = selectedUser.getUsername();
 
-        // Confirm deletion
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Remove User");
         alert.setHeaderText("Are you sure you want to remove this user?");
@@ -426,17 +393,14 @@ public class AdminWindow {
         Optional<ButtonType> output = alert.showAndWait();
 
         if (output.isPresent() && output.get() == ButtonType.OK) {
-            // Remove the user from the database
-            MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
-
-            Document query = new Document("username", username);
-            collection.deleteOne(query);
-
-            // Remove the user from the TableView
-            tableUserDetails.getItems().remove(selectedUser);
-
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "User removed successfully.");
-            successAlert.showAndWait();
+            // Call service method to remove the user
+            boolean isDeleted = adminService.removeUserByUsername(username);
+            if (isDeleted) {
+                tableUserDetails.getItems().remove(selectedUser);
+                MainService.showAlert(Alert.AlertType.INFORMATION, null, "User removed successfully.");
+            } else {
+                MainService.showAlert(Alert.AlertType.ERROR, null, "Failed to remove the user. Please try again.");
+            }
         }
     }
 
@@ -444,85 +408,45 @@ public class AdminWindow {
     private void updateUserDetails() {
         // Get the selected user from the table
         User selectedUser = tableUserDetails.getSelectionModel().getSelectedItem();
-
         if (selectedUser == null) {
-            showError("No user selected. Please select a user to view.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "No user selected. Please select a user to view.");
             return;
         }
-
         String username = selectedUser.getUsername();
-
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
-
-        // Query to find the user document
-        Document query = new Document("username", username);
-        Document userDocument = collection.find(query).first();
-
-        if (userDocument != null) {
-            labelNameUser.setText(userDocument.getString("name"));
-            labelAgeUser.setText(String.valueOf(userDocument.getInteger("age")));
-            labelGenderUser.setText(userDocument.getString("gender"));
-            labelEmailUser.setText(userDocument.getString("email"));
+        // Fetch user details from the service
+        Document userDetails = adminService.fetchUserDetails(username);
+        if (userDetails != null) {
+            labelNameUser.setText(userDetails.getString("name"));
+            labelAgeUser.setText(String.valueOf(userDetails.getInteger("age")));
+            labelGenderUser.setText(userDetails.getString("gender"));
+            labelEmailUser.setText(userDetails.getString("email"));
 
             // Handle preferences
-            List<String> preferences = (List<String>) userDocument.get("Preferences");
+            List<String> preferences = (List<String>) userDetails.get("Preferences");
             if (preferences != null && !preferences.isEmpty()) {
                 LabelPreferences.setText(String.join(", ", preferences));
             } else {
                 LabelPreferences.setText("No preferences available.");
             }
         } else {
-            showError("User not found in the database.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "User not found in the database.");
         }
-
         // Fetch and display user login history
-        displayLoginHistoryUser();
+        displayLoginHistoryUser(username);
+        paneViewUserRecords.toFront();
     }
 
-
-
     @FXML
-    private void displayLoginHistoryUser() {
-        // Get the selected user from the user details table
-        User selectedUser = tableUserDetails.getSelectionModel().getSelectedItem();
-
-        if (selectedUser == null) {
-            showError("No user selected. Please select a user to view login history.");
-            return;
-        }
-
-        // Get the username from the selected user
-        String username = selectedUser.getUsername();
-
+    private void displayLoginHistoryUser(String username) {
         if (username == null || username.isEmpty()) {
-            showError("Invalid username. Please try again.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Invalid username. Please try again.");
             return;
         }
-
-        MongoCollection<Document> loginLogCollection = mongoDBConnection.getCollection("User_Login_Log");
-
-        // Query to find login records for the user
-        Document query = new Document("Username", username);
-
-        ObservableList<LoginRecord> loginHistory = FXCollections.observableArrayList();
-
-        for (Document logEntry : loginLogCollection.find(query)) {
-            String loginDateTime = logEntry.getString("Login_time");
-            if (loginDateTime != null) {
-                LocalDateTime dateTime = LocalDateTime.parse(loginDateTime);
-                String date = dateTime.toLocalDate().toString();
-                String time = dateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-
-                loginHistory.add(new LoginRecord(date, time));
-            }
+        // Fetch login history from the service
+        ObservableList<LoginRecord> loginHistory = adminService.fetchLoginHistory(username);
+        if (loginHistory.isEmpty()) {
+            MainService.showAlert(Alert.AlertType.ERROR, null, "No login history found for this user.");
         }
-
-        loginHistory.sort((record1, record2) -> {
-            LocalDateTime dateTime1 = LocalDateTime.parse(record1.getDate() + "T" + record1.getTime());
-            LocalDateTime dateTime2 = LocalDateTime.parse(record2.getDate() + "T" + record2.getTime());
-            return dateTime2.compareTo(dateTime1);
-        });
-
         // Update the TableView with the fetched login history
         tableLoginDetailsUser.setItems(loginHistory);
     }
@@ -532,7 +456,7 @@ public class AdminWindow {
         String currentPassword = txtPrevPassword.getText().trim();
 
         if (currentPassword.isEmpty()) {
-            showError("Current password is required.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Current password is required.");
             return false;
         }
 
@@ -547,11 +471,11 @@ public class AdminWindow {
                 paneNewPassword.toFront();
                 return true;
             } else {
-                showError("Incorrect current password.");
+                MainService.showAlert(Alert.AlertType.ERROR, null, "Incorrect current password.");
                 return false;
             }
         } else {
-            showError("User not found in the database.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "User not found in the database.");
             return false;
         }
     }
@@ -561,12 +485,12 @@ public class AdminWindow {
         String newPassword = txtNewPassword.getText().trim();
         String confirmPassword = txtNewPasswordConfirm.getText().trim();
 
-        if (!validatePassword(newPassword)) {
+        if (mainService.validatePassword(newPassword)) {
             return;
         }
 
         if (!newPassword.equals(confirmPassword)) {
-            showError("Passwords do not match.");
+            MainService.showAlert(Alert.AlertType.ERROR, null, "Passwords do not match.");
             return;
         }
 
@@ -577,23 +501,10 @@ public class AdminWindow {
 
         collection.updateOne(query, updateOperation);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Password updated successfully.");
-        alert.showAndWait();
+        MainService.showAlert(Alert.AlertType.INFORMATION, null, "Password updated successfully.");
 
         paneProfile.toFront();
         paneCheckPrevPassword.toFront();
-    }
-
-    private boolean validatePassword(String password) {
-        if (password.length() < 5) {
-            showError("Password must be at least 5 characters long.");
-            return false;
-        }
-        if (!password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*")) {
-            showError("Password must contain both letters and numbers.");
-            return false;
-        }
-        return true;
     }
 
     @FXML
@@ -608,39 +519,28 @@ public class AdminWindow {
             MainService.showAlert(Alert.AlertType.ERROR, "Validation Error", "All fields are required!");
             return;
         }
-
         try {
-            new URL(link).toURI(); // Check if the link is a valid URL
+            new URL(link).toURI(); // Validate URL
         } catch (Exception e) {
             MainService.showAlert(Alert.AlertType.ERROR, "Validation Error", "Please provide a valid URL!");
             return;
         }
-
         try {
-            // Convert LocalDate to Date
             Date date = java.sql.Date.valueOf(dateInput);
-
-            // Instantiate ArticleCategorizer and categorize article
             ArticleCategorizer articleCategorizer = new ArticleCategorizer();
             String category = articleCategorizer.categorizeArticle(body);
 
-            // Optional: Create the article object or insert directly into the database
-            MongoDatabase database = MongoClients.create().getDatabase("News_Recommendation_System");
-            MongoCollection<Document> collection = database.getCollection("Articles");
+            boolean isAdded = adminService.addArticle(heading, body, link, date, category);
 
-            Document doc = new Document("heading", heading)
-                    .append("article", body)
-                    .append("category", category)
-                    .append("date", new SimpleDateFormat("MM/dd/yyyy").format(date))
-                    .append("url", link);
-
-            collection.insertOne(doc);
-
-            MainService.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
-            txtHeading.clear();
-            txtArticleBody.clear();
-            txtLink.clear();
-            datePicker.setValue(null);
+            if (isAdded) {
+                MainService.showAlert(Alert.AlertType.INFORMATION, "Success", "Article added successfully!");
+                txtHeading.clear();
+                txtArticleBody.clear();
+                txtLink.clear();
+                datePicker.setValue(null);
+            } else {
+                MainService.showAlert(Alert.AlertType.ERROR, "Error", "Failed to add the article. Please try again.");
+            }
         } catch (Exception ex) {
             MainService.showAlert(Alert.AlertType.ERROR, "Error", "An error occurred: " + ex.getMessage());
         }
@@ -648,30 +548,15 @@ public class AdminWindow {
 
     @FXML
     private void loadArticles() {
-        MongoCollection<Document> collection = mongoDBConnection.getCollection("Articles");
-
-        // Clear existing data in the TableView
         articleList.clear();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        // Fetch all articles from the database
-        for (Document doc : collection.find()) {
-            String heading = doc.getString("heading");
-            String category = doc.getString("category");
-            String date = doc.getString("date");
-
-            Articles article = new Articles(heading, category, date);
-            articleList.add(article);
-        }
-
+        // Fetch articles using the MainService
+        ObservableList<Articles> articles = mainService.loadArticles();
         // Set up columns in the TableView
         tableColumnRemoveHeading.setCellValueFactory(new PropertyValueFactory<>("heading"));
         tableColumnRemoveCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         tableColumnRemoveDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-
         // Bind data to the TableView
-        tableRemoveArticles.setItems(articleList);
+        tableRemoveArticles.setItems(articles);
     }
 
     @FXML
@@ -702,12 +587,10 @@ public class AdminWindow {
         articleList.addAll(filteredArticles);
         // Update the TableView
         tableRemoveArticles.setItems(articleList);
-        // Show an alert if no articles match the selected filters
         if (articleList.isEmpty()) {
             MainService.showAlert(Alert.AlertType.INFORMATION, "Filter Article", "No articles found for the selected filters.");
         }
     }
-
 
     @FXML
     private void deleteArticle(ActionEvent event) {
@@ -715,27 +598,20 @@ public class AdminWindow {
         Articles selectedArticle = tableRemoveArticles.getSelectionModel().getSelectedItem();
 
         if (selectedArticle == null) {
-            // Show an alert if no article is selected
             MainService.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Please select an article to delete.");
             return;
         }
-
         // Get the heading of the selected article to find it in the database
         String heading = selectedArticle.getHeading();
-
         MongoCollection<Document> collection = mongoDBConnection.getCollection("Articles");
-
         // Remove the article from the database by matching the heading (you can use other fields to refine the query)
         collection.deleteOne(Filters.eq("heading", heading));
-
         // Remove the article from the TableView
         articleList.remove(selectedArticle);
-
         // Show a confirmation message
         MainService.showAlert(Alert.AlertType.INFORMATION, "Delete Article", "Article deleted successfully.");
 
     }
-
 
     @FXML
     private void handleLogoutButtonClick() throws IOException {
@@ -745,12 +621,12 @@ public class AdminWindow {
         Optional<ButtonType> output = alert.showAndWait();
 
         if (output.isPresent() && output.get() == ButtonType.OK) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/LogInPage.fxml"));
-            Parent signUpRoot = loader.load();
-
+            Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/LogInPage.fxml")));
             Stage stage = (Stage) btnLogout.getScene().getWindow();
-            stage.setScene(new Scene(signUpRoot));
-            stage.show();
+            Scene scene = stage.getScene();
+            scene.setRoot(mainRoot);
+            stage.sizeToScene();
+            Application.makeSceneDraggable(stage, (Pane) mainRoot);
         }
     }
 

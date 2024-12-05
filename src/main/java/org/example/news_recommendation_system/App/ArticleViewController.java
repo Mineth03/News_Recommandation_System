@@ -1,23 +1,19 @@
 package org.example.news_recommendation_system.App;
 
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.bson.Document;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 import org.example.news_recommendation_system.Model.Articles;
 import org.example.news_recommendation_system.Service.RecommendationEngine;
 import java.awt.*;
 import java.net.URI;
-import java.util.ArrayList;
+
 import static com.mongodb.client.model.Filters.eq;
 
-public class ArticleView {
+public class ArticleViewController {
 
     private static String currentUsername;
     private MongoDBConnection mongoDBConnection;
@@ -30,15 +26,6 @@ public class ArticleView {
     private Label labelCategory;
     @FXML
     private Label labelContent;
-
-    @FXML
-    private Button btnFullArticle;
-    @FXML
-    private Button btnSave;
-    @FXML
-    private Button btnLike;
-    @FXML
-    private Button btnDislike;
     @FXML
     private Button btnClose;
 
@@ -50,7 +37,7 @@ public class ArticleView {
         currentUsername = username;
     }
 
-    public ArticleView() {
+    public ArticleViewController() {
         mongoDBConnection = new MongoDBConnection();
         recommendationEngine = new RecommendationEngine(mongoDBConnection);
     }

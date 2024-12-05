@@ -25,15 +25,45 @@
     -fx-cursor: hand;
     -fx-background-radius: 10
 }
-
 #btnAct:hover {
-    -fx-background-color: #159299; /* Light gray hover effect */
+    -fx-background-color: #159299;
 }
-
-/* Active button style */
 #btnAct:pressed {
     -fx-background-color: #007bff;
-    -fx-text-fill: #fff;
+}
+
+#btnH {
+    -fx-background-color: white;
+    -fx-text-fill: #2e7082;
+    -fx-border-color: #2e7082;
+    -fx-padding: 10 20;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+#btnH:hover {
+    -fx-background-color: #159299;
+}
+#btnH:pressed {
+    -fx-background-color: #007bff;
+}
+
+#btnRemove {
+    -fx-background-color: #962a49;
+    -fx-padding: 10 20;
+    -fx-font-size: 20px;
+    -fx-text-fill: White;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10
+}
+#btnRemove:hover {
+    -fx-background-color: #ba0236;
+}
+#btnRemove:pressed {
+    -fx-background-color: red;
 }
 
 #btnClose {

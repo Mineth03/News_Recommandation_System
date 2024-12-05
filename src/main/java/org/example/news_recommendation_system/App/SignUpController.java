@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SignUp {
+public class SignUpController {
 
     @FXML
     private ChoiceBox<String> ChoiceBoxGender;
@@ -49,7 +49,7 @@ public class SignUp {
     private final RecommendationEngine recommendationEngine;
     private final MongoDBConnection mongoDBConnection;
 
-    public SignUp() {
+    public SignUpController() {
         logIn = new LogIn();
         mongoDBConnection = new MongoDBConnection();
         recommendationEngine = new RecommendationEngine(mongoDBConnection);
@@ -69,7 +69,6 @@ public class SignUp {
         String gender = ChoiceBoxGender.getValue();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        String passwordC = txtCPassword.getText();
 
         if (logIn.isDuplicateUser(username, email)) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Username or Email already exists. Please choose a different one.");
@@ -86,11 +85,11 @@ public class SignUp {
         if (logIn.saveUser(newUser, preferences)) {
             logIn.saveLoginDetails(username);
 
-            MainWindow.setCurrentUsername(username);
-            ArticleView.setCurrentUsername(username);
+            MainWindowController.setCurrentUsername(username);
+            ArticleViewController.setCurrentUsername(username);
             saveUserPreferences(username);
             // Redirect to MainWindow
-            redirectToMainWindow(username);
+            navigateToMainPage(username);
         } else {
             MainService.showAlert(Alert.AlertType.ERROR, "Signup Error", "Could not complete signup.");
         }
@@ -140,10 +139,11 @@ public class SignUp {
         );
     }
 
-
     @FXML
-    private void redirectToMainWindow(String username) {
+    private void navigateToMainPage(String username) {
         try {
+            MainWindowController.setCurrentUsername(username);
+            ArticleViewController.setCurrentUsername(username);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/MainWindow.fxml")));
             Stage stage = (Stage) btnSignup.getScene().getWindow();
             Scene scene = stage.getScene();
@@ -212,7 +212,7 @@ public class SignUp {
         }
 
         // If there are errors, show all in one alert
-        if (errorMsg.length() > 0) {
+        if (!errorMsg.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Validation Errors");
             alert.setHeaderText("Please correct the following errors:");
@@ -221,18 +221,17 @@ public class SignUp {
             return false;
         }
 
-        return true; // All validations passed
+        return true;
     }
-
 
     @FXML
     private void handleBackButtonClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/LogInPage.fxml"));
-        Parent signUpRoot = loader.load();
-
+        Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/LogInPage.fxml")));
         Stage stage = (Stage) btnBack.getScene().getWindow();
-        stage.setScene(new Scene(signUpRoot));
-        stage.show();
+        Scene scene = stage.getScene();
+        scene.setRoot(mainRoot);
+        stage.sizeToScene();
+        Application.makeSceneDraggable(stage, (Pane) mainRoot);
     }
 
     @FXML

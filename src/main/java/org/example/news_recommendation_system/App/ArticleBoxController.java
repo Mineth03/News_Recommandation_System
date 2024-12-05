@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -13,7 +12,7 @@ import org.bson.Document;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
 import org.example.news_recommendation_system.Model.Articles;
 
-public class ArticleBox {
+public class ArticleBoxController {
 
     @FXML
     private Label labelCategory;
@@ -22,13 +21,10 @@ public class ArticleBox {
     @FXML
     private Label labelHeading;
 
-    @FXML
-    private Button btnArticle;
-
     private final MongoDBConnection mongoDBConnection;
 
-    public ArticleBox() {
-        mongoDBConnection = new MongoDBConnection(); // Initialize the MongoDBConnection
+    public ArticleBoxController() {
+        mongoDBConnection = new MongoDBConnection();
     }
 
     public void setArticleData(String heading, String date, String category) {
@@ -58,7 +54,7 @@ public class ArticleBox {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/news_recommendation_system/ArticleView.fxml"));
                 Parent root = loader.load();
 
-                ArticleView controller = loader.getController();
+                ArticleViewController controller = loader.getController();
                 controller.setArticleDetails(article);
 
                 // Open the new scene in a modal window

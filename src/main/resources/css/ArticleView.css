@@ -1,0 +1,38 @@
+#pref {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+#pref:pressed {
+    -fx-background-color: yellow;
+}
+
+#btnClose {
+    -fx-background-color: #ba0236;
+    -fx-background-radius: 0;
+}
+#btnClose:hover {
+    -fx-background-color: #962a49;
+}
+#btnClose:pressed {
+    -fx-background-color: red;
+}
+
+#btnAct {
+    -fx-background-color: #2e7082;
+    -fx-padding: 10 20;
+    -fx-font-size: 20px;
+    -fx-text-fill: White;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10
+}
+#btnAct:hover {
+    -fx-background-color: #159299;
+}
+#btnAct:pressed {
+    -fx-background-color: #007bff;
+}
+
+#heading {
+    -fx-background-color: #2e7082;
+}

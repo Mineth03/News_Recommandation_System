@@ -40,6 +40,26 @@ public class RecommendationEngine {
         mongoDBConnection.insertDocument("User_Preferences", preferencesDoc);
     }
 
+    public Map<String, Integer> trackCategoryChanges(List<String> previousPreferences, List<String> newPreferences) {
+        Map<String, Integer> changes = new HashMap<>();
+
+        // Determine removed categories (score -5)
+        for (String preference : previousPreferences) {
+            if (!newPreferences.contains(preference)) {
+                changes.put(preference, -5);
+            }
+        }
+
+        // Determine added categories (score +5)
+        for (String preference : newPreferences) {
+            if (!previousPreferences.contains(preference)) {
+                changes.put(preference, 5);
+            }
+        }
+
+        return changes;
+    }
+
     public List<Articles> fetchArticlesBasedOnPoints(String username) {
         List<Articles> articles = new ArrayList<>();
         try {

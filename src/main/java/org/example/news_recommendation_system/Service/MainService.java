@@ -2,6 +2,7 @@ package org.example.news_recommendation_system.Service;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -40,27 +42,51 @@ public class MainService {
         Document updateOperation = new Document("$set", updatedData);
         collection.updateOne(query, updateOperation);
     }
+    public List<String> getUserPreferences(String username) {
+        MongoCollection<Document> collection = mongoDBConnection.getCollection("User");
+        Document user = collection.find(new Document("username", username)).first();
+        if (user != null) {
+            return user.getList("Preferences", String.class);
+        }
+        return new ArrayList<>();
+    }
+
+
+    public void updateCategoryScores(String username, Map<String, Integer> categoryChanges) {
+        MongoCollection<Document> collection = mongoDBConnection.getCollection("User_Preferences");
+
+        Document query = new Document("username", username);
+
+        for (Map.Entry<String, Integer> entry : categoryChanges.entrySet()) {
+            String category = entry.getKey();
+            int scoreChange = entry.getValue();
+
+            Document update = new Document("$inc", new Document(category, scoreChange));
+            collection.updateOne(query, update);
+        }
+    }
+
 
     public static boolean validateProfileInputs(String firstName, String lastName, String email, String ageText) {
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || ageText.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, null, "All fields are required.");
-            return false;
+            return true;
         }
         try {
             int age = Integer.parseInt(ageText);
             if (age < 14 || age > 100) {
                 showAlert(Alert.AlertType.ERROR, null, "Age should be between 14 and 100.");
-                return false;
+                return true;
             }
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, null, "Age should be a valid number.");
-            return false;
+            return true;
         }
         if (!email.matches("[^@]+@[^.]+\\..+")) {
             showAlert(Alert.AlertType.ERROR, null, "Invalid email format.");
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static String capitalizeFirstLetter(String name) {
@@ -99,9 +125,9 @@ public class MainService {
 
     public boolean validatePassword(String password) {
         if (password.length() < 5) {
-            return false;
+            return true;
         }
-        return password.matches(".*[a-zA-Z].*") && password.matches(".*\\d.*");
+        return !password.matches(".*[a-zA-Z].*") || !password.matches(".*\\d.*");
     }
 
     public ObservableList<LoginRecord> getLoginHistory(String username) {
@@ -218,6 +244,29 @@ public class MainService {
         }
         return null;
     }
+
+    public boolean removeArticleFromSaved(String username, String articleTitle) {
+        try {
+            // Connect to the collection
+            MongoCollection<Document> collection = mongoDBConnection.getCollection("User-Article-Interaction");
+
+            // Query to find the user's document
+            Document query = new Document("username", username);
+
+            // Update operation to remove the article from the "saved" array
+            Document update = new Document("$pull", new Document("saved", articleTitle));
+
+            // Perform the update
+            UpdateResult result = collection.updateOne(query, update);
+
+            // Return true if an article was removed
+            return result.getModifiedCount() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public static void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

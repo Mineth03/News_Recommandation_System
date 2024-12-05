@@ -6,49 +6,64 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="660.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation_system.App.ArticleView">
+<AnchorPane prefHeight="660.0" prefWidth="500.0" stylesheets="@../../../css/ArticleView.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation_system.App.ArticleViewController">
    <children>
-      <HBox layoutY="40.0" prefHeight="174.0" prefWidth="633.0">
+      <Label fx:id="labelContent" layoutX="3.0" layoutY="359.0" prefHeight="121.0" prefWidth="627.0" text="Content" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <HBox id="heading" layoutY="79.0" prefHeight="174.0" prefWidth="633.0">
          <children>
-            <Label fx:id="labelHeading" prefHeight="174.0" prefWidth="633.0" text="Heading" wrapText="true">
+            <Label fx:id="labelHeading" prefHeight="174.0" prefWidth="633.0" text="Heading" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <Label layoutX="14.0" layoutY="289.0" text="Date" />
-      <Button fx:id="btnClose" layoutX="593.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="40.0" text="X" />
-      <Label fx:id="labelDate" layoutX="93.0" layoutY="289.0" text="Label" />
-      <Label layoutX="14.0" layoutY="328.0" text="Category" />
-      <Label fx:id="labelCategory" layoutX="93.0" layoutY="328.0" text="Label" />
-      <VBox layoutY="385.0" prefHeight="122.0" prefWidth="604.0">
-         <children>
-            <Label fx:id="labelContent" prefHeight="121.0" prefWidth="783.0" text="Content" wrapText="true" />
-         </children>
-      </VBox>
-      <Button fx:id="btnFullArticle" layoutX="57.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleFullArticleClick" text="View Full Article" />
-      <Button fx:id="btnSave" layoutX="205.0" layoutY="600.0" mnemonicParsing="false" onAction="#updateSaveList" text="Save" />
-      <Button fx:id="btnDislike" layoutX="524.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleDislikeClick">
+      <Label layoutX="14.0" layoutY="289.0" text="Date">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Label fx:id="labelDate" layoutX="157.0" layoutY="289.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="14.0" layoutY="328.0" text="Category">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Label fx:id="labelCategory" layoutX="157.0" layoutY="328.0" text="Label">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button id="btnAct" fx:id="btnFullArticle" layoutX="220.0" layoutY="493.0" mnemonicParsing="false" onAction="#handleFullArticleClick" text="View Full Article" />
+      <Button id="btnAct" fx:id="btnSave" layoutX="49.0" layoutY="588.0" mnemonicParsing="false" onAction="#updateSaveList" text="Save" />
+      <Button id="pref" fx:id="btnDislike" layoutX="529.0" layoutY="579.0" mnemonicParsing="false" onAction="#handleDislikeClick">
          <graphic>
-            <ImageView fitHeight="48.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../css/Dislike.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnLike" layoutX="431.0" layoutY="584.0" mnemonicParsing="false" onAction="#handleLikeClick">
+      <Button id="pref" fx:id="btnLike" layoutX="453.0" layoutY="579.0" mnemonicParsing="false" onAction="#handleLikeClick">
          <graphic>
-            <ImageView fitHeight="49.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../css/Like.png" />
                </image>
             </ImageView>
          </graphic>
+      </Button>
+      <Button fx:id="btnClose" layoutX="577.0" mnemonicParsing="false" onAction="#exit" prefHeight="50.0" prefWidth="50.0" text="X" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
       </Button>
    </children>
 </AnchorPane>

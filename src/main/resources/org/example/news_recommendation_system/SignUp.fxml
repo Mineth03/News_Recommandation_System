@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1000.0" stylesheets="@../../../css/SignUpPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation_system.App.SignUp">
+<AnchorPane prefHeight="900.0" prefWidth="1000.0" stylesheets="@../../../css/SignUpPage.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.news_recommendation_system.App.SignUpController">
    <children>
       <Pane fx:id="paneImage" prefHeight="900.0" prefWidth="1000.0">
          <children>

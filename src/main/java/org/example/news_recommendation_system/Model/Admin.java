@@ -9,12 +9,11 @@ public class Admin extends Person {
         this.id = id;
     }
 
-    // Getter and Setter for Code
-    public String getCode() {
+    public String getId() {
         return id;
     }
 
-    public void setCode(String code) {
+    public void setId(String id) {
         this.id = id;
     }
 }

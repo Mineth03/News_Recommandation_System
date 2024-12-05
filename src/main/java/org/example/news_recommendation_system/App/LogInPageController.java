@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LogInPage implements Initializable {
+public class LogInPageController implements Initializable {
 
     @FXML
     private Button signUpButton;
@@ -68,8 +68,8 @@ public class LogInPage implements Initializable {
         if (logIn.usernamePasswordCheck(userDetailsCollection, "username", username, "password", password)) {
             logIn.saveLoginDetails(userLoginDetailsCollection, "Username", username);
             MainService.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + username);
-            MainWindow.setCurrentUsername(username);
-            ArticleView.setCurrentUsername(username);
+            MainWindowController.setCurrentUsername(username);
+            ArticleViewController.setCurrentUsername(username);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/MainWindow.fxml")));
             Stage stage = (Stage) btnLogin.getScene().getWindow();
             Scene scene = stage.getScene();

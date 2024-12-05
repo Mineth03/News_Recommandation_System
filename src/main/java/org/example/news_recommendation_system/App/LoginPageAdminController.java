@@ -17,13 +17,12 @@ import org.bson.Document;
 import org.example.news_recommendation_system.Service.MainService;
 import org.example.news_recommendation_system.Service.LogIn;
 import org.example.news_recommendation_system.DataBase.MongoDBConnection;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoginPageAdmin implements Initializable {
+public class LoginPageAdminController implements Initializable {
 
     @FXML
     private Button btnBack;
@@ -71,7 +70,7 @@ public class LoginPageAdmin implements Initializable {
         if (logIn.usernamePasswordCheck(adminDetailsCollection, "adminID", id, "password", password)) {
             logIn.saveLoginDetails(adminLoginDetailsCollection, "adminId", id);
             MainService.showAlert(Alert.AlertType.INFORMATION, "Login", "Welcome " + name);
-            AdminWindow.setCurrentAdminId(id);
+            AdminWindowController.setCurrentAdminId(id);
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/example/news_recommendation_system/AdminWindow.fxml")));
             Stage stage = (Stage) btnLoginAdmin.getScene().getWindow();
             Scene scene = stage.getScene();
