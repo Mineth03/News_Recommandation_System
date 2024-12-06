@@ -5,30 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7abfaeca-f897-4366-960b-b81cbf8492f1" name="Changes" comment="enhance the code">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/AdminService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/ArticleView.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/css/Globe.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/AdminWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/AdminWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleBoxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/ArticleViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LogInPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LogInPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LoginPageAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/LoginPageAdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/App/SignUpController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/DataBase/MongoDBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/DataBase/MongoDBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Model/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcherJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/NewsFetcher/NewsFetcherJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/MainService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/MainService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/RecommendationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/news_recommendation_system/Service/RecommendationEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/MainPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/MainPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/AdminWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/AdminWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/ArticleBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/ArticleBox.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/ArticleView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/ArticleView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/LogInPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/LogInPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/LoginPageAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/LoginPageAdmin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/MainWindow.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/news_recommendation_system/SignUp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +178,7 @@
       <workItem from="1733309221531" duration="1136000" />
       <workItem from="1733326893953" duration="4510000" />
       <workItem from="1733366414358" duration="21576000" />
-      <workItem from="1733413862734" duration="11905000" />
+      <workItem from="1733413862734" duration="13350000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -330,7 +308,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733142634765</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="enhance the code">
+      <option name="closed" value="true" />
+      <created>1733429754158</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1733429754158</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

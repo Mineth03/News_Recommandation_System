@@ -342,6 +342,26 @@
                   <Button id="btnAct" fx:id="btnFilter" layoutX="1175.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleFilterAction" prefHeight="50.0" prefWidth="210.0" text="Filter" />
                </children>
             </Pane>
+            <Pane id="pane" fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Pane id="paneOpa" layoutX="286.0" layoutY="79.0" prefHeight="705.0" prefWidth="1027.0" />
+                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
+                     <children>
+                        <Text layoutX="646.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD NEW ARTICLES">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TextField fx:id="txtHeading" layoutX="479.0" layoutY="131.0" prefHeight="51.0" prefWidth="650.0" promptText="Heading" />
+                  <TextArea fx:id="txtArticleBody" layoutX="479.0" layoutY="331.0" prefHeight="200.0" prefWidth="650.0" promptText="Short Description" wrapText="true" />
+                  <Button id="btnAct" fx:id="btnAdd" layoutX="630.0" layoutY="690.0" mnemonicParsing="false" onAction="#addArticle" prefHeight="50.0" prefWidth="339.0" text="Add to the system" />
+                  <DatePicker fx:id="datePicker" layoutX="479.0" layoutY="231.0" prefWidth="650.0" promptText="Date" />
+                  <TextField fx:id="txtLink" layoutX="479.0" layoutY="579.0" prefWidth="650.0" promptText="Article URL" />
+                  <Button id="btnBack" fx:id="btnBack2" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="50.0" prefWidth="50.0" />
+               </children>
+            </Pane>
             <Pane id="pane" fx:id="paneHome" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-color: white;">
                <children>
                   <Text layoutX="282.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELLCOME TO THE NEWSFLOW ">
@@ -365,26 +385,6 @@
                   </Pane>
                   <Button id="btnH" fx:id="btnAddH" layoutX="383.0" layoutY="612.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="169.0" prefWidth="368.0" text="Add New Articles" textAlignment="CENTER" wrapText="true" />
                   <Button id="btnH" fx:id="btnRemoveH" layoutX="846.0" layoutY="612.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="169.0" prefWidth="368.0" text="Remove Articles" textAlignment="CENTER" wrapText="true" />
-               </children>
-            </Pane>
-            <Pane id="pane" fx:id="paneAddNew" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Pane id="paneOpa" layoutX="286.0" layoutY="79.0" prefHeight="705.0" prefWidth="1027.0" />
-                  <Pane id="ribbon" prefHeight="67.0" prefWidth="1598.0">
-                     <children>
-                        <Text layoutX="646.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD NEW ARTICLES">
-                           <font>
-                              <Font name="System Bold" size="32.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </Pane>
-                  <TextField fx:id="txtHeading" layoutX="479.0" layoutY="131.0" prefHeight="51.0" prefWidth="650.0" promptText="Heading" />
-                  <TextArea fx:id="txtArticleBody" layoutX="479.0" layoutY="331.0" prefHeight="200.0" prefWidth="650.0" promptText="Short Description" wrapText="true" />
-                  <Button id="btnAct" fx:id="btnAdd" layoutX="630.0" layoutY="690.0" mnemonicParsing="false" onAction="#addArticle" prefHeight="50.0" prefWidth="339.0" text="Add to the system" />
-                  <DatePicker fx:id="datePicker" layoutX="479.0" layoutY="231.0" prefWidth="650.0" promptText="Date" />
-                  <TextField fx:id="txtLink" layoutX="479.0" layoutY="579.0" prefWidth="650.0" promptText="Article URL" />
-                  <Button id="btnBack" fx:id="btnBack2" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" onAction="#buttonClicksConfig" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </Pane>
          </children>
